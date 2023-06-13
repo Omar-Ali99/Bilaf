@@ -66,22 +66,11 @@ A website dedicated to promoting and selling family brands products. Bilaf serve
 - As the Admin, I can accept\decline the merchant that wants to regsiter on my platform.
 - Or, Decline certain orders.
 - Or, I can view the performance dashboard for all the brands.
-
- 
-
-- 
-
-
-All your files and folders are presented as a tree in the file explorer. You can switch from one to another by clicking a file in the tree.
-
 # Website Wireframe
 [Figma's link for the wireframe](https://www.figma.com/file/Pyn0ZtL60KFQpZrYi6JKpK/Bilaf?type=design&node-id=0-1&t=6D7QYlY7L2egdGfx-0)
 
 # Models 
-
-
-You can delete the current file by clicking the **Remove** button in the file explorer. The file will be moved into the **Trash** folder and automatically deleted after 7 days of inactivity.
-
+"PLACEHOLDER"
 # Members
 
 - Omar Ali : https://github.com/Omar-Ali99
@@ -93,7 +82,7 @@ You can delete the current file by clicking the **Remove** button in the file ex
 ## UML diagrams
 
  Use-Case Diagram:
-    
-   ![Alt Text](C:\Users\xduha\Downloads\Screenshot 2023-06-13 192301.png)
+ 
+ ![Screenshot 2023-06-13 192301](https://github.com/Omar-Ali99/Bilaf/assets/101348008/cce4d69c-a594-457d-9522-440ac65eb55f)
 
 
