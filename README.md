@@ -93,7 +93,6 @@ You can delete the current file by clicking the **Remove** button in the file ex
 ## UML diagrams
 
  Use-Case Diagram:
-    
-   ![Alt Text](C:\Users\xduha\Downloads\Screenshot 2023-06-13 192301.png)
+    ![Screenshot 2023-06-13 192301](https://github.com/Omar-Ali99/Bilaf/assets/101348008/cce4d69c-a594-457d-9522-440ac65eb55f)
 
 
