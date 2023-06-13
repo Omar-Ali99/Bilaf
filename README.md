@@ -77,7 +77,7 @@ A website dedicated to promoting and selling family brands products. Bilaf serve
 - email
 - password
 
-### nerchant_profile:
+### merchant_profile:
 - id
 - user =  OneToOneField(User)
 - merchant_name = char_field
