@@ -164,6 +164,8 @@ A website dedicated to promoting and selling family brands products. Bilaf serve
 
  Use-Case Diagram:
  
- ![Screenshot 2023-06-13 192301](https://github.com/Omar-Ali99/Bilaf/assets/101348008/cce4d69c-a594-457d-9522-440ac65eb55f)
+ 
+ ![Screenshot 2023-06-13 220053](https://github.com/Omar-Ali99/Bilaf/assets/101348008/afd44a30-070a-432d-9a4b-b6e08ac4f712)
+
 
 
