@@ -96,7 +96,7 @@ A website dedicated to promoting and selling family brands products. Bilaf serve
 - created_at = date
 - last_order_date = date
 
-### address:
+### Address:
 - id
 - merchant = foreignKey (merchant_profile)
 - customer = foreignKey (customer_profile)
@@ -166,6 +166,14 @@ A website dedicated to promoting and selling family brands products. Bilaf serve
  
  
  ![Screenshot 2023-06-13 220053](https://github.com/Omar-Ali99/Bilaf/assets/101348008/afd44a30-070a-432d-9a4b-b6e08ac4f712)
+ 
+ 
+ ER Diagram:
+
+
+
+![Screenshot 2023-06-13 230904](https://github.com/Omar-Ali99/Bilaf/assets/101348008/289d7905-93f6-412b-b74f-0d55ed6d43fe)
+
 
 
 
