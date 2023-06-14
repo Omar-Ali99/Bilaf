@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-phz2v(fu-dhhg*k+zik20i^kf@u$ahxo*@n#&-@tf)4ctg7pg#"
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -81,12 +81,13 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "Bilaf",
-        "USER": str(os.getenv("DB_Admin")),
-        "PASSWORD": str(os.getenv("DB_Password")),
+        "USER": os.getenv("DB_Admin"),
+        "PASSWORD": os.getenv("DB_Password"),
         "HOST": "localhost",
         "PORT": "5432",
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
