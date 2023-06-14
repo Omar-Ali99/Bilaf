@@ -41,31 +41,31 @@ A website dedicated to promoting and selling family brands products. Bilaf serve
 # User Stories
 ## Unregistered Client
 - As a visitor, I can browse the brands.
-- Or, Browse the brand's products.
-- Or, Search for a product or brand.
-- Or, Filter the brands based on a specific cuisine.
-- Or, Register to make any purchases.
+- As a visitor, Browse the brand's products.
+- As a visitor, Search for a product or brand.
+- As a visitor, Filter the brands based on a specific cuisine.
+- As a visitor, Register to make any purchases.
 ## Client
 - As a Client, I can browse the brands.
-- Or, Browse the brand's products.
-- Or, Search for a product or brand.
-- Or, Filter the brands based on a specific cuisine.
-- Or, Edit the cart before making a purchase.
-- Or, Making a purchase.
-- Or, View my order status.
-- Or, Chatting with the vendor.
-- Or, Rate the order.
-- Or, Viewing past orders.
+- As a Client, Browse the brand's products.
+- As a Client, Search for a product or brand.
+- As a Client, Filter the brands based on a specific cuisine.
+- As a Client, Edit the cart before making a purchase.
+- As a Client, Making a purchase.
+- As a Client, View my order status.
+- As a Client, Chatting with the vendor.
+- As a Client, Rate the order.
+- As a Client, Viewing past orders.
 ## Product Owner
 - As an owner, I can edit my products.
-- Or, Provide an indication on my Delivery\Pickup availability, for order approvals.
-- Or, View my brand's performance dashboard.
-- Or, Reply to the client's review.
-- Or, Chat with the client.
+- As an owner, Provide an indication on my Delivery\Pickup availability, for order approvals.
+- As an owner, View my brand's performance dashboard.
+- As an owner, Reply to the client's review.
+- As an owner, Chat with the client.
 ## Admin
 - As the Admin, I can accept\decline the merchant that wants to regsiter on my platform.
-- Or, Decline certain orders.
-- Or, I can view the performance dashboard for all the brands.
+-  As the Admin, Decline certain orders.
+-  As the Admin, I can view the performance dashboard for all the brands.
 # Website Wireframe
 [Figma's link for the wireframe](https://www.figma.com/file/Pyn0ZtL60KFQpZrYi6JKpK/Bilaf?type=design&node-id=0-1&t=6D7QYlY7L2egdGfx-0)
 
