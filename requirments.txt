@@ -1,3 +1,5 @@
 Django
 Pillow
-dotenv 
+dotenv
+postgres
+psycopg2

@@ -3,7 +3,7 @@
 Back-End application developed by utilizing the following: 
 - Python
 - Django Framework
-- SQLite
+- PostgreSql
 
 A website dedicated to promoting and selling family brands products. Bilaf serves as a bridge between consumers and families; rather than utilizing other platforms to reach them, Bilaf gives a more convenient approach to reach them. 
 
