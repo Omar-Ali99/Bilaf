@@ -41,31 +41,31 @@ A website dedicated to promoting and selling family brands products. Bilaf serve
 # User Stories
 ## Unregistered Client
 - As a visitor, I can browse the brands.
-- As a visitor, Browse the brand's products.
-- As a visitor, Search for a product or brand.
-- As a visitor, Filter the brands based on a specific cuisine.
-- As a visitor, Register to make any purchases.
+- As a visitor, Or browse the brand's products.
+- As a visitor, Or search for a product or brand.
+- As a visitor, Or filter the brands based on a specific cuisine.
+- As a visitor, Or register to make any purchases.
 ## Client
 - As a Client, I can browse the brands.
-- As a Client, Browse the brand's products.
-- As a Client, Search for a product or brand.
-- As a Client, Filter the brands based on a specific cuisine.
-- As a Client, Edit the cart before making a purchase.
-- As a Client, Making a purchase.
-- As a Client, View my order status.
-- As a Client, Chatting with the vendor.
-- As a Client, Rate the order.
-- As a Client, Viewing past orders.
+- As a Client, Or browse the brand's products.
+- As a Client, Or search for a product or brand.
+- As a Client, Or bilter the brands based on a specific cuisine.
+- As a Client, Or edit the cart before making a purchase.
+- As a Client, Or making a purchase.
+- As a Client, Or view my order status.
+- As a Client, Or chatting with the vendor.
+- As a Client, Or rate the order.
+- As a Client, Or viewing past orders.
 ## Product Owner
 - As an owner, I can edit my products.
-- As an owner, Provide an indication on my Delivery\Pickup availability, for order approvals.
-- As an owner, View my brand's performance dashboard.
-- As an owner, Reply to the client's review.
-- As an owner, Chat with the client.
+- As an owner, Or provide an indication on my Delivery\Pickup availability, for order approvals.
+- As an owner, Or view my brand's performance dashboard.
+- As an owner, Or reply to the client's review.
+- As an owner, Or chat with the client.
 ## Admin
-- As the Admin, I can accept\decline the merchant that wants to regsiter on my platform.
--  As the Admin, Decline certain orders.
--  As the Admin, I can view the performance dashboard for all the brands.
+-  As the Admin, I can accept\decline the merchant that wants to regsiter on my platform.
+-  As the Admin, Or decline certain orders.
+-  As the Admin, Or view the performance dashboard for all the brands.
 # Website Wireframe
 [Figma's link for the wireframe](https://www.figma.com/file/Pyn0ZtL60KFQpZrYi6JKpK/Bilaf?type=design&node-id=0-1&t=6D7QYlY7L2egdGfx-0)
 
