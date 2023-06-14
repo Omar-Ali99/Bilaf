@@ -1,6 +1,6 @@
 # Bilaf
 
-Back-End application developed utilizing the following: 
+Back-End application developed by utilizing the following: 
 - Python
 - Django Framework
 - SQLite
