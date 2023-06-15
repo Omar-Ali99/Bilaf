@@ -4,13 +4,30 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 
-class merchant_profile(models.Model):
+class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    merchant_name = models.CharField(max_length=120)
+    phone_number = models.CharField(max_length=13)
+    # address = models.OneToOneField(Address, on_delete=models.CASCADE)
 
-def __str__(self) -> str:
-        return f"{self.merchant_name}"
+class Store(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    store_name = models.CharField (max_length= 40)
+    logo = models.ImageField(upload_to="images/", default="default_logo.jpeg")
+    about = models.TextField()
+    commercial_registration = models.IntegerField()
+    pick_up_enabled = models.BooleanField (default=True)
+    delivery_enabled = models.BooleanField (default=True)
+    twitter_link = models.URLField()
+    instagram_link = models.URLField()
+    snapchat_link = models.URLField()
 
-class customer_profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    gender = models.CharField(max_length=10)
+
+# class Address(models.Model):
+#     CHOICES = (
+#         ('Riyadh', 'Riyadh'),
+#     )
+#     user = models.OneToOneField(User, on_delete=models.CASCADE)
+#     city = models.CharField()
+#     distrect = models.CharField ()
+#     # map_pointer = models.po
+
