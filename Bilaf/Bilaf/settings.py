@@ -80,11 +80,12 @@ WSGI_APPLICATION = "Bilaf.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "Bilaf",
+        "NAME": "isefndoy",
         "USER": os.getenv("DB_Admin"),
         "PASSWORD": os.getenv("DB_Password"),
-        "HOST": "localhost",
+        "HOST": "snuffleupagus.db.elephantsql.com",
         "PORT": "5432",
+    
     }
 }
 
