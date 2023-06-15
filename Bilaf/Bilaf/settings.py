@@ -85,6 +85,7 @@ DATABASES = {
         "PASSWORD": os.getenv("DB_Password"),
         "HOST": "snuffleupagus.db.elephantsql.com",
         "PORT": "5432",
+    
     }
 }
 

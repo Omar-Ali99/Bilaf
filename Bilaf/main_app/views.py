@@ -7,3 +7,7 @@ def home_page(request: HttpRequest):
 
     return render(request, 'main_app/home_page.html')
 
+def base_page(request: HttpRequest):
+
+    return render(request, 'main_app/base.html')
+
