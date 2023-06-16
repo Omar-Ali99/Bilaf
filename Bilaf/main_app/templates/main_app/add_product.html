@@ -1,53 +1,75 @@
 {% extends 'main_app/base.html' %}
 {% load static %}
 {% block title %}add_product{% endblock %}
-
 {% block content%}
-<div class="row tm-edit-product-row">
-    <div class="col-xl-6 col-lg-6 col-md-12">
-        <form action="" class="tm-edit-product-form">
-            <div class="form-group mb-3">
-                <label for="name">Product Name</label>
-                <input id="name"name="name"type="text"class="form-control validate"required/>
-            </div>
-            <div class="form-group mb-3">
-                <label for="description">Description</label>
-                <textarea class="form-control validate"rows="3"required></textarea>
-            </div>
-                <div class="form-group mb-3">
-                    <label for="category" >Category</label>
-                    <select class="custom-select tm-select-accounts"id="category">
-                      <option selected>Select category</option>
-                      <option value="1">New Arrival</option>
-                      <option value="2">Most Popular</option>
-                      <option value="3">Trending</option>
+<section class="intro my-5">
+    <div class="mask d-flex align-items-center h-100">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-12 col-lg-10">
+            <div class="card" style="border-radius: 1rem;">
+              <div class="card-body p-5">
+
+                <h1 class="mb-5 text-center">Add Product</h1>
+
+                <form>
+                  <!-- 2 column grid layout with text inputs for the first and last names -->
+                  <div class="row">
+                    <div class="form-outline mb-4">
+                      <div class="form-outline">
+                        <input type="text" id="form6Example1" class="form-control" />
+                        <label class="form-label" for="form6Example1">product name</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- decrpiation input -->
+                  <div class="form-outline mb-4">
+                    <textarea class="form-control" id="form6Example7" rows="4"></textarea>
+                    <label class="form-label" for="form6Example7">description </label>
+                  </div>
+                 <!-- category input -->
+                    <div class="form-outline mb-4">
+                    <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+                        <option selected>Choose...</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
                     </select>
-                </div>
-                <div class="row">
-                    <div class="form-group mb-3 col-xs-12 col-sm-6">
-                          <label for="expire_date">quantity</label>
-                          <input id="expire_date"name="expire_date"type="text"class="form-control validate"data-large-mode="true"/>
+                    <label class="my-1 mr-2" for="inlineFormCustomSelectPref">category </label>
                     </div>
-                    <div class="form-group mb-3 col-xs-12 col-sm-6">
-                          <label for="stock">price</label>
-                          <input id="stock"name="stock"type="text"class="form-control validate"required/>
-                    </div>
-                </div> 
+                  <!-- price input -->
+                  <div class="form-outline mb-4">
+                    <input type="text" id="form6Example4" class="form-control" />
+                    <label class="form-label" for="form6Example4">price</label>
+                  </div>
+
+                  <!-- quantity input -->
+                  <div class="form-outline mb-4">
+                    <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+                        <option selected>Choose...</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                    <label class="my-1 mr-2" for="inlineFormCustomSelectPref">quantity</label>
+                  </div>
+
+                <div class="form-group">
+                    <label for="exampleFormControlFile1"> add logo</label>
+                    <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                 </div>
+                  <!-- Submit button -->
+                  <button type="submit" class="btn btn-success btn-rounded btn-block">submit</button>
+                </form>
+
               </div>
-            <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
-                <div class="tm-product-img-dummy mx-auto">
-                  <i class="fas fa-cloud-upload-alt tm-upload-icon"onclick="document.getElementById('fileInput').click();"></i>
-                </div>
-                <div class="custom-file mt-3 mb-3">
-                  <input id="fileInput" type="file" style="display:none;" />
-                  <input type="button"class="btn btn-success btn-block mx-auto"value="UPLOAD PRODUCT IMAGE"onclick="document.getElementById('fileInput').click();"/> 
-                </div>
             </div>
-              <div class="form-group mb-3 col-xs-12 col-sm-2">
-                <button type="submit" class="btn btn-success btn-block text-uppercase">Add Product</button>
-              </div>
-        </form>
-    </div> 
-</div>   
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 {% endblock %}
