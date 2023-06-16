@@ -1,13 +1,27 @@
 from django.contrib import admin
-from .models import merchant_profile, customer_profile
+from .models import Profile, Store
 
-# Register your models here.
+# # Register your models here.
 
-class Merchant_Profile_Admin(admin.ModelAdmin):
+
+class Profile_Admin(admin.ModelAdmin):
+    list_display = ("user", "phone_number")
+
+
+class Store_Admin(admin.ModelAdmin):
     list_display = (
-        "user",
-        "merchant_name",
+        "owner",
+        "store_name",
+        "logo",
+        "about",
+        "commercial_registration",
+        "pick_up_enabled",
+        "delivery_enabled",
+        "twitter_link",
+        "instagram_link",
+        "snapchat_link",
     )
 
 
-admin.site.register(merchant_profile,Merchant_Profile_Admin)
+admin.site.register(Store, Store_Admin)
+admin.site.register(Profile, Profile_Admin)

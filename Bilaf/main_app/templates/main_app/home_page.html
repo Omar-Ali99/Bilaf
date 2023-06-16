@@ -1,9 +1,8 @@
 {% extends 'main_app/base.html' %}
 {% load static %}
-{% block title %}Ogani | Template{% endblock %}
+{% block title %}Bilaf{% endblock %}
 
 {% block content%}
-
  <!-- Hero Section Begin -->
     <section class="hero">
         <div class="container">
@@ -12,32 +11,28 @@
                     <div class="hero__categories">
                         <div class="hero__categories__all">
                             <i class="fa fa-bars"></i>
-                            <span>All departments</span>
+                            <span>Categories</span>
                         </div>
                         <ul>
-                            <li><a href="#">Fresh Meat</a></li>
-                            <li><a href="#">Vegetables</a></li>
-                            <li><a href="#">Fruit & Nut Gifts</a></li>
-                            <li><a href="#">Fresh Berries</a></li>
-                            <li><a href="#">Ocean Foods</a></li>
-                            <li><a href="#">Butter & Eggs</a></li>
-                            <li><a href="#">Fastfood</a></li>
-                            <li><a href="#">Fresh Onion</a></li>
-                            <li><a href="#">Papayaya & Crisps</a></li>
-                            <li><a href="#">Oatmeal</a></li>
-                            <li><a href="#">Fresh Bananas</a></li>
+                            <li><a href="#">Saudi-Arabian</a></li>
+                            <li><a href="#">Syrian</a></li>
+                            <li><a href="#">Egyptian</a></li>
+                            <li><a href="#">Indian</a></li>
+                            <li><a href="#">Chinese</a></li>
+                            <li><a href="#">Italian</a></li>
+                            <li><a href="#">Mixed</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-9">
                     <div class="hero__search">
                         <div class="hero__search__form">
-                            <form action="#">
+                            <form action="#" method="GET", role="search">
                                 <div class="hero__search__categories">
                                     All Categories
-                                    <span class="arrow_carrot-down"></span>
+                                    <span id="categories-dropdown" class="arrow_carrot-down"></span>
                                 </div>
-                                <input type="text" placeholder="What do yo u need?">
+                                <input type="text" placeholder="Something in mind?">
                                 <button type="submit" class="site-btn">SEARCH</button>
                             </form>
                         </div>
@@ -46,17 +41,18 @@
                                 <i class="fa fa-phone"></i>
                             </div>
                             <div class="hero__search__phone__text">
-                                <h5>+65 11.188.888</h5>
-                                <span>support 24/7 time</span>
+                                <h5>+966 999 999 999</h5>
+                                <span>For Support</span>
                             </div>
                         </div>
                     </div>
                     <div class="hero__item set-bg" data-setbg={% static 'img/hero/banner.jpg' %}>
                         <div class="hero__text">
-                            <span>FRUIT FRESH</span>
-                            <h2>Vegetable <br />100% Organic</h2>
-                            <p>Free Pickup and Delivery Available</p>
+                            <span>Best Dishes</span>
+                            <h2>Authentic <br />100% Local</h2>
+                            <p>Pickup and Delivery Available</p>
                             <a href="#" class="primary-btn">SHOP NOW</a>
+                            <p>"Pickup and Delivery varies per merchant"</p>
                         </div>
                     </div>
                 </div>
@@ -69,31 +65,13 @@
         <div class="container">
             <div class="row">
                 <div class="categories__slider owl-carousel">
+                    <!-- loop -->
                     <div class="col-lg-3">
                         <div class="categories__item set-bg" data-setbg={% static 'img/categories/cat-1.jpg' %}>
                             <h5><a href="#">Fresh Fruit</a></h5>
                         </div>
                     </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg={% static 'img/categories/cat-2.jpg' %}>
-                            <h5><a href="#">Dried Fruit</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg={% static 'img/categories/cat-3.jpg' %}>
-                            <h5><a href="#">Vegetables</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg={% static 'img/categories/cat-4.jpg' %}>
-                            <h5><a href="#">drink fruits</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg={% static 'img/categories/cat-5.jpg' %}>
-                            <h5><a href="#">drink fruits</a></h5>
-                        </div>
-                    </div>
+                    <!-- endloop -->
                 </div>
             </div>
         </div>
@@ -199,6 +177,19 @@
         </div>
     </section>
     <!-- Featured Section End -->
+    <script>
+        // Get the arrow_carrot-down element
+        var arrow = document.getElementById('categories-dropdown');
 
+        // Add click event listener
+        arrow.addEventListener('click', function() {
+          // Get the categories element
+          var categories = document.querySelector('.hero__search__categories');
+        
+          // Toggle the visibility of the categories dropdown menu
+          categories.classList.toggle('show');
+        });
+
+    </script>
         {% endblock %}
 

@@ -23,13 +23,11 @@ A website dedicated to promoting and selling family brands products. Bilaf serve
 - Editing the cart before making a purchase.
 - Making a purchase.
 - Viewing the order status.
-- Chat between the client and vendor after the purchase is completed.
 - Rate the order.
 - Viewing past orders.
 ## Product Owner
 - Editing their products.
 - Orders will be approved based on the given Delivery\Pickup availability. 
-- Chat with client.
 - Reply to client's review
 - Performance dashboard for the brand.
 ## Admin
@@ -49,11 +47,10 @@ A website dedicated to promoting and selling family brands products. Bilaf serve
 - As a Client, I can browse the brands.
 - As a Client, Or browse the brand's products.
 - As a Client, Or search for a product or brand.
-- As a Client, Or bilter the brands based on a specific cuisine.
+- As a Client, Or filter the brands based on a specific cuisine.
 - As a Client, Or edit the cart before making a purchase.
 - As a Client, Or making a purchase.
 - As a Client, Or view my order status.
-- As a Client, Or chatting with the vendor.
 - As a Client, Or rate the order.
 - As a Client, Or viewing past orders.
 ## Product Owner
@@ -61,7 +58,6 @@ A website dedicated to promoting and selling family brands products. Bilaf serve
 - As an owner, Or provide an indication on my Delivery\Pickup availability, for order approvals.
 - As an owner, Or view my brand's performance dashboard.
 - As an owner, Or reply to the client's review.
-- As an owner, Or chat with the client.
 ## Admin
 -  As the Admin, I can accept\decline the merchant that wants to regsiter on my platform.
 -  As the Admin, Or decline certain orders.
