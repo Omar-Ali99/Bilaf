@@ -40,6 +40,8 @@
             <input type="text" name="first_name" placeholder="First name" required/>
             <input type="text" name="last_name" placeholder="Last name" required/>
             <input type="password" name="password" placeholder="Create password" required/>
+            <input type="tel" name="phone" placeholder="Enter Phone Number 05xxxx" pattern="[0][5][0-9]{8}" required/>
+            
 
             <button type="submit" class="btn signup">create account</button>
             {% if msg %}
