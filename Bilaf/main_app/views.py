@@ -11,3 +11,9 @@ def base_page(request: HttpRequest):
 
     return render(request, 'main_app/base.html')
 
+    
+def add_page(request: HttpRequest):
+
+    return render(request, 'main_app/add_product.html')
+
+    
