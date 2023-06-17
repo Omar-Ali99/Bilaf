@@ -13,7 +13,8 @@ urlpatterns = [
     path('about_us/', views.about_us , name = 'about_us'),
     path('about_bilaf/', views.about_project , name = 'about_bilaf'),
     path('policies/', views.pick_delv_policies , name = 'policies'),
-    path('searched/', views.search, name = "search")
+    path('searched/', views.search, name = "search"),
+    path("merchant/adding_products/<store_id>", views.add_product, name="add_product"),
    
    
 

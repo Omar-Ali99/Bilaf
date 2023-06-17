@@ -8,5 +8,4 @@ urlpatterns = [
     path("login/", views.login_page, name="login"),
     path("signout/", views.signout_page, name="signout_page"),
     path("no_permission_page/", views.no_permission_page, name="no_permission_page"),
-    path("merchant/adding_products/", views.add_product, name="merchant_adding"),
 ]
