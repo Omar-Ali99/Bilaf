@@ -38,15 +38,6 @@ class Store(models.Model):
     def __str__(self) -> str:
         return f"{self.store_name}"
 
-class Product(models.Model):
-    store = models.ForeignKey(Store, on_delete=models.CASCADE)
-    price = models.FloatField()
-    name = models.CharField(max_length=2048)
-    description = models.TextField()
-    image = models.ImageField(upload_to="images/",default="images/placeholder.png")
-
-    def __str__(self) -> str:
-        return f"{self.name}"
 
 
 
