@@ -11,6 +11,7 @@ def base_page(request: HttpRequest):
 
     return render(request, 'main_app/base.html')
 
+
     
 def add_page(request: HttpRequest):
 
@@ -31,10 +32,13 @@ def shoping_cart(request: HttpRequest):
 
     return render(request, 'main_app/shoping_cart.html')
 
-def contect_us(request: HttpRequest):
-
-    return render(request, 'main_app/contact_us.html')
-
+  def about_us(request : HttpRequest):
+    return render(request, 'main_app/about_us.html')
 
 
-    
+def about_project(request : HttpRequest):
+    return render(request, 'main_app/about_project.html')
+
+def pick_delv_policies(request : HttpRequest):
+    return render(request, 'main_app/pickup_delivery_policy.html')
+

@@ -10,8 +10,8 @@
 <div class="form-modal">
     
     <div class="form-toggle">
-        <button id="login-toggle" onclick="toggleLogin()">log in</button>
-        <button id="signup-toggle" onclick="toggleSignup()">sign up</button>
+        <button id="login-toggle" onclick="toggleLogin()">Login</button>
+        <button id="signup-toggle" onclick="toggleSignup()">Sign Up</button>
     </div>
 
     <div id="login-form">
@@ -20,11 +20,11 @@
 
             <input type="text" name="user_name" placeholder="Enter Username" required/>
             <input type="password" name="password" placeholder="Enter password" required/>
-            <button type="submit" class="btn login">login</button>
+            <button type="submit" class="btn login">Login</button>
             {% if msg %}
             <p style="color:red;">{{msg}}</p>
             {% endif %}
-            <p><a href="javascript:void(0)">Forgotten account?</a></p>
+            <p><a href="javascript:void(0)">Forgotten Account?</a></p>
             <hr/>
 
         </form>
@@ -40,12 +40,14 @@
             <input type="text" name="first_name" placeholder="First name" required/>
             <input type="text" name="last_name" placeholder="Last name" required/>
             <input type="password" name="password" placeholder="Create password" required/>
+            <input type="tel" name="phone" placeholder="Enter Phone Number 05xxxx" pattern="[0][5][0-9]{8}" required/>
+            
 
-            <button type="submit" class="btn signup">create account</button>
+            <button type="submit" class="btn signup">Create Account</button>
             {% if msg %}
             <p style="color:red;">{{msg}}</p>
             {% endif %}
-            <p>Clicking <strong>create account</strong> means that you are agree to our <a href="javascript:void(0)">terms of services</a>.</p>
+            <p>Clicking on <strong>Create Account</strong> Means that you agree to our <a href="javascript:void(0)">Terms of Services</a>.</p>
             <hr/>
            
         </form>

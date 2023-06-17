@@ -29,8 +29,16 @@
                         <div class="hero__search__form">
                             <form action="#" method="GET", role="search">
                                 <div class="hero__search__categories">
-                                    All Categories
-                                    <span id="categories-dropdown" class="arrow_carrot-down"></span>
+                                    <select style="outline: none; border: none;">
+                                        <option>Filter</option>
+                                        <option>Saudi-Arabian</option>
+                                        <option>Syrian</option>
+                                        <option>Egyptian</option>
+                                        <option>Indian</option>
+                                        <option>Chinese</option>
+                                        <option>Italian</option>
+                                        <option>Mixed</option>
+                                    </select>
                                 </div>
                                 <input type="text" placeholder="Something in mind?">
                                 <button type="submit" class="site-btn">SEARCH</button>
@@ -38,7 +46,7 @@
                         </div>
                         <div class="hero__search__phone">
                             <div class="hero__search__phone__icon">
-                                <i class="fa fa-phone"></i>
+                                <i class="fa fa-user"></i>
                             </div>
                             <div class="hero__search__phone__text">
                                 <h5>+966 999 999 999</h5>
@@ -87,6 +95,7 @@
                         <h2>Featured Product</h2>
                     </div>
                     <div class="featured__controls">
+                        <!--Subjected to change our project-->
                         <ul>
                             <li class="active" data-filter="*">All</li>
                             <li data-filter=".oranges">Oranges</li>
@@ -94,10 +103,12 @@
                             <li data-filter=".vegetables">Vegetables</li>
                             <li data-filter=".fastfood">Fastfood</li>
                         </ul>
+                        
                     </div>
                 </div>
             </div>
             <div class="row featured__filter">
+                <!--loop-->
                 <div class="col-lg-3 col-md-4 col-sm-6 mix fastfood oranges">
                     <div class="featured__item">
                         <div class="featured__item__pic set-bg" data-setbg={% static 'img/featured/feature-4.jpg' %}>
@@ -173,23 +184,11 @@
                         </div>
                     </div>
                 </div>
+                <!--endloop-->
             </div>
         </div>
     </section>
     <!-- Featured Section End -->
-    <script>
-        // Get the arrow_carrot-down element
-        var arrow = document.getElementById('categories-dropdown');
-
-        // Add click event listener
-        arrow.addEventListener('click', function() {
-          // Get the categories element
-          var categories = document.querySelector('.hero__search__categories');
-        
-          // Toggle the visibility of the categories dropdown menu
-          categories.classList.toggle('show');
-        });
-
-    </script>
+ 
         {% endblock %}
 

@@ -34,7 +34,7 @@
     <div class="humberger__menu__overlay"></div>
     <div class="humberger__menu__wrapper">
         <div class="humberger__menu__logo">
-            <a href="#"><img src="" alt="Bilaf Logo"></a>
+            <a href="{% url 'main_app:home_page' %}"><img src="" alt="Bilaf Logo"></a>
         </div>
         <div class="humberger__menu__cart">
             <ul>
@@ -49,57 +49,59 @@
                 <div>English</div>
                 <span class="arrow_carrot-down"></span>
                 <ul>
-                    <li><a href="#">English</a></li>
-                    <li><a href="#">Arabic</a></li>
+                    <li><a href="{% url 'main_app:home_page' %}">English</a></li>
                 </ul>
             </div>
             <div class="header__top__right__auth">
                 {% if request.user.is_authenticated %}
-                    <a href="#"><i class="fa fa-user"></i> Sign Out</a>    
+                    <a href="{% url 'users_app:signout_page' %}"><i class="fa fa-user"></i> Sign Out</a>
                 {% else %}
-                    <div class="navbar-right ml-auto">
-                        <a href="#"><i class="fa fa-user"></i> Sign Up</a>
-                        <a href="#"><i class="fa fa-user"></i> Login</a>
-                    </div>
+                    <img src="img/language.png" alt="">
+                    <div>Account</div>
+                    <span class="arrow_carrot-down"></span>
+                    <ul>
+                        <li><a href="{% url 'users_app:login' %}">Login</a></li>
+                        <li><a href="{% url 'users_app:signup' %}">Sign Up</a></li>
+                    </ul>
                 {% endif %}
                 
             </div>
         </div>
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
-                <li class="active"><a href="#">Home</a></li>
+                <li class="active"><a href="{% url 'main_app:home_page' %}">Home</a></li>
                 <li><a href="#">Stores</a></li>
-                {% if request.user.is_authenticated %}
-                    {% elif request.user.is_costumer %}
+                {% if request.user.is_authenticated and request.user.is_costumer %}
                     <li><a href="#">Order Status</a></li>
                     <li><a href="#">Profile</a>
                         <ul class="header__menu__dropdown">
-                            <li><a href="#">Edit profile</a></li>
-                            <li><a href="#">View Past Orders</a></li>
-                            <li><a href="#">View Reviews</a></li>
+                            <li><a href="#">Edit Profile</a></li>
+                            <li><a href="#">Past Orders</a></li>
+                            <li><a href="#">Reviews</a></li>
                             <li><a href="#">Payment Options</a></li>
                             <li><a href="#">Costumer Support</a></li>
                         </ul>
                     </li>
-                    {% elif request.user.is_merchant %}
+                {% endif %}
+                {% if request.user.is_authenticated and request.user.is_merchant %}
                     <li><a href="#">Order Status</a></li>
                     <li><a href="#">Profile</a>
                         <ul class="header__menu__dropdown">
-                            <li><a href="#">Edit Store</a></li>
-                            <li><a href="#">View Past Orders</a></li>
-                            <li><a href="#">View Reviews</a></li>
-                            <li><a href="#">View Dashboard</a></li>
+                            <li><a href="#">Store</a></li>
+                            <li><a href="#">Past Orders</a></li>
+                            <li><a href="#">Reviews</a></li>
+                            <li><a href="#">Dashboard</a></li>
                             <li><a href="#">Support</a></li>
                         </ul>
                     </li>
-                    {% elif request.user.is_staff %}
-                    <li><a href="#">Merchant Requests</a></li>
+                {% endif %}
+                {% if request.user.is_authenticated and request.user.is_staff %}
                     <li><a href="#">Administration</a>
                         <ul class="header__menu__dropdown">
-                            <li><a href="#">Edit Merchants</a></li>
-                            <li><a href="#">Review Abnormal Order</a></li>
-                            <li><a href="#">View Reviews</a></li>
-                            <li><a href="#">View Dashboard</a></li>
+                            <li><a href="#">Merchants</a></li>
+                            <li><a href="#">Abnormal Orders</a></li>
+                            <li><a href="#">Reviews</a></li>
+                            <li><a href="#">Dashboard</a></li>
                             <li><a href="#">Support</a></li>
                         </ul>
                     </li>
@@ -109,8 +111,12 @@
         <div id="mobile-menu-wrap"></div>
         <div class="humberger__menu__contact">
             <ul>
-                <li><i class="fa fa-envelope"></i> {{ request.user.email }} </li>
-                <li>Welcome, {{ request.user.username }}</li>
+                {% if request.user.is_authenticated%}
+                    <li><i class="fa fa-envelope"></i> {{request.user.email}}</li>
+                    <li>Welcome, {{request.user.username}}.</li>
+                {% else %}
+                    <li>Welcome to Bilaf, a platform that makes small family brands more accessible.</li> 
+                    {% endif %} 
             </ul>
         </div>
     </div>
@@ -123,8 +129,12 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__left">
                             <ul>
+                                {% if request.user.is_authenticated%}
                                 <li><i class="fa fa-envelope"></i> {{request.user.email}}</li>
                                 <li>Welcome, {{request.user.username}}.</li>
+                                {% else %}
+                                <li>Welcome to Bilaf, a platform that makes small family brands more accessible.</li> 
+                                {% endif %} 
                             </ul>
                         </div>
                     </div>
@@ -135,18 +145,20 @@
                                 <div>English</div>
                                 <span class="arrow_carrot-down"></span>
                                 <ul>
-                                    <li><a href="#">English</a></li>
-                                    <li><a href="#">Arabic</a></li>
+                                    <li><a href="{% url 'main_app:home_page' %}">English</a></li>
                                 </ul>
                             </div>
                             <div class="header__top__right__auth">
                                 {% if request.user.is_authenticated %}
-                                    <a href="#"><i class="fa fa-user"></i> Sign Out</a>
+                                    <a href="{% url 'users_app:signout_page' %}"><i class="fa fa-user"></i> Sign Out</a>
                                 {% else %}
-                                    <div class="navbar-right ml-auto">
-                                        <a href="#"><i class="fa fa-user"></i> Sign Up</a>
-                                        <a href="#"><i class="fa fa-user"></i> Login</a>
-                                    </div>
+                                <img src="img/language.png" alt="">
+                                <div>Account</div>
+                                <span class="arrow_carrot-down"></span>
+                                <ul>
+                                    <li><a href="{% url 'users_app:login' %}">Login</a></li>
+                                    <li><a href="{% url 'users_app:signup' %}">Sign Up</a></li>
+                                </ul>
                                 {% endif %}
                             </div>
                         </div>
@@ -158,45 +170,46 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="#"><img src="" alt="Bilaf Logo"></a>
+                        <a href="{% url 'main_app:home_page' %}"><img src="" alt="Bilaf Logo"></a>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <nav class="header__menu">
                         <ul>
-                            <li class="active"><a href="#">Home</a></li>
+                            <li class="active"><a href="{% url 'main_app:home_page' %}">Home</a></li>
                             <li><a href="#">Stores</a></li>
-                            {% if request.user.is_authenticated %}
-                                {% elif request.user.is_costumer %}
+                            {% if request.user.is_authenticated and request.user.is_costumer %}
                                 <li><a href="#">Order Status</a></li>
                                 <li><a href="#">Profile</a>
                                     <ul class="header__menu__dropdown">
-                                        <li><a href="#">Edit profile</a></li>
-                                        <li><a href="#">View Past Orders</a></li>
-                                        <li><a href="#">View Reviews</a></li>
+                                        <li><a href="#">Edit Profile</a></li>
+                                        <li><a href="#">Past Orders</a></li>
+                                        <li><a href="#">Reviews</a></li>
                                         <li><a href="#">Payment Options</a></li>
                                         <li><a href="#">Costumer Support</a></li>
+                                        <li><a href="#" style="text-decoration: underline;">Become Merchant</a></li>
                                     </ul>
                                 </li>
-                                {% elif request.user.is_merchant %}
+                            {% endif %}
+                            {% if request.user.is_authenticated and request.user.is_merchant %}
                                 <li><a href="#">Order Status</a></li>
                                 <li><a href="#">Profile</a>
                                     <ul class="header__menu__dropdown">
-                                        <li><a href="#">Edit Store</a></li>
-                                        <li><a href="#">View Past Orders</a></li>
-                                        <li><a href="#">View Reviews</a></li>
-                                        <li><a href="#">View Dashboard</a></li>
+                                        <li><a href="#">Store</a></li>
+                                        <li><a href="#">Past Orders</a></li>
+                                        <li><a href="#">Reviews</a></li>
+                                        <li><a href="#">Dashboard</a></li>
                                         <li><a href="#">Support</a></li>
                                     </ul>
                                 </li>
-                                {% elif request.user.is_staff %}
-                                <li><a href="#">Merchant Requests</a></li>
+                            {% endif %}
+                            {% if request.user.is_authenticated and request.user.is_staff %}
                                 <li><a href="#">Administration</a>
                                     <ul class="header__menu__dropdown">
-                                        <li><a href="#">Edit Merchants</a></li>
-                                        <li><a href="#">Review Abnormal Order</a></li>
-                                        <li><a href="#">View Reviews</a></li>
-                                        <li><a href="#">View Dashboard</a></li>
+                                        <li><a href="#">Merchants</a></li>
+                                        <li><a href="#">Abnormal Orders</a></li>
+                                        <li><a href="#">Reviews</a></li>
+                                        <li><a href="#">Dashboard</a></li>
                                         <li><a href="#">Support</a></li>
                                     </ul>
                                 </li>
@@ -235,7 +248,7 @@
     <!-- Breadcrumb Section End -->
 
 
-    {% block content%}
+    {% block content %}
     {% endblock %}
     <!-- Footer Section Begin -->
     <footer class="footer spad">
@@ -244,12 +257,12 @@
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="footer__about">
                         <div class="footer__about__logo">
-                            <a href="./index.html"><img src={% static 'img/logo.png' %} alt=""></a>
+                            <a href=""><img src="" alt="Bilaf Logo"></a>
                         </div>
                         <ul>
-                            <li>Address: 60-49 Road 11378 New York</li>
-                            <li>Phone: +65 11.188.888</li>
-                            <li>Email: hello@colorlib.com</li>
+                            <li>Address: Riyadh, Saudi Arabia</li>
+                            <li>Phone: +966 999 999 999</li>
+                            <li>Email: admin@gmail.com</li>
                         </ul>
                     </div>
                 </div>
@@ -257,50 +270,35 @@
                     <div class="footer__widget">
                         <h6>Useful Links</h6>
                         <ul>
-                            <li><a href="#">About Us</a></li>
-                            <li><a href="#">About Our Shop</a></li>
-                            <li><a href="#">Secure Shopping</a></li>
-                            <li><a href="#">Delivery infomation</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
-                            <li><a href="#">Our Sitemap</a></li>
-                        </ul>
-                        <ul>
-                            <li><a href="#">Who We Are</a></li>
-                            <li><a href="#">Our Services</a></li>
-                            <li><a href="#">Projects</a></li>
-                            <li><a href="#">Contact</a></li>
-                            <li><a href="#">Innovation</a></li>
-                            <li><a href="#">Testimonials</a></li>
+                            <li><a href="{% url 'main_app:about_us' %}">About Us</a></li>
+                            <li><a href="{% url 'main_app:about_bilaf' %}">About The Project</a></li>
+                            <li><a href="{% url 'main_app:policies' %}">Delivery/Pickup Policy</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-12">
                     <div class="footer__widget">
-                        <h6>Join Our Newsletter Now</h6>
-                        <p>Get E-mail updates about our latest shop and special offers.</p>
-                        <form action="#">
-                            <input type="text" placeholder="Enter your mail">
-                            <button type="submit" class="site-btn">Subscribe</button>
-                        </form>
+                        <h6>Social Media</h6>
                         <div class="footer__widget__social">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-pinterest"></i></a>
+                            <a href="https://www.instagram.com/"><i class="fa fa-instagram"></i></a>
+                            <a href="https://twitter.com/"><i class="fa fa-twitter"></i></a>
+                            <a href="https://www.facebook.com/"><i class="fa fa-facebook"></i></a>
+                            <a href="https://www.snapchat.com/"><i class="fa fa-snapchat"></i></a>
+                            
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="footer__copyright">
-                        <div class="footer__copyright__text"><p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p></div>
-                        <div class="footer__copyright__payment"><img src="img/payment-item.png" alt=""></div>
+                  <div class="footer__copyright">
+                    <div class="footer__copyright__text">
+                      <p>Bilaf - <script>document.write(new Date().getFullYear());</script></p>
                     </div>
+                  </div>
                 </div>
             </div>
+              
         </div>
     </footer>
     <!-- Footer Section End -->
