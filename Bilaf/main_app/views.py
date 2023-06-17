@@ -11,7 +11,28 @@ def base_page(request: HttpRequest):
 
     return render(request, 'main_app/base.html')
 
-def about_us(request : HttpRequest):
+
+    
+def add_page(request: HttpRequest):
+
+    return render(request, 'main_app/add_product.html')
+
+
+def check_out(request: HttpRequest):
+
+    return render(request, 'main_app/check_out.html')
+
+
+def product_details(request: HttpRequest):
+
+    return render(request, 'main_app/product_details.html')
+
+
+def shoping_cart(request: HttpRequest):
+
+    return render(request, 'main_app/shoping_cart.html')
+
+  def about_us(request : HttpRequest):
     return render(request, 'main_app/about_us.html')
 
 
@@ -20,3 +41,4 @@ def about_project(request : HttpRequest):
 
 def pick_delv_policies(request : HttpRequest):
     return render(request, 'main_app/pickup_delivery_policy.html')
+
