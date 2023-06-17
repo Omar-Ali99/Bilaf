@@ -1,0 +1,39 @@
+{% extends 'main_app/home_page.html' %}
+{% load static %}
+{% block title %}About Us{% endblock %}
+
+
+{% block content %}
+<div class="hero__search__form">
+    <form action="{% url 'main_app:search' %}" name="search" method="GET", role="search">
+        <div class="hero__search__categories">
+            <select name="filter" style="outline: none; border: none;">
+                <option value="">Categories</option>
+                <option value="Saudi-Arabian">Saudi-Arabian</option>
+                <option value="Syrian">Syrian</option>
+                <option value="Egyptian">Egyptian</option>
+                <option value="Indian">Indian</option>
+                <option value="Chinese">Chinese</option>
+                <option value="Italian">Italian</option>
+                <option value="Mixed">Mixed</option>
+            </select>
+        </div>
+        <input type="text" placeholder="Something in mind?">
+        <button type="submit" class="site-btn">SEARCH</button>
+    </form>
+</div>
+
+<br>
+
+{% if filtered_data %}
+    <h2>Filtered Data:</h2>
+    <ul>
+        {% for item in filtered_data %}
+            <li>{{ item.store_name }}</li>  <!-- Assuming field_name is a field in YourModel -->
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No data available.</p>
+{% endif %}
+
+{% endblock %}

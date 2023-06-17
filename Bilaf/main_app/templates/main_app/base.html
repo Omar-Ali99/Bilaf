@@ -129,7 +129,7 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__left">
                             <ul>
-                                {% if request.user.is_authenticated%}
+                                {% if request.user.is_authenticated %}
                                 <li><i class="fa fa-envelope"></i> {{request.user.email}}</li>
                                 <li>Welcome, {{request.user.username}}.</li>
                                 {% else %}
