@@ -14,7 +14,6 @@ class Store_Admin(admin.ModelAdmin):
         "store_name",
         "logo",
         "about",
-        "commercial_registration",
         "pick_up_enabled",
         "delivery_enabled",
         "twitter_link",

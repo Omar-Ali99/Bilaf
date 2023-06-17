@@ -28,12 +28,11 @@ class Store(models.Model):
     category = models.CharField(max_length=100, choices=CHOICES)
     logo = models.ImageField(upload_to="images/", default="images/default_logo.jpeg")
     about = models.TextField()
-    commercial_registration = models.IntegerField()
     pick_up_enabled = models.BooleanField (default=True)
     delivery_enabled = models.BooleanField (default=True)
-    twitter_link = models.URLField()
-    instagram_link = models.URLField()
-    snapchat_link = models.URLField()
+    twitter_link = models.URLField(blank=True,default="")
+    instagram_link = models.URLField(blank=True,default="")
+    snapchat_link = models.URLField(blank=True,default="")
 
     def __str__(self) -> str:
         return f"{self.store_name}"
