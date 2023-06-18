@@ -187,15 +187,15 @@
                                         <li><a href="#">Reviews</a></li>
                                         <li><a href="#">Payment Options</a></li>
                                         <li><a href="#">Costumer Support</a></li>
-                                        <li><a href="#" style="text-decoration: underline;">Become Merchant</a></li>
+                                        <li><a href="{% url 'main_app:became_merchant' %}" style="text-decoration: underline;">Become Merchant</a></li>
                                     </ul>
                                 </li>
-                            {% endif %}
-                            {% if request.user.is_authenticated and request.user.is_merchant %}
+                            {% endif %}	
+                            {% if perms.main_app.delete_categories and not perms.main_app.delete_user  %}
                                 <li><a href="#">Order Status</a></li>
                                 <li><a href="#">Profile</a>
                                     <ul class="header__menu__dropdown">
-                                        <li><a href="#">Store</a></li>
+                                        <li><a href="#">My Store</a></li>
                                         <li><a href="#">Past Orders</a></li>
                                         <li><a href="#">Reviews</a></li>
                                         <li><a href="#">Dashboard</a></li>

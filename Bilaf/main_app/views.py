@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
 from users_app.models import Store
 from django.contrib.auth.decorators import login_required
-from .models import Product
+from .models import Product,Categories
 
 
 
@@ -63,25 +63,70 @@ def search(request:HttpRequest):
     
     return render(request, 'main_app/search.html', context)
 
-@login_required(login_url={"users_app:login"})
-def add_product(request:HttpRequest, store_id):
-    if request.user.groups == "merchant":
-        if request.method == "POST":
-            store_object = Store.objects.filter(id = store_id)
-            price = request.POST["price"],
-            name = request.POST["name"],
-            description = request.POST["description"]
-            if "image" in request.FILES:
-                image = request.FILES["image"]
+@login_required(login_url={"/users_app/login/"})
+def add_categories(request:HttpRequest):
+    msg = None
+
+    if request.user.groups.filter(name='merchant').exists():
+            msg = None
+            if request.method == "POST":
+                if "logo" in request.FILES:
+                    new_logo = request.FILES["logo"]
                 
-            new_product = Product(
-                store_object,
-                price,
-                name,
-                description,
-                image     
-            )
-        new_product.save() 
+                new_category = Categories(
+                name = request.POST["name"],
+                store = Store.objects.get(owner=request.user),
+                logo = new_logo
+                )
+                try:    
+                    new_category.save()
+                    msg = "Category added successfully"
+                except Exception as e:
+                    print(e)
+
     else:
-        redirect("users_app:no_permission_page")      
-    return render(request, "main_app/add_product.html")
+        return redirect("users_app:no_permission_page") 
+            
+    return render(request, "main_app/add_categories.html", {"msg":msg})
+
+           
+
+
+@login_required(login_url={"/users_app/login/"})
+def add_product(request:HttpRequest):
+    msg = None
+    if Categories.objects.get():
+        if request.user.groups.filter(name='merchant').exists():
+            store_object = Store.objects.get(owner = request.user)
+            categories_object = Categories.objects.filter(store = store_object)
+            if request.method == "POST":
+                if "image" in request.FILES:
+                    image_instance = request.FILES["image"]
+                category_instance = Categories.objects.get(id = request.POST["category"])
+
+                new_product = Product(
+                    store = Store.objects.get(owner = request.user),
+                    category = category_instance,
+                    price = float(request.POST["price"]),
+                    name = request.POST["name"],
+                    quantity = int(request.POST["quantity"]),
+                    description = request.POST["description"],
+                    image= image_instance     
+                )
+                try:    
+                    new_product.save()
+                    msg = "Category added successfully"
+                except Exception as e:
+                    print(e)
+
+                return render(request, "main_app/add_product.html", {"categories":categories_object, "msg":msg})
+            else:
+                return render(request, "main_app/add_product.html", {"categories":categories_object})
+        else:
+            return redirect("users_app:no_permission_page")  
+    else:
+        return redirect("main_app:add_categories") 
+     
+    
+
+

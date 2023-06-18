@@ -14,7 +14,8 @@ urlpatterns = [
     path('about_bilaf/', views.about_project , name = 'about_bilaf'),
     path('policies/', views.pick_delv_policies , name = 'policies'),
     path('searched/', views.search, name = "search"),
-    path("merchant/adding_products/<store_id>", views.add_product, name="add_product"),
+    path("merchant/adding_products/", views.add_product, name="add_product"),
+    path("merchant/adding_categories/", views.add_categories, name="add_categories"),
    
    
 
