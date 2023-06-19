@@ -31,7 +31,7 @@
     <div class="humberger__menu__overlay"></div>
     <div class="humberger__menu__wrapper">
         <div class="humberger__menu__logo">
-            <a href="{% url 'main_app:home_page' %}"><img src="" alt="Bilaf Logo"></a>
+
         </div>
         <div class="humberger__menu__cart">
             <ul>
@@ -42,6 +42,7 @@
         </div>
         <div class="humberger__menu__widget">
             <div class="header__top__right__language">
+
                 <div>English</div>
                 <span class="arrow_carrot-down"></span>
                 <ul>
@@ -184,7 +185,7 @@
                                 <li><a href="#">Profile</a>
                                     <ul class="header__menu__dropdown">
                                         <li><a href="{% url 'main_app:product_page' %}">My Store</a></li>
-                                        <li><a href="#">Add Product</a></li>
+                                        <li><a href=" {% url 'main_app:add_page' %}">Add Product</a></li>
                                         <li><a href="#">Past Orders</a></li>
                                         <li><a href="#">Reviews</a></li>
                                         <li><a href="{% url 'main_app:dashboard' %}">Dashboard</a></li>
@@ -223,7 +224,7 @@
     </header>
     <!-- Header Section End -->
     <!-- Breadcrumb Section Begin -->
-        <section class="breadcrumb-section set-bg" data-setbg={% static 'img/R.jpg' %}>
+         <section class="breadcrumb-section set-bg" data-setbg={% static 'img/became_merchant_header.png' %}>
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 text-center">
@@ -296,14 +297,14 @@
 
 
     <!-- Js Plugins -->
-    <script src={% static 'js/jquery-3.3.1.min.js'%}></script>
-    <script src={% static 'js/bootstrap.min.js'%}></script>
-    <script src={% static 'js/jquery.nice-select.min.js'%}></script>
-    <script src={% static 'js/jquery-ui.min.js'%}"></script>
-    <script src={% static 'js/jquery.slicknav.js'%}></script>
-    <script src={% static 'js/mixitup.min.js'%}></script>
-    <script src={% static 'js/owl.carousel.min.js'%}></script>
-    <script src={% static 'js/main.js'%}></script>   
+    <script src={% static 'js/jquery-3.3.1.min.js' %}></script>
+    <script src={% static 'js/bootstrap.min.js' %}></script>
+    <script src={% static 'js/jquery.nice-select.min.js' %}></script>
+    <script src={% static 'js/jquery-ui.min.js' %}"></script>
+    <script src={% static 'js/jquery.slicknav.js' %}></script>
+    <script src={% static 'js/mixitup.min.js' %}></script>
+    <script src={% static 'js/owl.carousel.min.js' %}></script>
+    <script src={% static 'js/main.js' %}></script>   
     <!-- add--> 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     
