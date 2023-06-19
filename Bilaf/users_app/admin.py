@@ -5,11 +5,12 @@ from .models import Profile, Store
 
 
 class Profile_Admin(admin.ModelAdmin):
-    list_display = ("user", "phone_number")
+    list_display = ("id", "user", "phone_number")
 
 
 class Store_Admin(admin.ModelAdmin):
     list_display = (
+        "id",
         "owner",
         "store_name",
         "logo",
