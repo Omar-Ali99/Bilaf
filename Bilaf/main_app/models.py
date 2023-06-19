@@ -42,7 +42,7 @@ class Cart(models.Model):
         ('Delivery', 'Delivery')
     )
     PAYMENT_CHOICES = (
-        ('cod','Cash on Delivery')
+        ('cod','Cash on Delivery'),
         
     )
 
