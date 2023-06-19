@@ -1,0 +1,24 @@
+{% extends 'main_app/base.html' %}
+{% load static %}
+{% block title %}Prodcts Page{% endblock %}
+{% block content%}
+    <!-- products section -->
+    <div class="container col-xxl-8 px-4 py-5 mb-5">
+        <div class="d-flex flex-column">
+            <div class="row">
+                {% for catgory in Categories %}
+                <div class="col-4 g-5">
+                    <div class="card" style="width: 18rem;">
+                        <img src="{{catgory.logo.url}}" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">{{catgory.name}}</h5>
+                        </div>
+                        <a href="{% url 'main_app:store_page' Categories.id %}" class="btn btn-primary">View More</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

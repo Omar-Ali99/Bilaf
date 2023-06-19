@@ -3,3 +3,4 @@ Pillow
 python-dotenv
 postgres
 psycopg2
+matplotlib

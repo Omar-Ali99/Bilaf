@@ -55,7 +55,7 @@ class Cart(models.Model):
     payment_option = models.CharField(max_length=50, choices= PAYMENT_CHOICES)
     
 
-def __str__(self) -> str:
+    def __str__(self) -> str:
         return f"{self.store} - {self.customer}"
 
 class CartItem(models.Model):
@@ -63,3 +63,13 @@ class CartItem(models.Model):
      product = models.ForeignKey(Product, on_delete=models.CASCADE)
      quantity = models.PositiveIntegerField()
      
+class Review(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    comment = models.TextField()
+    rating = models.FloatField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self) -> str:
+        return f"{self.rating} on {self.product}"

@@ -1,0 +1,31 @@
+{% extends 'main_app/home_page.html' %}
+{% load static %}
+{% block title %}About Us{% endblock %}
+
+
+{% block content %}
+
+<h2>Products:</h2>
+<ul>
+    {% for product in products %}
+        <li>Name: {{ product.name }} Category: {{product.category}} Price: {{ product.price }} </li>
+    {% empty %}
+        <li>No performance data available</li>
+    {% endfor %}
+</ul>
+
+<h2>Categories:</h2>
+<ul>
+    {% for category in categories %}
+        <li>{{ category.name }} Belongs to:{{ category.store }}</li>
+    {% empty %}
+        <li>No sellers available</li>
+    {% endfor %}
+</ul>
+
+<h2>Data Visualization:</h2>
+<img src="{{ chart_path }}" alt="Chart">
+
+
+
+{% endblock %}

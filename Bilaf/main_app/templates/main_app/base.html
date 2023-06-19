@@ -70,7 +70,7 @@
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
                 <li class="active"><a href="{% url 'main_app:home_page' %}">Home</a></li>
-                <li><a href="#">Stores</a></li>
+                <li><a href="{% url 'main_app:product_page' %}">Stores</a></li>
                 {% if request.user.is_authenticated and request.user.is_costumer %}
                     <li><a href="#">Order Status</a></li>
                     <li><a href="#">Profile</a>
@@ -195,10 +195,11 @@
                                 <li><a href="#">Order Status</a></li>
                                 <li><a href="#">Profile</a>
                                     <ul class="header__menu__dropdown">
-                                        <li><a href="#">My Store</a></li>
+                                        <li><a href="{% url 'main_app:product_page' %}">My Store</a></li>
+                                        <li><a href="#">Add Product</a></li>
                                         <li><a href="#">Past Orders</a></li>
                                         <li><a href="#">Reviews</a></li>
-                                        <li><a href="#">Dashboard</a></li>
+                                        <li><a href="{% url 'main_app:dashboard' %}">Dashboard</a></li>
                                         <li><a href="#">Support</a></li>
                                     </ul>
                                 </li>
@@ -272,6 +273,7 @@
                         <ul>
                             <li><a href="{% url 'main_app:about_us' %}">About Us</a></li>
                             <li><a href="{% url 'main_app:about_bilaf' %}">About The Project</a></li>
+                            <li><a href="{% url 'main_app:about_bilaf' %}">About The Project</a></li>
                             <li><a href="{% url 'main_app:policies' %}">Delivery/Pickup Policy</a></li>
                         </ul>
                     </div>
@@ -318,6 +320,5 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     
 </Body>
-
 
 </html>
