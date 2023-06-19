@@ -2,8 +2,38 @@
 {% load static %}
 {% block title %}Check out{% endblock %}
 {% block content%}
+    <!-- Search section -->
+    <div class="container col-xxl-8 px-4 py-5">
+        <nav class="navbar">
+            <div class="container-fluid">
+                <h1 class="navbar-brand fs-1">Clinics</h1>
+                <form action="{% url 'main_app:search_page' %}" method="GET" class="d-flex" role="search">
+                    <input name="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </form>
+            </div>
+          </nav>
+    </div>
 
-
-
+    <!-- clinics section -->
+    <div class="container col-xxl-8 px-4 py-5 mb-5">
+        <div class="d-flex flex-column">
+            <div class="row">
+                {% for clinic in clinic %}
+                <div class="col-4 g-5">
+                    <div class="card" style="width: 18rem;">
+                        <img src="{{clinic.feature_image.url}}" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">{{clinic.name}}</h5>
+                            <p class="card-text">{{clinic.description|truncatewords:25}}</p>
+                            <a href="{% url 'main_app:clinics_page_detail' clinic.id %} " class="btn btn-primary">More Detail</a>
+                                <a href="{% url 'main_app:manager_page_update' clinic.id %} " class="btn btn-warning">Update</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
