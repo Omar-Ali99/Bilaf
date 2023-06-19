@@ -13,6 +13,7 @@ class Store_Admin(admin.ModelAdmin):
         "id",
         "owner",
         "store_name",
+        "category",
         "logo",
         "about",
         "pick_up_enabled",
