@@ -156,24 +156,25 @@ def dashboard_view(request:HttpRequest):
     return render(request, 'main_app/dashboard.html', {"products":products, "categories":categories})
 
      
-@login_required(login_url={"/users_app/login/"}) 
-def user_adding_review(request:HttpRequest, product_id):
-    if request.user.groups.filter(name='costumer').exists():
-        if request.method == "POST":
-            user_instance = request.user
-            order_status = Cart.objects.filter(customer = user_instance, status = 'Done' )
-            if order_status: 
-                product_object = Product.objects.get(id = product_id)
-                comment = request.POST["comment"]
-                rating = request.POST["rating"]
-                new_review = Review(
-                    product = product_object,
-                    user = user_instance,
-                    comment = comment,
-                    rating = rating
-                )
-                new_review.save()
-            else:
-                 print(f"You can't add a review cause your status is: {order_status}")
-    else:
-        return redirect("users_app:no_permission_page")
+#@login_required(login_url={"/users_app/login/"}) 
+# def user_adding_review(request:HttpRequest, product_id):
+#     if request.user.groups.filter(name='costumer').exists():
+#         if request.method == "POST":
+#             user_instance = request.user
+#             order_status = Cart.objects.filter(customer = user_instance, status = 'Done' )
+#             if order_status: 
+#                 product_object = Product.objects.get(id = product_id)
+#                 comment = request.POST["comment"]
+#                 rating = request.POST["rating"]
+#                 new_review = Review(
+#                     product = product_object,
+#                     user = user_instance,
+#                     comment = comment,
+#                     rating = rating
+#                 )
+#                 new_review.save()
+#                 return render(request, 'main_app/dashboard.html', {"product_id":product_id})
+#             else:
+#                  print(f"You can't add a review cause your status is: {order_status}")
+#     else:
+#         return redirect("users_app:no_permission_page")
