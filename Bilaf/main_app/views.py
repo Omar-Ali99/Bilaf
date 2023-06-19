@@ -3,6 +3,13 @@ from django.http import HttpRequest, HttpResponse
 from users_app.models import Store
 from django.contrib.auth.decorators import login_required
 from .models import Product,Categories
+from django.contrib.auth.models import User , Permission, Group
+import io
+import urllib
+import base64
+import matplotlib.pyplot as plt
+
+
 
 
 
@@ -126,7 +133,18 @@ def add_product(request:HttpRequest):
             return redirect("users_app:no_permission_page")  
     else:
         return redirect("main_app:add_categories") 
-     
     
 
+
+def dashboard_view(request:HttpRequest):
+    store = Store.objects.get(owner = request.user)
+    products = Product.objects.filter(store = store)
+    categories = Categories.objects.filter(store = store)
+
+    return render(request, 'main_app/dashboard.html', {"products":products, "categories":categories})
+
+     
+    
+def user_adding_review(request:HttpRequest):
+    
 

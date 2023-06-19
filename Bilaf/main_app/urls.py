@@ -16,6 +16,7 @@ urlpatterns = [
     path('searched/', views.search, name = "search"),
     path("merchant/adding_products/", views.add_product, name="add_product"),
     path("merchant/adding_categories/", views.add_categories, name="add_categories"),
+    path('merchant/dashboard/', views.dashboard_view, name='dashboard'),
    
    
 

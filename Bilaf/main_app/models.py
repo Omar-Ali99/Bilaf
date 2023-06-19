@@ -29,3 +29,9 @@ class Product(models.Model):
         return f"{self.name}"
     
 
+class review(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    comment = models.TextField()
+    rating = models.FloatField()
+    created_at = models.DateTimeField(auto_now_add=True)
