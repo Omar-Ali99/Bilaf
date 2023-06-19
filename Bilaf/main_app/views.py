@@ -4,10 +4,10 @@ from users_app.models import Store
 from django.contrib.auth.decorators import login_required
 from .models import Product,Categories,Review,Cart
 from django.contrib.auth.models import User , Permission, Group
-import io
-import urllib
-import base64
-import matplotlib.pyplot as plt
+#import io
+#import urllib
+#import base64
+#import matplotlib.pyplot as plt
 
 
 
@@ -161,8 +161,19 @@ def user_adding_review(request:HttpRequest, product_id):
     if request.user.groups.filter(name='costumer').exists():
         if request.method == "POST":
             user_instance = request.user
-            status = Cart.objects.get(customer = user_instance)
-            if status.is_active: 
+            order_status = Cart.objects.filter(customer = user_instance, status = 'Done' )
+            if order_status: 
                 product_object = Product.objects.get(id = product_id)
                 comment = request.POST["comment"]
-                pass
+                rating = request.POST["rating"]
+                new_review = Review(
+                    product = product_object,
+                    user = user_instance,
+                    comment = comment,
+                    rating = rating
+                )
+                new_review.save()
+            else:
+                 print(f"You can't add a review cause your status is: {order_status}")
+    else:
+        return redirect("users_app:no_permission_page")

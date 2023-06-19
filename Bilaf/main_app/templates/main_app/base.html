@@ -153,12 +153,7 @@
                                     <a href="{% url 'users_app:signout_page' %}"><i class="fa fa-user"></i> Sign Out</a>
                                 {% else %}
                                 <img src="img/language.png" alt="">
-                                <div>Account</div>
-                                <span class="arrow_carrot-down"></span>
-                                <ul>
-                                    <li><a href="{% url 'users_app:login' %}">Login</a></li>
-                                    <li><a href="{% url 'users_app:signup' %}">Sign Up</a></li>
-                                </ul>
+                                <div><a href="{% url 'users_app:login' %}">Account</a></div>
                                 {% endif %}
                             </div>
                         </div>
