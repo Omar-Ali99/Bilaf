@@ -35,7 +35,7 @@ class Store(models.Model):
     snapchat_link = models.URLField(blank=True,default="")
 
     def __str__(self) -> str:
-        return f"{self.store_name}"
+        return f"{self.store_name} By {self.owner}"
 
 
 
