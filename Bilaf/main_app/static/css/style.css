@@ -74,6 +74,13 @@ h6 {
 	font-size: 16px;
 }
 
+.products_image{
+	height: 270px;
+	width: 270px;
+
+
+
+}
 p {
 	font-size: 16px;
 	font-family: "Cairo", sans-serif;

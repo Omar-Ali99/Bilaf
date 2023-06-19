@@ -2,24 +2,22 @@
 {% load static %}
 {% block title %}Prodcts Page{% endblock %}
 {% block content%}
-
-    <!-- stores section -->
+    <!-- products section -->
     <div class="container col-xxl-8 px-4 py-5 mb-5">
         <div class="d-flex flex-column">
             <div class="row">
-                {% for store in stores %}
+                {% for categories in categories %}
                 <div class="col-4 g-5">
                     <div class="card" style="width: 18rem;">
-                        <img src="{{store.logo.url}}" class="card-img-top">
+                        <img src="{{categories.logo.url}}" class="card-img-top">
                         <div class="card-body">
-                            <h5 class="card-title">{{store.store_name}}</h5>
-                            <p class="card-text">{{store.category}}</p>
+                            <h5 class="card-title">{{categories.name}}</h5>
                         </div>
-                        <a href="#" class="btn btn-primary">View More</a>
                     </div>
                 </div>
                 {% endfor %}
             </div>
         </div>
     </div>
+
 {% endblock %}

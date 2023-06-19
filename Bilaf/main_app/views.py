@@ -136,9 +136,13 @@ def product_detail(request: HttpRequest, product_id):
         return render(request, 'main_app/product_details.html', {'products':products})
 
 
+def catgory_page(request: HttpRequest):
+    categories = Categories.objects.all()
+    return render(request, 'main_app/catgory_page.html', {'categories': categories})
+
 def store_page(request: HttpRequest):
-    Category = Categories.objects.all()
-    return render(request, 'main_app/store_page.html', {'Category': Category})
+    stores = Store.objects.all()
+    return render(request, 'main_app/store_page.html', {'stores': stores})
      
     
 
