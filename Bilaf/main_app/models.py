@@ -43,9 +43,13 @@ class Cart(models.Model):
     customer = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.CharField(max_length=50, choices=STATUS_CHOICES)
     created_at = models.DateTimeField(auto_now_add=True)
-    due_date = models.DateTimeField()
-    delivery_option = models.CharField(max_length=50, choices=DELIVERY_CHOICES)
-    payment_option = models.CharField(max_length=50, choices=PAYMENT_CHOICES)
+    due_date = models.DateTimeField(blank=True)
+    delivery_option = models.CharField(
+        max_length=50, choices=DELIVERY_CHOICES, blank=True
+    )
+    payment_option = models.CharField(
+        max_length=50, choices=PAYMENT_CHOICES, blank=True
+    )
 
     def __str__(self) -> str:
         return f"{self.id}: {self.store} - {self.customer}"
