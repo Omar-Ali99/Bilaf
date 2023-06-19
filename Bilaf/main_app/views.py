@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
 from users_app.models import Store
 from django.contrib.auth.decorators import login_required
-from .models import Product, Categories, Review, Cart, CartItem
-from django.contrib.auth.models import User, Permission, Group
+from .models import Product,Categories,Review,Cart,CartItem
+from django.contrib.auth.models import User , Permission, Group
+
 
 # import io
 # import urllib
@@ -157,15 +158,18 @@ def product_detail(request: HttpRequest, product_id):
     return render(request, "main_app/product_details.html", {"products": products})
 
 
+def catgory_page(request: HttpRequest):
+    categories = Categories.objects.all()
+    return render(request, 'main_app/catgory_page.html', {'categories': categories})
+
 def store_page(request: HttpRequest):
     Category = Categories.objects.all()
-    return render(request, "main_app/store_page.html", {"Category": Category})
-
-
-def dashboard_view(request: HttpRequest):
-    store = Store.objects.get(owner=request.user)
-    products = Product.objects.filter(store=store)
-    categories = Categories.objects.filter(store=store)
+    stores = Store.objects.all()
+    return render(request, 'main_app/store_page.html', {'stores': stores})
+def dashboard_view(request:HttpRequest):
+    store = Store.objects.get(owner = request.user)
+    products = Product.objects.filter(store = store)
+    categories = Categories.objects.filter(store = store)
 
     return render(
         request,
@@ -173,17 +177,30 @@ def dashboard_view(request: HttpRequest):
         {"products": products, "categories": categories},
     )
 
-
-@login_required(login_url={"/users_app/login/"})
-def user_adding_review(request: HttpRequest, product_id):
-    if request.user.groups.filter(name="costumer").exists():
-        if request.method == "POST":
-            user_instance = request.user
-            status = Cart.objects.get(customer=user_instance)
-            if status.is_active:
-                product_object = Product.objects.get(id=product_id)
-                comment = request.POST["comment"]
-                pass
+     
+     
+#@login_required(login_url={"/users_app/login/"}) 
+# def user_adding_review(request:HttpRequest, product_id):
+#     if request.user.groups.filter(name='costumer').exists():
+#         if request.method == "POST":
+#             user_instance = request.user
+#             order_status = Cart.objects.filter(customer = user_instance, status = 'Done' )
+#             if order_status: 
+#                 product_object = Product.objects.get(id = product_id)
+#                 comment = request.POST["comment"]
+#                 rating = request.POST["rating"]
+#                 new_review = Review(
+#                     product = product_object,
+#                     user = user_instance,
+#                     comment = comment,
+#                     rating = rating
+#                 )
+#                 new_review.save()
+#                 return render(request, 'main_app/dashboard.html', {"product_id":product_id})
+#             else:
+#                  print(f"You can't add a review cause your status is: {order_status}")
+#     else:
+#         return redirect("users_app:no_permission_page")
 
 
 @login_required(login_url={"/users_app/login/"})
