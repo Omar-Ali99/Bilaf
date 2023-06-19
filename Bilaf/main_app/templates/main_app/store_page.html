@@ -3,23 +3,29 @@
 {% block title %}Prodcts Page{% endblock %}
 {% block content%}
 
-    <!-- stores section -->
-    <div class="container col-xxl-8 px-4 py-5 mb-5">
-        <div class="d-flex flex-column">
-            <div class="row">
+    <!-- products section -->
+            <div class="row p-5">
                 {% for store in stores %}
-                <div class="col-4 g-5">
-                    <div class="card" style="width: 18rem;">
-                        <img src="{{store.logo.url}}" class="card-img-top">
-                        <div class="card-body">
-                            <h5 class="card-title">{{store.store_name}}</h5>
-                            <p class="card-text">{{store.category}}</p>
+                <div class="col mb-5 col-2 g-2">         
+                <div class="card h-100">
+                    <!-- Sale badge-->
+                    <!-- Product image-->
+                    <img class="card-img-top" src="{{ store.logo.url }}" alt="..." />
+                    <!-- Product details-->
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <!-- Product name-->
+                            <h5 class="fw-bolder">{{store.store_name}}</h5>
+                            <!-- Product price-->
+                            <span class="text">{{store.category}}</span>
                         </div>
-                        <a href="#" class="btn btn-primary">View More</a>
+                    </div>
+                    <!-- Product actions-->
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View More</a></div>
                     </div>
                 </div>
+            </div>
                 {% endfor %}
             </div>
-        </div>
-    </div>
-{% endblock %}
+            {% endblock %}
