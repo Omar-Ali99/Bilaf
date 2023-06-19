@@ -21,6 +21,4 @@ urlpatterns = [
     path("store/", views.store_page, name="store_page"),
 
 
-
-
 ]

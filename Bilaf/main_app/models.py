@@ -28,4 +28,48 @@ class Product(models.Model):
     def __str__(self) -> str:
         return f"{self.name}"
     
+class Cart(models.Model):
+    STATUS_CHOICES = (
+        
+        ('Pending', 'Pending'),
+        ('Submited', 'Submited'),
+        ('Active', 'Active'),
+        ('Declined', 'Declined'),
+        ('Done', 'Done'),
+    )
+    DELIVERY_CHOICES = (
+        ('Pick_Up', 'Pick Up'),
+        ('Delivery', 'Delivery')
+    )
+    PAYMENT_CHOICES = (
+        ('cod','Cash on Delivery'),
+        
+    )
 
+    store = models.ForeignKey(Store, on_delete=models.CASCADE)  
+    customer = models.ForeignKey(User, on_delete=models.CASCADE)
+    status = models.CharField(max_length=50, choices= STATUS_CHOICES)
+    created_at = models.DateTimeField(auto_now_add=True)
+    due_date = models.DateTimeField()
+    delivery_option = models.CharField(max_length=50,choices= DELIVERY_CHOICES)
+    payment_option = models.CharField(max_length=50, choices= PAYMENT_CHOICES)
+    
+
+    def __str__(self) -> str:
+        return f"{self.store} - {self.customer}"
+
+class CartItem(models.Model):
+     cart = models.ForeignKey(User, on_delete=models.CASCADE)
+     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+     quantity = models.PositiveIntegerField()
+     
+class Review(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    comment = models.TextField()
+    rating = models.FloatField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self) -> str:
+        return f"{self.rating} on {self.product}"
