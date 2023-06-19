@@ -126,6 +126,19 @@ def add_product(request:HttpRequest):
             return redirect("users_app:no_permission_page")  
     else:
         return redirect("main_app:add_categories") 
+
+def product_page(request: HttpRequest):
+    products = Product.objects.all()
+    return render(request, 'main_app/product_page.html', {'products': products})
+
+def product_detail(request: HttpRequest, product_id):
+        products = Product.objects.get(id = product_id)
+        return render(request, 'main_app/product_details.html', {'products':products})
+
+
+def store_page(request: HttpRequest):
+    Category = Categories.objects.all()
+    return render(request, 'main_app/store_page.html', {'Category': Category})
      
     
 
