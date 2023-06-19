@@ -18,6 +18,5 @@ urlpatterns = [
     path("product/", views.product_page, name="product_page"),
     path('detail/<product_id>/', views.product_detail , name = 'product_detail'),
     path("store/", views.store_page, name="store_page"),
-
-
+    path('merchant/dashboard/', views.dashboard_view, name='dashboard'),
 ]

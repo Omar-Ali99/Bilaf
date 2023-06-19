@@ -2,7 +2,14 @@ from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
 from users_app.models import Store
 from django.contrib.auth.decorators import login_required
-from .models import Product,Categories
+from .models import Product,Categories,Review,Cart
+from django.contrib.auth.models import User , Permission, Group
+import io
+import urllib
+import base64
+import matplotlib.pyplot as plt
+
+
 
 
 
@@ -127,6 +134,7 @@ def add_product(request:HttpRequest):
     else:
         return redirect("main_app:add_categories") 
 
+
 def product_page(request: HttpRequest):
     products = Product.objects.all()
     return render(request, 'main_app/product_page.html', {'products': products})
@@ -140,6 +148,21 @@ def store_page(request: HttpRequest):
     Category = Categories.objects.all()
     return render(request, 'main_app/store_page.html', {'Category': Category})
      
-    
+def dashboard_view(request:HttpRequest):
+    store = Store.objects.get(owner = request.user)
+    products = Product.objects.filter(store = store)
+    categories = Categories.objects.filter(store = store)
 
+    return render(request, 'main_app/dashboard.html', {"products":products, "categories":categories})
 
+     
+@login_required(login_url={"/users_app/login/"}) 
+def user_adding_review(request:HttpRequest, product_id):
+    if request.user.groups.filter(name='costumer').exists():
+        if request.method == "POST":
+            user_instance = request.user
+            status = Cart.objects.get(customer = user_instance)
+            if status.is_active: 
+                product_object = Product.objects.get(id = product_id)
+                comment = request.POST["comment"]
+                pass
