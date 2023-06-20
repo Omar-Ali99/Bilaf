@@ -318,7 +318,7 @@ def create_cart_item(quantity: int, product_object: Product, customer_cart: Cart
 
 def order_status(request: HttpRequest):
     return render(request, "main_app/order_status.html")
-
+def view_order(request: HttpRequest):
     return render(request, "main_app/view_order.html")
 
 def send_email(receiver:str, subject:str, message:str):
