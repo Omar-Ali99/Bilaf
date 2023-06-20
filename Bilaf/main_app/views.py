@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
 from users_app.models import Store
 from django.contrib.auth.decorators import login_required
-from .models import Product,Categories,Review,Cart
-from django.contrib.auth.models import User , Permission, Group
+from .models import Product,Categories,Review,Cart,CartItem
+from django.contrib.auth.models import User , Permission, Group   
 from .models import Product,Categories,Review,Cart,CartItem
 from django.contrib.auth.models import User , Permission, Group
 
@@ -12,6 +12,7 @@ from django.contrib.auth.models import User , Permission, Group
 # import urllib
 # import base64
 # import matplotlib.pyplot as plt
+
 
 
 # Create your views here.
