@@ -13,8 +13,9 @@ urlpatterns = [
     path("about_bilaf/", views.about_project, name="about_bilaf"),
     path("policies/", views.pick_delv_policies, name="policies"),
     path("searched/", views.search, name="search"),
-    path("merchant/adding_products/", views.add_product, name="add_product"),
-    path("merchant/adding_categories/", views.add_categories, name="add_categories"),
+    path("merchant/adding_products/", views.merchant_adding_products, name="add_product"),
+    path("merchant/adding_categories/", views.merchant_adding_categories, name="add_categories"),
+    path("store_pages/<category_id>/", views.store_pages_filtered_based_on_category, name="category_based_stores"),
     path("product/", views.product_page, name="product_page"),
     path('detail/<product_id>/', views.product_detail , name = 'product_detail'),
     path("product/update/<product_id>/", views.update_product, name="update_product"),
@@ -23,12 +24,12 @@ urlpatterns = [
     path("catgory/", views.catgory_page, name="catgory_page"),
     path("catgory/update/<categories_id>/", views.update_catgory, name="update_catgory"),
     path("catgory/delete/<categories_id>/", views.delete_product, name="delete_catgory"),
+
     path("store/", views.merchent_store_page, name="store_page"),
-    path('merchant/dashboard/', views.dashboard_view, name='dashboard'),
+    path("store/", views.store_page, name="store_page"),
+    path('merchant/dashboard/', views.merchant_dashboard_view, name='dashboard'),
     path("order_status/", views.order_status, name="order_status"),
-    path('add_to_cart', views.add_to_cart, name="add_to_cart"),
-
-
+    path('add_to_cart', views.add_to_cart, name="add_to_cart")
 
 
 ]
