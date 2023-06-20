@@ -2,6 +2,13 @@ from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
 from users_app.models import Store
 from django.contrib.auth.decorators import login_required
+<<<<<<< HEAD
+from .models import Product,Categories,Review,Cart
+from django.contrib.auth.models import User , Permission, Group
+import io
+import urllib
+import base64
+=======
 from .models import Product,Categories,Review,Cart,CartItem
 from django.contrib.auth.models import User , Permission, Group
 
@@ -11,6 +18,7 @@ from django.contrib.auth.models import User , Permission, Group
 # import base64
 # import matplotlib.pyplot as plt
 
+>>>>>>> c744d1f3491dab27b3adad4f50c4c48b9f70de85
 
 # Create your views here.
 def home_page(request: HttpRequest):
@@ -147,6 +155,7 @@ def add_product(request: HttpRequest):
         return redirect("main_app:add_categories")
 
 
+
 def product_page(request: HttpRequest):
     products = Product.objects.all()
     return render(request, "main_app/product_page.html", {"products": products})
@@ -156,7 +165,6 @@ def product_detail(request: HttpRequest, product_id):
     products = Product.objects.get(id=product_id)
 
     return render(request, "main_app/product_details.html", {"products": products})
-
 
 def catgory_page(request: HttpRequest):
     categories = Categories.objects.all()
@@ -178,6 +186,73 @@ def dashboard_view(request:HttpRequest):
     )
 
      
+<<<<<<< HEAD
+def dashboard_view(request:HttpRequest):
+    store = Store.objects.get(owner = request.user)
+    products = Product.objects.filter(store = store)
+    categories = Categories.objects.filter(store = store)
+
+    return render(request, 'main_app/dashboard.html', {"products":products, "categories":categories})
+
+     
+@login_required(login_url={"/users_app/login/"}) 
+def user_adding_review(request:HttpRequest, product_id):
+    if request.user.groups.filter(name='costumer').exists():
+        if request.method == "POST":
+            user_instance = request.user
+            status = Cart.objects.get(customer = user_instance)
+            if status.is_active: 
+                product_object = Product.objects.get(id = product_id)
+                comment = request.POST["comment"]
+                pass
+
+
+def delete_product(request:HttpRequest, product_id):
+
+    products = Product.objects.get(id = product_id)
+    products.delete()
+    return redirect("main_app:product_page")    
+
+def update_product(request:HttpRequest, product_id):
+
+    products = Product.objects.get(id=product_id)
+    #updating the product
+    if request.method == "POST":
+        products.category = request.POST["category"]
+        products.price = float(request.POST["price"]),
+        products.name = request.POST["name"],
+        products.quantity = int(request.POST["quantity"]),
+        products.description = request.POST["description"],
+        products.image=  request.POST["image"]
+        products.save()
+
+
+        return redirect("main_app:product_detail", products_id=products.id)
+
+    return render(request, 'main_app/update_product.html', {"products" : products})  
+
+
+def delete_catgory(request:HttpRequest, categories_id):
+
+    categories = Categories.objects.get(id =categories_id)
+    categories.delete()
+    return redirect("main_app:catgory_page")   
+
+def update_catgory(request:HttpRequest, categories_id):
+
+    categories = Categories.objects.get(id=categories_id)
+    #updating the catgory
+    if request.method == "POST":
+        categories.logo = request.POST["logo"]
+        categories.name = request.POST["name"],
+        categories.save()
+
+
+        return redirect("main_app:product_detail", categories_id=categories.id)
+
+    return render(request, 'main_app/update_catgory.html', {'categories': categories})
+
+=======
      
 #@login_required(login_url={"/users_app/login/"}) 
 # def user_adding_review(request:HttpRequest, product_id):
@@ -246,3 +321,4 @@ def create_cart_item(quantity: int, product_object: Product, customer_cart: Cart
         quantity=quantity,
     )
     cart_item.save()
+>>>>>>> c744d1f3491dab27b3adad4f50c4c48b9f70de85
