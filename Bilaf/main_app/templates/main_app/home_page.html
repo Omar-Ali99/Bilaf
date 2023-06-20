@@ -15,7 +15,7 @@
                         </div>
                         <ul>
                             {% for category in all_store_categories  %}
-                            <li><a href="#">{{category}}</a></li>
+                            <li><a href="">{{category}}</a></li>
                             {% endfor %}
                         </ul>
                     </div>
@@ -97,7 +97,7 @@
                         <ul>
                             <li class="active" data-filter="*">All</li>
                             {% for category in categories %}
-                                <li data-filter=".category.name">{{category.name}}</li>   
+                                <li data-filter=".{{category.name}}">{{category.name}}</li>   
                             {% endfor %}
                         </ul>
                         
@@ -105,8 +105,8 @@
                 </div>
             </div>
             <div class="row featured__filter">
-                {% for product in proudcts %}
-                <div class="col-lg-3 col-md-4 col-sm-6 product.category">
+                {% for product in products %}
+                <div class="col-lg-3 col-md-4 col-sm-6 mix {{product.category.name}}">
                     <div class="featured__item">
                         <div class="featured__item__pic set-bg" style="background-repeat: no-repeat; background-size: cover;background-position: top center;" data-setbg="{{product.image.url}}">
                             <ul class="featured__item__pic__hover">

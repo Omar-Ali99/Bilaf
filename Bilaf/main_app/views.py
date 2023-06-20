@@ -26,7 +26,7 @@ def home_page(request: HttpRequest):
     all_store_categories = [choice[0] for choice in Store.CHOICES]
     stores = Store.objects.all()
     products = Product.objects.all()
-    return render(request, 'main_app/home_page.html', {"categories":categories,"all_store_categories":all_store_categories , "stores":stores, "proudcts":products})
+    return render(request, 'main_app/home_page.html', {"categories":categories,"all_store_categories":all_store_categories , "stores":stores, "products":products})
 
 def base_page(request: HttpRequest):
     return render(request, "main_app/base.html")
