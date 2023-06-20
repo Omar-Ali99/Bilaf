@@ -62,7 +62,8 @@ def no_permission_page(request: HttpRequest):
     return render(request, "users_app/no_permission.html")
 
 @login_required(login_url="/users/login/")
-def became_marchant(request: HttpRequest):
+def become_merchant(request: HttpRequest):
+    """ Costumer applies for merchant license"""
     # checkboxes = {
     #     "pick_up_enabled": False,
     #     "delivery_enabled": False,
@@ -97,6 +98,6 @@ def became_marchant(request: HttpRequest):
         request.user.groups.add(group)
         return redirect("main_app:home_page")
      
-    return render(request, "users_app/became_merchant.html")
+    return render(request, "users_app/become_merchant.html")
 
 

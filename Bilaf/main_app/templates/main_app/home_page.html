@@ -11,7 +11,8 @@
                     <div class="hero__categories my-5">
                         <div class="hero__categories__all">
                             <i class="fa fa-bars"></i>
-                            <span>Categories</span>
+                            <!-- Cuisines  -->
+                            <span>Cuisines</span>
                         </div>
                         <ul>
                             {% for category in all_store_categories  %}
@@ -23,10 +24,11 @@
                 <div class="col-lg-9 my-5">
                     <div class="hero__search">
                         <div class="hero__search__form">
+                            <!-- Search Form -->
                             <form action="{% url 'main_app:search' %}" name="search" method="GET", role="search">
                                 <div class="hero__search__categories">
                                     <select name="filter" style="outline: none; border: none;">
-                                        <option value="">Categories</option>
+                                        <option value="*">Cuisines</option>
                                         <option value="Saudi-Arabian">Saudi-Arabian</option>
                                         <option value="Syrian">Syrian</option>
                                         <option value="Egyptian">Egyptian</option>
@@ -42,12 +44,13 @@
                         </div>
 
                     </div>
+                    <!-- Hero -->
                     <div class="hero__item set-bg my-5" data-setbg={% static 'img/banner1.jpg' %}>
                         <div class="hero__text">
                             <span>Best Dishes</span>
                             <h2>Tasty <br />100% Local</h2>
                             <p>Pickup and Delivery Available</p>
-                            <a href="{% url 'main_app:store_page' %}" class="primary-btn">SHOP NOW</a>
+                            <a href="{% url 'main_app:stores_pages' %}" class="primary-btn">SHOP NOW</a>
                             <p>"Pickup and Delivery varies per merchant"</p>
                         </div>
                     </div>
@@ -55,19 +58,20 @@
             </div>
         </div>
     </section>
-    <!-- Hero Section End -->
-    <!-- Categories Section Begin -->
+ 
+    <!-- Stores Section Begin -->
     <section class="categories">
         <div class="container">
             <div class="row">
                 <div class="section-title">
+                    <!-- Stores -->
                     <h2>Featured Stores</h2>
                 </div>
                 <div class="categories__slider owl-carousel">
                     {% for store in stores %}
                     <div class="col-lg-3">
                         <div class="categories__item set-bg" style="background-repeat: no-repeat; background-size: cover;background-position: top center;" data-setbg="{{store.logo.url}}">
-                            <h5><a href="{% url 'main_app:store_page' %}">{{store.category}}</a></h5>
+                            <h5><a href="{% url 'main_app:stores_pages' %}">{{store.category}}</a></h5>
                         </div>
                     </div>
                     {% endfor %}
@@ -75,15 +79,15 @@
             </div>
         </div>
     </section>
-    <!-- Categories Section End -->
 
-    <!-- Featured Section Begin -->
+    <!-- Categories Section Begin -->
     <section class="featured spad">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title">
-                        <h2>Cuisines</h2>
+                        <!-- Categories -->
+                        <h2>Categories</h2>
                     </div>
                     <div class="featured__controls">
                         <ul>
@@ -97,6 +101,7 @@
                 </div>
             </div>
             <div class="row featured__filter">
+                <!-- Products -->
                 {% for product in products %}
                 <div class="col-lg-3 col-md-4 col-sm-6 mix {{product.category.name}}">
                     <div class="featured__item">
@@ -115,6 +120,6 @@
             </div>
         </div>
     </section>
-    <!-- Featured Section End -->
-        {% endblock %}
+
+{% endblock %}
 
