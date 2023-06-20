@@ -3,6 +3,7 @@ from django.http import HttpRequest, HttpResponse
 from users_app.models import Store
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User , Permission, Group
+import plotly.express as px
 from .models import Product,Categories,Review,Cart,CartItem
 from django.core.mail import send_mail,EmailMessage
 from dotenv import load_dotenv
@@ -21,10 +22,11 @@ load_dotenv()
 
 # Create your views here.
 def home_page(request: HttpRequest):
-    categories = Categories.objects.all()[:4]
+    categories = Categories.objects.all()
+    all_store_categories = [choice[0] for choice in Store.CHOICES]
     stores = Store.objects.all()
-    products = Product.objects.all()[:4]
-    return render(request, 'main_app/home_page.html', {"categories":categories, "stores":stores, "proudcts":products})
+    products = Product.objects.all()
+    return render(request, 'main_app/home_page.html', {"categories":categories,"all_store_categories":all_store_categories , "stores":stores, "proudcts":products})
 
 def base_page(request: HttpRequest):
     return render(request, "main_app/base.html")
@@ -86,7 +88,7 @@ def search(request: HttpRequest):
 
 
 @login_required(login_url={"/users_app/login/"})
-def add_categories(request: HttpRequest):
+def merchant_adding_categories(request: HttpRequest):
     if not request.user.groups.filter(name="merchant").exists():
         return redirect("users_app:no_permission_page")
 
@@ -113,7 +115,7 @@ def add_categories(request: HttpRequest):
 
 
 @login_required(login_url={"/users_app/login/"})
-def add_product(request: HttpRequest):
+def merchant_adding_products(request: HttpRequest):
     msg = None
     store_object = Store.objects.get(owner = request.user)
     if Categories.objects.filter(store = store_object):
@@ -178,10 +180,10 @@ def product_detail(request: HttpRequest, product_id):
         {"products": products, "warning": warning},
     )
 
-        products = Product.objects.get(id = product_id)
-        categories = Categories.objects.get(name = products.category.name)
-        store = Store.objects.get(store_name = products.store.store_name)
-        return render(request, 'main_app/product_details.html', {'products':products,"categories":categories,"store":store})
+    products = Product.objects.get(id = product_id)
+    categories = Categories.objects.get(name = products.category.name)
+    store = Store.objects.get(store_name = products.store.store_name)
+    return render(request, 'main_app/product_details.html', {'products':products,"categories":categories,"store":store})
    
 def catgory_page(request: HttpRequest):
     categories = Categories.objects.all()
@@ -192,16 +194,26 @@ def store_page(request: HttpRequest):
     Category = Categories.objects.all()
     stores = Store.objects.all()
     return render(request, 'main_app/store_page.html', {'stores': stores})
-     
-def dashboard_view(request:HttpRequest):
-    store = Store.objects.get(owner = request.user)
-    products = Product.objects.filter(store = store)
-    categories = Categories.objects.filter(store = store)
 
+def store_pages_filtered_based_on_category(request: HttpRequest, categories_id):
+    Category = Categories.objects.get(id = categories_id)
+    stores = Store.objects.filter(category = Category)
+    return render(request, 'main_app/store_page.html', {'stores': stores})
+     
+def merchant_dashboard_view(request:HttpRequest):
+    store = Store.objects.get(owner = request.user)
+    products = Product.objects.filter(store = store).all()
+    product_names = []
+    product_quantities = []
+    for product in products:
+        product_names.append(product.name)
+        product_quantities.append(product.quantity)
+    fig = px.bar(x=product_names, y=product_quantities, labels={'x': 'Products', 'y':'Quantities'})
+    graph = fig.to_html(full_html=False, default_height=500, default_width=700)
     return render(
         request,
         "main_app/dashboard.html",
-        {"products": products, "categories": categories},
+        {"products": products, "graph":graph},
     )
 
      

@@ -14,13 +14,9 @@
                             <span>Categories</span>
                         </div>
                         <ul>
-                            <li><a href="#">Saudi-Arabian</a></li>
-                            <li><a href="#">Syrian</a></li>
-                            <li><a href="#">Egyptian</a></li>
-                            <li><a href="#">Indian</a></li>
-                            <li><a href="#">Chinese</a></li>
-                            <li><a href="#">Italian</a></li>
-                            <li><a href="#">Mixed</a></li>
+                            {% for category in all_store_categories  %}
+                            <li><a href="#">{{category}}</a></li>
+                            {% endfor %}
                         </ul>
                     </div>
                 </div>

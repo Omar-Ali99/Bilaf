@@ -1,0 +1,68 @@
+{% extends 'main_app/home_page.html' %}
+{% load static %}
+{% block title %}Search Results{% endblock %}
+
+
+{% block content %}
+ <!-- Hero Section Begin -->
+ <section class="hero">
+    <div class="container col-xxl-8 px-4 py-5 mb-5">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="hero__search" style="padding-left: 25%;">
+                    <div class="hero__search__form">
+                        <form action="{% url 'main_app:search' %}" name="search" method="GET", role="search">
+                            <div class="hero__search__categories">
+                                <select name="filter" style="outline: none; border: none;">
+                                    <option value="">Categories</option>
+                                    <option value="Saudi-Arabian">Saudi-Arabian</option>
+                                    <option value="Syrian">Syrian</option>
+                                    <option value="Egyptian">Egyptian</option>
+                                    <option value="Indian">Indian</option>
+                                    <option value="Chinese">Chinese</option>
+                                    <option value="Italian">Italian</option>
+                                    <option value="Mixed">Mixed</option>
+                                </select>
+                            </div>
+                            <input type="text" name="search" placeholder="Something in mind?">
+                            <button type="submit" class="site-btn">SEARCH</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="row p-5">
+                    {% if stores %}
+                    {% if search_phrase and selected_filter %}
+                    <p>Search results for: {{search_phrase}} , Choosen category: {{selected_filter}}</p>
+                    {% endif %}
+                    {% if search_phrase and not selected_filter %}
+                    <p>Search results for: {{search_phrase}} , Choosen category: None</p>
+                    {% endif %}
+                    {% if not search_phrase and selected_filter %}
+                    <p>Search results for: None , Choosen category: {{selected_filter}}</p>
+                    {% endif %}
+                    {% if not search_phrase and not selected_filter %}
+                    <p>Search results for: None , Choosen category: None</p>
+                    {% endif %}
+                    {% for store in stores %}
+                    <div class="col mb-5 col-2 g-2">         
+                        <div class="card h-100">
+                            <img class="card-img-top" src="{{ store.logo.url }}" alt="..." />
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <h5 class="fw-bolder">{{store.store_name}}</h5>
+                                    <span class="text">{{store.category}}</span>
+                                </div>
+                            </div>
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View More</a></div>
+                        </div>
+                    </div>
+                </div>
+                    {% endfor %}
+                    {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

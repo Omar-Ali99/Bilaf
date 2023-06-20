@@ -5,6 +5,8 @@
 
 {% block content %}
 
+{{ graph|safe }}    
+
 <h2>Products:</h2>
 <ul>
     {% for product in products %}
