@@ -67,7 +67,7 @@
                 <li class="active"><a href="{% url 'main_app:home_page' %}">Home</a></li>
                 <li><a href="{% url 'main_app:store_page'%}">Stores</a></li>
                 {% if request.user.is_authenticated and request.user.is_costumer %}
-                    <li><a href="#">Order Status</a></li>
+                    <li><a href="{% url 'main_app:order_status' %}">Order Status</a></li>
                     <li><a href="#">Profile</a>
                         <ul class="header__menu__dropdown">
                             <li><a href="#">Edit Profile</a></li>
@@ -79,7 +79,7 @@
                     </li>
                 {% endif %}
                 {% if request.user.is_authenticated and request.user.is_merchant %}
-                    <li><a href="#">Order Status</a></li>
+                    <li><a href="{% url 'main_app:order_status' %}">Order Status</a></li>
                     <li><a href="#">Profile</a>
                         <ul class="header__menu__dropdown">
                             <li><a href="#">Store</a></li>
@@ -236,17 +236,16 @@
         </section>
     <!-- Breadcrumb Section End -->
 
-
     {% block content %}
     {% endblock %}
     <!-- Footer Section Begin -->
-    <footer class="footer spad">
+    <footer class="footer spad mt-5">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="footer__about">
                         <div class="footer__about__logo">
-                            <a href=""><img width="100%" height="100rem" src="{% static 'img/logo.png' %}" alt="Bilaf Logo"></a>
+                            <a href="{% url 'main_app:home_page' %}"><img width="100%" height="100rem" src="{% static 'img/logo.png' %}" alt="Bilaf Logo"></a>
                         </div>
                         <ul>
                             <li>Address: Riyadh, Saudi Arabia</li>

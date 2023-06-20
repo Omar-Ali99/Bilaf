@@ -2,12 +2,11 @@ from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
 from users_app.models import Store
 from django.contrib.auth.decorators import login_required
-from .models import Product,Categories,Review,Cart
+from .models import Product,Categories,Review,Cart,CartItem
 from django.contrib.auth.models import User , Permission, Group
 import io
 import urllib
 import base64
-
 
 # Create your views here.
 def home_page(request: HttpRequest):
@@ -38,12 +37,14 @@ def about_us(request: HttpRequest):
     return render(request, "main_app/about_us.html")
 
 
+
 def about_project(request: HttpRequest):
     return render(request, "main_app/about_project.html")
 
 
 def pick_delv_policies(request: HttpRequest):
     return render(request, "main_app/pickup_delivery_policy.html")
+
 
 
 def search(request: HttpRequest):
@@ -144,10 +145,11 @@ def add_product(request: HttpRequest):
         return redirect("main_app:add_categories")
 
 
-
 def product_page(request: HttpRequest):
     products = Product.objects.all()
     return render(request, "main_app/product_page.html", {"products": products})
+
+
 
 
 def product_detail(request: HttpRequest, product_id):
@@ -163,17 +165,6 @@ def store_page(request: HttpRequest):
     Category = Categories.objects.all()
     stores = Store.objects.all()
     return render(request, 'main_app/store_page.html', {'stores': stores})
-def dashboard_view(request:HttpRequest):
-    store = Store.objects.get(owner = request.user)
-    products = Product.objects.filter(store = store)
-    categories = Categories.objects.filter(store = store)
-
-    return render(
-        request,
-        "main_app/dashboard.html",
-        {"products": products, "categories": categories},
-    )
-
      
 def dashboard_view(request:HttpRequest):
     store = Store.objects.get(owner = request.user)
@@ -195,12 +186,14 @@ def user_adding_review(request:HttpRequest, product_id):
                 pass
 
 
+@login_required(login_url={"/users_app/login/"})
 def delete_product(request:HttpRequest, product_id):
 
     products = Product.objects.get(id = product_id)
     products.delete()
-    return redirect("main_app:product_page")    
-
+    return redirect("main_app:product_page") 
+   
+@login_required(login_url={"/users_app/login/"})
 def update_product(request:HttpRequest, product_id):
 
     products = Product.objects.get(id=product_id)
@@ -219,13 +212,15 @@ def update_product(request:HttpRequest, product_id):
 
     return render(request, 'main_app/update_product.html', {"products" : products})  
 
-
+@login_required(login_url={"/users_app/login/"})
 def delete_catgory(request:HttpRequest, categories_id):
 
     categories = Categories.objects.get(id =categories_id)
     categories.delete()
     return redirect("main_app:catgory_page")   
 
+
+@login_required(login_url={"/users_app/login/"})
 def update_catgory(request:HttpRequest, categories_id):
 
     categories = Categories.objects.get(id=categories_id)
@@ -241,3 +236,52 @@ def update_catgory(request:HttpRequest, categories_id):
     return render(request, 'main_app/update_catgory.html', {'categories': categories})
 
 
+@login_required(login_url={"/users_app/login/"})
+def add_to_cart(request: HttpRequest):
+    if request.method != "POST":
+        return redirect("users_app:no_permission_page")
+
+    product_object = Product.objects.get(id=request.POST["product_id"])
+    product_store = product_object.store
+    customer_cart = Cart.objects.get(customer=request.user)
+    quantity = int(request.POST["quantity"])
+    user = request.user
+
+    if customer_cart is not None:
+        if customer_cart.store == product_store:
+            create_cart_item(quantity, product_object, customer_cart)
+        else:
+            customer_cart.delete()
+            customer_cart = create_new_cart(user, product_store)
+            create_cart_item(quantity, product_object, customer_cart)
+    else:
+        new_cart = create_new_cart(user, product_store)
+        create_cart_item(quantity, product_object, new_cart)
+
+    return redirect("main_app:cart")
+
+
+def create_new_cart(user: User, product_store: Store):
+    new_cart = Cart(
+        store=product_store,
+        customer=user,
+        status="Pending",
+    )
+    new_cart.save()
+
+    return new_cart
+
+
+def create_cart_item(quantity: int, product_object: Product, customer_cart: Cart):
+    cart_item = CartItem(
+        cart=customer_cart,
+        product=product_object,
+        quantity=quantity,
+    )
+    cart_item.save()
+
+def order_status(request: HttpRequest):
+    return render(request, "main_app/order_status.html")
+
+def view_order(request: HttpRequest):
+        return render(request, "main_app/view_order.html")
