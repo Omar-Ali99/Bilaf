@@ -27,7 +27,8 @@
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="product__details__text">
-                        <h3>{{products.name}}</h3>
+                        <h2>Store: <a href="{% url 'main_app:store_page' %}">{{store.store_name}}</a></h2>
+                        <h3>{{categories.name}}: {{products.name}}</h3>
                         <div class="product__details__rating">
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
@@ -36,9 +37,9 @@
                             <i class="fa fa-star-half-o"></i>
                             <span>(18 reviews)</span>
                         </div>
-                        <div class="product__details__price">{{products.price}}</div>
+                        <div class="product__details__price">{{products.price}}$</div>
                         <p>{{products.description}}</p>
-                        <form action="{% url 'main_app:add_to_cart' %}" method="POST" enctype="multipart/form-data">
+                        <form id="myForm" action="{% url 'main_app:add_to_cart' %}" method="POST" enctype="multipart/form-data">
                             {% csrf_token %}
                         <div class="product__details__quantity">
                             <div class="quantity">
@@ -48,7 +49,7 @@
                             </div>
                         </div>
                         <input type="hidden" name="product_id" value="{{products.id}}">
-                        <button type="submit" class="primary-btn">ADD TO CARD</button>
+                        <button type="submit" {% if warning %}onclick="showConfirmation(event)"{% endif %} class="primary-btn">ADD TO CART</button>
                         <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
                         <ul>
                             <li><b>Availability</b> <span>In Stock</span></li>
@@ -113,5 +114,24 @@
         </div>
     </section>
     <!-- Product Details Section End -->
-
+{% endblock %}
+{% block 'script' %}
+<form id="myForm" action="cart/" method="post">
+    <!-- Add your form fields here -->
+    
+    <button onclick="showConfirmation(event)">Submit</button>
+  </form>
+  
+  <script>
+  function showConfirmation(event) {
+    event.preventDefault(); // Prevent the default form submission
+    
+    var result = confirm("You can't have a cart for 2 store, if you proceed, your previous cart will be deleted and a new will be created!");
+    if (result) {
+      // User clicked "OK" on the confirmation dialog
+      document.getElementById("myForm").submit(); // Submit the form
+    } 
+  }
+  </script>
+  
 {% endblock %}

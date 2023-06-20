@@ -3,8 +3,6 @@ from django.http import HttpRequest, HttpResponse
 from users_app.models import Store
 from django.contrib.auth.decorators import login_required
 from .models import Product,Categories,Review,Cart,CartItem
-from django.contrib.auth.models import User , Permission, Group   
-from .models import Product,Categories,Review,Cart,CartItem
 from django.contrib.auth.models import User , Permission, Group
 
 
@@ -14,13 +12,10 @@ from django.contrib.auth.models import User , Permission, Group
 # import matplotlib.pyplot as plt
 
 
-
 # Create your views here.
 def home_page(request: HttpRequest):
-    categories = Categories.objects.all()
-    stores = Store.objects.all()
-    products = Product.objects.all()
-    return render(request, 'main_app/home_page.html', {"categories":categories, "stores":stores, "proudcts":products})
+    return render(request, "main_app/home_page.html")
+
 
 def base_page(request: HttpRequest):
     return render(request, "main_app/base.html")
@@ -48,7 +43,6 @@ def about_us(request: HttpRequest):
     return render(request, "main_app/about_us.html")
 
 
-
 def about_project(request: HttpRequest):
     return render(request, "main_app/about_project.html")
 
@@ -57,27 +51,29 @@ def pick_delv_policies(request: HttpRequest):
     return render(request, "main_app/pickup_delivery_policy.html")
 
 
-
 def search(request: HttpRequest):
     search_phrase = request.GET.get("search", "")
-    selected_filter = request.GET.get('filter')
-    filtered_data = Store.objects.all()
+    store = Store.objects.filter(
+        store_name__icontains=search_phrase
+    ) or Store.objects.filter(category__icontains=search_phrase)
+
+    selected_filter = request.GET.get(
+        "filter"
+    )  # Get the selected filter value from the request
+    filtered_data = Store.objects.all()  # Fetch all data initially
 
     if selected_filter:
-        filtered_data = filtered_data.filter(category=selected_filter)
-
-    stores = Store.objects.filter(store_name__icontains=search_phrase)
-
-    if selected_filter:
-        stores = stores.filter(category=selected_filter)
+        filtered_data = filtered_data.filter(
+            category=selected_filter
+        )  # Apply filter based on selected value
 
     context = {
-        'filtered_data': filtered_data,
-        'selected_filter': selected_filter,
-        'stores': stores,
+        "filtered_data": filtered_data,
+        "selected_filter": selected_filter,
+        "store": store,
     }
 
-    return render(request, 'main_app/search.html', context)
+    return render(request, "main_app/search.html", context)
 
 
 @login_required(login_url={"/users_app/login/"})
@@ -106,13 +102,13 @@ def add_categories(request: HttpRequest):
     return render(request, "main_app/add_categories.html", {"msg": msg})
 
 
-
 @login_required(login_url={"/users_app/login/"})
 def add_product(request: HttpRequest):
     msg = None
-    store_object = Store.objects.get(owner = request.user)
-    if Categories.objects.filter(store = store_object):
-        if request.user.groups.filter(name='merchant').exists():
+    if Categories.objects.get():  # 1
+        if request.user.groups.filter(name="merchant").exists():
+            store_object = Store.objects.get(owner=request.user)
+            categories_object = Categories.objects.filter(store=store_object)
             if request.method == "POST":
                 image_instance = None
                 if "image" in request.FILES:
@@ -132,14 +128,20 @@ def add_product(request: HttpRequest):
 
                 try:
                     new_product.save()
-                    msg = "Product added successfully"
+                    msg = "Category added successfully"
                 except Exception as e:
                     print(e)
 
-                return render(request,"main_app/add_product.html",{"categories": category_instance, "msg": msg},
+                return render(
+                    request,
+                    "main_app/add_product.html",
+                    {"categories": categories_object, "msg": msg},
                 )
             else:
-                return render(request,"main_app/add_product.html",{"categories": category_instance},
+                return render(
+                    request,
+                    "main_app/add_product.html",
+                    {"categories": categories_object},
                 )
         else:
             return redirect("users_app:no_permission_page")
@@ -153,10 +155,7 @@ def product_page(request: HttpRequest):
     return render(request, "main_app/product_page.html", {"products": products})
 
 
-
-
 def product_detail(request: HttpRequest, product_id):
-
     products = Product.objects.get(id=product_id)
     product_store = products.store
     customer_cart = Cart.objects.filter(customer=request.user, status="Pending")
@@ -172,11 +171,6 @@ def product_detail(request: HttpRequest, product_id):
         {"products": products, "warning": warning},
     )
 
-        products = Product.objects.get(id = product_id)
-        categories = Categories.objects.get(name = products.category.name)
-        store = Store.objects.get(store_name = products.store.store_name)
-        return render(request, 'main_app/product_details.html', {'products':products,"categories":categories,"store":store})
-   
 def catgory_page(request: HttpRequest):
     categories = Categories.objects.all()
     return render(request, "main_app/catgory_page.html", {"categories": categories})
@@ -185,12 +179,13 @@ def catgory_page(request: HttpRequest):
 def store_page(request: HttpRequest):
     Category = Categories.objects.all()
     stores = Store.objects.all()
-    return render(request, 'main_app/store_page.html', {'stores': stores})
-     
-def dashboard_view(request:HttpRequest):
-    store = Store.objects.get(owner = request.user)
-    products = Product.objects.filter(store = store)
-    categories = Categories.objects.filter(store = store)
+    return render(request, "main_app/store_page.html", {"stores": stores})
+
+
+def dashboard_view(request: HttpRequest):
+    store = Store.objects.get(owner=request.user)
+    products = Product.objects.filter(store=store)
+    categories = Categories.objects.filter(store=store)
 
     return render(
         request,
@@ -199,6 +194,13 @@ def dashboard_view(request:HttpRequest):
     )
 
      
+def dashboard_view(request:HttpRequest):
+    store = Store.objects.get(owner = request.user)
+    products = Product.objects.filter(store = store)
+    categories = Categories.objects.filter(store = store)
+
+    return render(request, 'main_app/dashboard.html', {"products":products, "categories":categories})
+
      
 @login_required(login_url={"/users_app/login/"}) 
 def user_adding_review(request:HttpRequest, product_id):
@@ -212,14 +214,12 @@ def user_adding_review(request:HttpRequest, product_id):
                 pass
 
 
-@login_required(login_url={"/users_app/login/"})
 def delete_product(request:HttpRequest, product_id):
 
     products = Product.objects.get(id = product_id)
     products.delete()
-    return redirect("main_app:product_page") 
-   
-@login_required(login_url={"/users_app/login/"})
+    return redirect("main_app:product_page")    
+
 def update_product(request:HttpRequest, product_id):
 
     products = Product.objects.get(id=product_id)
@@ -238,15 +238,13 @@ def update_product(request:HttpRequest, product_id):
 
     return render(request, 'main_app/update_product.html', {"products" : products})  
 
-@login_required(login_url={"/users_app/login/"})
+
 def delete_catgory(request:HttpRequest, categories_id):
 
     categories = Categories.objects.get(id =categories_id)
     categories.delete()
     return redirect("main_app:catgory_page")   
 
-
-@login_required(login_url={"/users_app/login/"})
 def update_catgory(request:HttpRequest, categories_id):
 
     categories = Categories.objects.get(id=categories_id)
@@ -260,6 +258,30 @@ def update_catgory(request:HttpRequest, categories_id):
         return redirect("main_app:product_detail", categories_id=categories.id)
 
     return render(request, 'main_app/update_catgory.html', {'categories': categories})
+
+     
+#@login_required(login_url={"/users_app/login/"}) 
+# def user_adding_review(request:HttpRequest, product_id):
+#     if request.user.groups.filter(name='costumer').exists():
+#         if request.method == "POST":
+#             user_instance = request.user
+#             order_status = Cart.objects.filter(customer = user_instance, status = 'Done' )
+#             if order_status:
+#                 product_object = Product.objects.get(id = product_id)
+#                 comment = request.POST["comment"]
+#                 rating = request.POST["rating"]
+#                 new_review = Review(
+#                     product = product_object,
+#                     user = user_instance,
+#                     comment = comment,
+#                     rating = rating
+#                 )
+#                 new_review.save()
+#                 return render(request, 'main_app/dashboard.html', {"product_id":product_id})
+#             else:
+#                  print(f"You can't add a review cause your status is: {order_status}")
+#     else:
+#         return redirect("users_app:no_permission_page")
 
 
 @login_required(login_url={"/users_app/login/"})
@@ -309,9 +331,3 @@ def create_cart_item(quantity: int, product_object: Product, customer_cart: Cart
         quantity=quantity,
     )
     cart_item.save()
-
-def order_status(request: HttpRequest):
-    return render(request, "main_app/order_status.html")
-
-def view_order(request: HttpRequest):
-        return render(request, "main_app/view_order.html")

@@ -4,36 +4,84 @@
 
 
 {% block content %}
-<div class="hero__search__form">
-    <form action="{% url 'main_app:search' %}" name="search" method="GET", role="search">
-        <div class="hero__search__categories">
-            <select name="filter" style="outline: none; border: none;">
-                <option value="">Categories</option>
-                <option value="Saudi-Arabian">Saudi-Arabian</option>
-                <option value="Syrian">Syrian</option>
-                <option value="Egyptian">Egyptian</option>
-                <option value="Indian">Indian</option>
-                <option value="Chinese">Chinese</option>
-                <option value="Italian">Italian</option>
-                <option value="Mixed">Mixed</option>
-            </select>
+ <!-- Hero Section Begin -->
+ <section class="hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="hero__categories">
+                    <div class="hero__categories__all">
+                        <i class="fa fa-bars"></i>
+                        <span>Categories</span>
+                    </div>
+                    <ul>
+                        <li><a href="#">Saudi-Arabian</a></li>
+                        <li><a href="#">Syrian</a></li>
+                        <li><a href="#">Egyptian</a></li>
+                        <li><a href="#">Indian</a></li>
+                        <li><a href="#">Chinese</a></li>
+                        <li><a href="#">Italian</a></li>
+                        <li><a href="#">Mixed</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="hero__search">
+                    <div class="hero__search__form">
+                        <form action="{% url 'main_app:search' %}" name="search" method="GET", role="search">
+                            <div class="hero__search__categories">
+                                <select name="filter" style="outline: none; border: none;">
+                                    <option value="">Categories</option>
+                                    <option value="Saudi-Arabian">Saudi-Arabian</option>
+                                    <option value="Syrian">Syrian</option>
+                                    <option value="Egyptian">Egyptian</option>
+                                    <option value="Indian">Indian</option>
+                                    <option value="Chinese">Chinese</option>
+                                    <option value="Italian">Italian</option>
+                                    <option value="Mixed">Mixed</option>
+                                </select>
+                            </div>
+                            <input type="text" name="search" placeholder="Something in mind?">
+                            <button type="submit" class="site-btn">SEARCH</button>
+                        </form>
+                    </div>
+                    <div class="hero__search__phone">
+                        <div class="hero__search__phone__icon">
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <div class="hero__search__phone__text">
+                            <h5>+966 999 999 999</h5>
+                            <span>For Support</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="container col-xxl-8 px-4 py-5 mb-5">
+                    <div class="d-flex flex-column">
+                        <div class="row">
+                            {% if stores %}
+                                {% for store in stores %}
+                                    <div class="col-4 g-5">
+                                        <div class="card" style="width: 18rem;">
+                                            <img src="{{store.logo.url}}" class="card-img-top">
+                                            <div class="card-body">
+                                                <h5 class="card-title">{{store.store_name}}</h5>
+                                                <p class="card-text">{{store.category}}</p>
+                                            </div>
+                                            <a href="#" class="btn btn-primary">View More</a>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <P>No Results For: {{request.get.search}}</P>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <input type="text" placeholder="Something in mind?">
-        <button type="submit" class="site-btn">SEARCH</button>
-    </form>
-</div>
+    </div>
+</section>
 
-<br>
 
-{% if filtered_data %}
-    <h2>Filtered Data:</h2>
-    <ul>
-        {% for item in filtered_data %}
-            <li>{{ item.store_name }}</li>  <!-- Assuming field_name is a field in YourModel -->
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>No data available.</p>
-{% endif %}
 
 {% endblock %}
