@@ -113,6 +113,7 @@ def add_product(request: HttpRequest):
     store_object = Store.objects.get(owner = request.user)
     if Categories.objects.filter(store = store_object):
         if request.user.groups.filter(name='merchant').exists():
+            categories_object = Categories.objects.filter(store=store_object)
             if request.method == "POST":
                 image_instance = None
                 if "image" in request.FILES:
@@ -136,10 +137,10 @@ def add_product(request: HttpRequest):
                 except Exception as e:
                     print(e)
 
-                return render(request,"main_app/add_product.html",{"categories": category_instance, "msg": msg},
+                return render(request,"main_app/add_product.html",{"categories": categories_object, "msg": msg},
                 )
             else:
-                return render(request,"main_app/add_product.html",{"categories": category_instance},
+                return render(request,"main_app/add_product.html",{"categories": categories_object},
                 )
         else:
             return redirect("users_app:no_permission_page")
@@ -148,7 +149,8 @@ def add_product(request: HttpRequest):
 
 
 def product_page(request: HttpRequest):
-    products = Product.objects.all()
+    product_store = Store.objects.filter(owner= request.user)
+    products = Product.objects.filter(store__in=product_store)
     return render(request, "main_app/product_page.html", {"products": products})
 
 
@@ -156,7 +158,7 @@ def product_page(request: HttpRequest):
 
 def product_detail(request: HttpRequest, product_id):
         products = Product.objects.get(id = product_id)
-        categories = Categories.objects.get(name = products.category.name)
+        categories = Categories.objects.filter(name = products.category.name)
         store = Store.objects.get(store_name = products.store.store_name)
         return render(request, 'main_app/product_details.html', {'products':products,"categories":categories,"store":store})
     
@@ -164,10 +166,13 @@ def catgory_page(request: HttpRequest):
     categories = Categories.objects.all()
     return render(request, 'main_app/catgory_page.html', {'categories': categories})
 
-def store_page(request: HttpRequest):
+def merchent_store_page(request: HttpRequest):
     Category = Categories.objects.all()
     stores = Store.objects.all()
     return render(request, 'main_app/store_page.html', {'stores': stores})
+
+
+
      
 def dashboard_view(request:HttpRequest):
     store = Store.objects.get(owner = request.user)
