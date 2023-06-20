@@ -27,7 +27,8 @@
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="product__details__text">
-                        <h3>{{products.name}}</h3>
+                        <h2>Store: <a href="{% url 'main_app:store_page' %}">{{store.store_name}}</a></h2>
+                        <h3>{{categories.name}}: {{products.name}}</h3>
                         <div class="product__details__rating">
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
@@ -36,7 +37,7 @@
                             <i class="fa fa-star-half-o"></i>
                             <span>(18 reviews)</span>
                         </div>
-                        <div class="product__details__price">{{products.price}}</div>
+                        <div class="product__details__price">{{products.price}}$</div>
                         <p>{{products.description}}</p>
                         <div class="product__details__quantity">
                             <div class="quantity">
@@ -45,7 +46,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#" class="primary-btn">ADD TO CARD</a>
+                        <a href="#" class="primary-btn">ADD TO CART</a>
                         <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
                         <ul>
                             <li><b>Availability</b> <span>In Stock</span></li>
