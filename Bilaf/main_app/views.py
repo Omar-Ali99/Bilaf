@@ -110,9 +110,7 @@ def add_categories(request: HttpRequest):
 @login_required(login_url={"/users_app/login/"})
 def add_product(request: HttpRequest):
     msg = None
-    if Categories.objects.get():
     store_object = Store.objects.get(owner = request.user)
-
     if Categories.objects.filter(store = store_object):
         if request.user.groups.filter(name='merchant').exists():
             if request.method == "POST":
@@ -138,16 +136,10 @@ def add_product(request: HttpRequest):
                 except Exception as e:
                     print(e)
 
-                return render(
-                    request,
-                    "main_app/add_product.html",
-                    {"categories": categories_object, "msg": msg},
+                return render(request,"main_app/add_product.html",{"categories": category_instance, "msg": msg},
                 )
             else:
-                return render(
-                    request,
-                    "main_app/add_product.html",
-                    {"categories": categories_object},
+                return render(request,"main_app/add_product.html",{"categories": category_instance},
                 )
         else:
             return redirect("users_app:no_permission_page")
@@ -164,12 +156,10 @@ def product_page(request: HttpRequest):
 
 def product_detail(request: HttpRequest, product_id):
         products = Product.objects.get(id = product_id)
-        return render(request, 'main_app/product_details.html', {'products':products})
         categories = Categories.objects.get(name = products.category.name)
         store = Store.objects.get(store_name = products.store.store_name)
         return render(request, 'main_app/product_details.html', {'products':products,"categories":categories,"store":store})
-    return render(request, "main_app/product_details.html", {"products": products})
-
+    
 def catgory_page(request: HttpRequest):
     categories = Categories.objects.all()
     return render(request, 'main_app/catgory_page.html', {'categories': categories})
