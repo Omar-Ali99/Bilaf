@@ -2,23 +2,12 @@ from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
 from users_app.models import Store
 from django.contrib.auth.decorators import login_required
-<<<<<<< HEAD
 from .models import Product,Categories,Review,Cart
 from django.contrib.auth.models import User , Permission, Group
 import io
 import urllib
 import base64
-=======
-from .models import Product,Categories,Review,Cart,CartItem
-from django.contrib.auth.models import User , Permission, Group
 
-
-# import io
-# import urllib
-# import base64
-# import matplotlib.pyplot as plt
-
->>>>>>> c744d1f3491dab27b3adad4f50c4c48b9f70de85
 
 # Create your views here.
 def home_page(request: HttpRequest):
@@ -60,7 +49,7 @@ def pick_delv_policies(request: HttpRequest):
 def search(request: HttpRequest):
     search_phrase = request.GET.get("search", "")
     store = Store.objects.filter(
-        store_name__icontains=search_phrase
+        store_name__icontains = search_phrase
     ) or Store.objects.filter(category__icontains=search_phrase)
 
     selected_filter = request.GET.get(
@@ -186,7 +175,6 @@ def dashboard_view(request:HttpRequest):
     )
 
      
-<<<<<<< HEAD
 def dashboard_view(request:HttpRequest):
     store = Store.objects.get(owner = request.user)
     products = Product.objects.filter(store = store)
@@ -252,73 +240,4 @@ def update_catgory(request:HttpRequest, categories_id):
 
     return render(request, 'main_app/update_catgory.html', {'categories': categories})
 
-=======
-     
-#@login_required(login_url={"/users_app/login/"}) 
-# def user_adding_review(request:HttpRequest, product_id):
-#     if request.user.groups.filter(name='costumer').exists():
-#         if request.method == "POST":
-#             user_instance = request.user
-#             order_status = Cart.objects.filter(customer = user_instance, status = 'Done' )
-#             if order_status: 
-#                 product_object = Product.objects.get(id = product_id)
-#                 comment = request.POST["comment"]
-#                 rating = request.POST["rating"]
-#                 new_review = Review(
-#                     product = product_object,
-#                     user = user_instance,
-#                     comment = comment,
-#                     rating = rating
-#                 )
-#                 new_review.save()
-#                 return render(request, 'main_app/dashboard.html', {"product_id":product_id})
-#             else:
-#                  print(f"You can't add a review cause your status is: {order_status}")
-#     else:
-#         return redirect("users_app:no_permission_page")
 
-
-@login_required(login_url={"/users_app/login/"})
-def add_to_cart(request: HttpRequest):
-    if request.method != "POST":
-        return redirect("users_app:no_permission_page")
-
-    product_object = Product.objects.get(id=request.POST["product_id"])
-    product_store = product_object.store
-    customer_cart = Cart.objects.get(customer=request.user)
-    quantity = int(request.POST["quantity"])
-    user = request.user
-
-    if customer_cart is not None:
-        if customer_cart.store == product_store:
-            create_cart_item(quantity, product_object, customer_cart)
-        else:
-            customer_cart.delete()
-            customer_cart = create_new_cart(user, product_store)
-            create_cart_item(quantity, product_object, customer_cart)
-    else:
-        new_cart = create_new_cart(user, product_store)
-        create_cart_item(quantity, product_object, new_cart)
-
-    return redirect("main_app:cart")
-
-
-def create_new_cart(user: User, product_store: Store):
-    new_cart = Cart(
-        store=product_store,
-        customer=user,
-        status="Pending",
-    )
-    new_cart.save()
-
-    return new_cart
-
-
-def create_cart_item(quantity: int, product_object: Product, customer_cart: Cart):
-    cart_item = CartItem(
-        cart=customer_cart,
-        product=product_object,
-        quantity=quantity,
-    )
-    cart_item.save()
->>>>>>> c744d1f3491dab27b3adad4f50c4c48b9f70de85
