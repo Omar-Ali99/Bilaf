@@ -8,7 +8,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-3">
-                    <div class="hero__categories">
+                    <div class="hero__categories my-5">
                         <div class="hero__categories__all">
                             <i class="fa fa-bars"></i>
                             <span>Categories</span>
@@ -24,7 +24,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-9">
+                <div class="col-lg-9 my-5">
                     <div class="hero__search">
                         <div class="hero__search__form">
                             <form action="{% url 'main_app:search' %}" name="search" method="GET", role="search">
@@ -54,7 +54,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="hero__item set-bg" data-setbg={% static 'img/hero/banner.jpg' %}>
+                    <div class="hero__item set-bg my-5" data-setbg={% static 'img/hero/banner.jpg' %}>
                         <div class="hero__text">
                             <span>Best Dishes</span>
                             <h2>Tasty <br />100% Local</h2>
@@ -128,6 +128,5 @@
         </div>
     </section>
     <!-- Featured Section End -->
- 
         {% endblock %}
 
