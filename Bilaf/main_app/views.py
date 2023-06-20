@@ -157,7 +157,8 @@ def merchant_adding_products(request: HttpRequest):
 
 
 def product_page(request: HttpRequest):
-    products = Product.objects.all()
+    product_store = Store.objects.filter(owner= request.user)
+    products = Product.objects.filter(store__in=product_store)
     return render(request, "main_app/product_page.html", {"products": products})
 
 
@@ -185,21 +186,23 @@ def product_detail(request: HttpRequest, product_id):
     store = Store.objects.get(store_name = products.store.store_name)
     return render(request, 'main_app/product_details.html', {'products':products,"categories":categories,"store":store})
    
+
 def catgory_page(request: HttpRequest):
     categories = Categories.objects.all()
     return render(request, "main_app/catgory_page.html", {"categories": categories})
 
 
-def store_page(request: HttpRequest):
+def merchent_store_page(request: HttpRequest):
     Category = Categories.objects.all()
     stores = Store.objects.all()
     return render(request, 'main_app/store_page.html', {'stores': stores})
+
 
 def store_pages_filtered_based_on_category(request: HttpRequest, categories_id):
     Category = Categories.objects.get(id = categories_id)
     stores = Store.objects.filter(category = Category)
     return render(request, 'main_app/store_page.html', {'stores': stores})
-     
+
 def merchant_dashboard_view(request:HttpRequest):
     store = Store.objects.get(owner = request.user)
     products = Product.objects.filter(store = store).all()
