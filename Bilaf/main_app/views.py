@@ -2,13 +2,14 @@ from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
 from users_app.models import Store
 from django.contrib.auth.decorators import login_required
-from .models import Product,Categories,Review,Cart
 from django.contrib.auth.models import User , Permission, Group
-import io
-import urllib
-import base64
 from .models import Product,Categories,Review,Cart,CartItem
-from django.contrib.auth.models import User , Permission, Group
+from django.core.mail import send_mail,EmailMessage
+from dotenv import load_dotenv
+import os
+
+load_dotenv()  
+
 
 
 # import io
@@ -19,9 +20,9 @@ from django.contrib.auth.models import User , Permission, Group
 
 # Create your views here.
 def home_page(request: HttpRequest):
-    categories = Categories.objects.all()
+    categories = Categories.objects.all()[:4]
     stores = Store.objects.all()
-    products = Product.objects.all()
+    products = Product.objects.all()[:4]
     return render(request, 'main_app/home_page.html', {"categories":categories, "stores":stores, "proudcts":products})
 
 def base_page(request: HttpRequest):
@@ -75,6 +76,7 @@ def search(request: HttpRequest):
         'filtered_data': filtered_data,
         'selected_filter': selected_filter,
         'stores': stores,
+        'search_phrase':search_phrase,
     }
 
     return render(request, 'main_app/search.html', context)
@@ -113,6 +115,7 @@ def add_product(request: HttpRequest):
     store_object = Store.objects.get(owner = request.user)
     if Categories.objects.filter(store = store_object):
         if request.user.groups.filter(name='merchant').exists():
+            categories_object = Categories.objects.filter(store=store_object)
             if request.method == "POST":
                 image_instance = None
                 if "image" in request.FILES:
@@ -136,10 +139,10 @@ def add_product(request: HttpRequest):
                 except Exception as e:
                     print(e)
 
-                return render(request,"main_app/add_product.html",{"categories": category_instance, "msg": msg},
+                return render(request,"main_app/add_product.html",{"categories": categories_object, "msg": msg, "category_instance":category_instance},
                 )
             else:
-                return render(request,"main_app/add_product.html",{"categories": category_instance},
+                return render(request,"main_app/add_product.html",{"categories": categories_object},
                 )
         else:
             return redirect("users_app:no_permission_page")
@@ -287,4 +290,25 @@ def order_status(request: HttpRequest):
     return render(request, "main_app/order_status.html")
 
 def view_order(request: HttpRequest):
-        return render(request, "main_app/view_order.html")
+    return render(request, "main_app/view_order.html")
+
+def send_email(receiver:str, subject:str, message:str):
+    function_subject = subject
+    function_message = message
+    function_mail_receiver = receiver
+    from_email = os.getenv("DEFAULT_FROM_EMAIL")
+    recipient_list = [function_mail_receiver]
+    email = EmailMessage(
+        function_subject,
+        function_message,
+        from_email,
+        recipient_list,
+        reply_to=[from_email],
+    )
+    try:
+        email.send()
+        return True
+    except Exception:
+        return False
+
+#send_email('omar.ali99@live.com', 'Order Confirmation', 'Thank you for your order!')

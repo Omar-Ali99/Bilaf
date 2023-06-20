@@ -74,3 +74,4 @@ class Review(models.Model):
 
     def __str__(self) -> str:
         return f"{self.id}: {self.rating} on {self.product}"
+

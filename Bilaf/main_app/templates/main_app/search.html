@@ -6,27 +6,10 @@
 {% block content %}
  <!-- Hero Section Begin -->
  <section class="hero">
-    <div class="container">
+    <div class="container col-xxl-8 px-4 py-5 mb-5">
         <div class="row">
-            <div class="col-lg-3">
-                <div class="hero__categories">
-                    <div class="hero__categories__all">
-                        <i class="fa fa-bars"></i>
-                        <span>Categories</span>
-                    </div>
-                    <ul>
-                        <li><a href="#">Saudi-Arabian</a></li>
-                        <li><a href="#">Syrian</a></li>
-                        <li><a href="#">Egyptian</a></li>
-                        <li><a href="#">Indian</a></li>
-                        <li><a href="#">Chinese</a></li>
-                        <li><a href="#">Italian</a></li>
-                        <li><a href="#">Mixed</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-9">
-                <div class="hero__search">
+            <div class="col-lg-12">
+                <div class="hero__search" style="padding-left: 25%;">
                     <div class="hero__search__form">
                         <form action="{% url 'main_app:search' %}" name="search" method="GET", role="search">
                             <div class="hero__search__categories">
@@ -45,43 +28,41 @@
                             <button type="submit" class="site-btn">SEARCH</button>
                         </form>
                     </div>
-                    <div class="hero__search__phone">
-                        <div class="hero__search__phone__icon">
-                            <i class="fa fa-user"></i>
-                        </div>
-                        <div class="hero__search__phone__text">
-                            <h5>+966 999 999 999</h5>
-                            <span>For Support</span>
+                </div>
+                <div class="row p-5">
+                    {% if stores %}
+                    {% if search_phrase and selected_filter %}
+                    <p>Search results for: {{search_phrase}} , Choosen category: {{selected_filter}}</p>
+                    {% endif %}
+                    {% if search_phrase and not selected_filter %}
+                    <p>Search results for: {{search_phrase}} , Choosen category: None</p>
+                    {% endif %}
+                    {% if not search_phrase and selected_filter %}
+                    <p>Search results for: None , Choosen category: {{selected_filter}}</p>
+                    {% endif %}
+                    {% if not search_phrase and not selected_filter %}
+                    <p>Search results for: None , Choosen category: None</p>
+                    {% endif %}
+                    {% for store in stores %}
+                    <div class="col mb-5 col-2 g-2">         
+                        <div class="card h-100">
+                            <img class="card-img-top" src="{{ store.logo.url }}" alt="..." />
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <h5 class="fw-bolder">{{store.store_name}}</h5>
+                                    <span class="text">{{store.category}}</span>
+                                </div>
+                            </div>
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View More</a></div>
                         </div>
                     </div>
                 </div>
-                <div class="container col-xxl-8 px-4 py-5 mb-5">
-                    <div class="d-flex flex-column">
-                        <div class="row">
-                            {% if stores %}
-                                {% for store in stores %}
-                                    <div class="col-4 g-5">
-                                        <div class="card" style="width: 18rem;">
-                                            <img src="{{store.logo.url}}" class="card-img-top">
-                                            <div class="card-body">
-                                                <h5 class="card-title">{{store.store_name}}</h5>
-                                                <p class="card-text">{{store.category}}</p>
-                                            </div>
-                                            <a href="#" class="btn btn-primary">View More</a>
-                                        </div>
-                                    </div>
-                                {% endfor %}
-                            {% else %}
-                                <P>No Results For: {{request.get.search}}</P>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
+                    {% endfor %}
+                    {% endif %}
             </div>
         </div>
     </div>
 </section>
-
-
 
 {% endblock %}

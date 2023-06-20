@@ -27,6 +27,7 @@ urlpatterns = [
     path("store/", views.store_page, name="store_page"),
     path('merchant/dashboard/', views.dashboard_view, name='dashboard'),
     path("order_status/", views.order_status, name="order_status"),
+    path('add_to_cart', views.add_to_cart, name="add_to_cart")
 
 
 ]
