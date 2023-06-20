@@ -35,10 +35,10 @@
         </div>
         <div class="humberger__menu__cart">
             <ul>
-                <li><a href="#"><i class="fa fa-heart"></i>""<span>""</span>""</a></li>
-                <li><a href="#"><i class="fa fa-shopping-bag">""</i>""<span>""</span></a></li>
+                <li><a href="#"><i class="fa fa-heart"></i><span></span></a></li>
+                <li><a href="#"><i class="fa fa-shopping-bag"></i><span></span></a></li>
             </ul>
-            <div class="header__cart__price">""<span>""</span></div>
+            <div class="header__cart__price"><span></span></div>
         </div>
         <div class="humberger__menu__widget">
             <div class="header__top__right__language">
@@ -59,16 +59,15 @@
                         <li><a href="{% url 'users_app:login' %}">Login</a></li>
                         <li><a href="{% url 'users_app:signup' %}">Sign Up</a></li>
                     </ul>
-                {% endif %}
-                
+                {% endif %}       
             </div>
         </div>
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
                 <li class="active"><a href="{% url 'main_app:home_page' %}">Home</a></li>
-                <li><a href="{% url 'main_app:product_page' %}">Stores</a></li>
+                <li><a href="{% url 'main_app:store_page'%}">Stores</a></li>
                 {% if request.user.is_authenticated and request.user.is_costumer %}
-                    <li><a href="#">Order Status</a></li>
+                    <li><a href="{% url 'main_app:order_status' %}">Order Status</a></li>
                     <li><a href="#">Profile</a>
                         <ul class="header__menu__dropdown">
                             <li><a href="#">Edit Profile</a></li>
@@ -80,7 +79,7 @@
                     </li>
                 {% endif %}
                 {% if request.user.is_authenticated and request.user.is_merchant %}
-                    <li><a href="#">Order Status</a></li>
+                    <li><a href="{% url 'main_app:order_status' %}">Order Status</a></li>
                     <li><a href="#">Profile</a>
                         <ul class="header__menu__dropdown">
                             <li><a href="#">Store</a></li>
@@ -156,10 +155,10 @@
             </div>
         </div>
         <div class="container">
-            <div class="row">
+            <div class="row p-2">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="{% url 'main_app:home_page' %}"><img src="" alt="Bilaf Logo"></a>
+                        <a href="{% url 'main_app:home_page' %}"><img src={% static 'img/bilaf_logo.png' %} alt="Bilaf Logo"></a>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -229,7 +228,7 @@
                 <div class="row">
                     <div class="col-lg-12 text-center">
                         <div class="breadcrumb__text">
-                        <h2>productive family</h2>
+                        <h2> {% block header %}productive family{% endblock %}</h2>
                         </div>
                     </div>
                 </div>
@@ -237,11 +236,10 @@
         </section>
     <!-- Breadcrumb Section End -->
 
-
     {% block content %}
     {% endblock %}
     <!-- Footer Section Begin -->
-    <footer class="footer spad">
+    <footer class="footer spad mt-5">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-6">
