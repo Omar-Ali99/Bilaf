@@ -1,0 +1,41 @@
+{% extends 'main_app/base.html' %}
+{% load static %}
+{% block title %}update Catgory{% endblock %}
+{% block content%}
+<section class="intro my-5">
+    <div class="mask d-flex align-items-center h-100">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-12 col-lg-10">
+            <div class="card" style="border-radius: 1rem;">
+              <div class="card-body p-5">
+                <h4 class="mb-5 text-center">Add Categories</h4>
+                  <form action="{% url 'main_app:update_catgory' categories.id %}" method="POST" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <!-- 2 column grid layout with text inputs for the first and last names -->
+                  <div class="row">
+                    <div class="form-outline mb-4">
+                      <div class="form-outline">
+                        <label class="form-label" for="form6Example1">Category:</label>
+                        <input type="text" name="name" id="form6Example1" class="form-control" />
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleFormControlFile1">Image</label>
+                      <input type="file" name="logo" class="form-control-file" id="exampleFormControlFile1">
+                    </div>
+                  </div>
+                  <!-- Submit button -->
+                    <a href="{% url 'main_app:update_catgory' categories.id %}" class="btn btn-warning">Update Category</a>
+                    <a href="{% url 'main_app:delete_catgory' categories.id %}" class="btn btn-danger">Delete Catgory</a>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends 'main_app/base.html' %}
+{% load static %}
+{% block title %}Adding Product{% endblock %}
+{% block content%}
+<section class="intro my-5">
+    <div class="mask d-flex align-items-center h-100">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-12 col-lg-10">
+            <div class="card" style="border-radius: 1rem;">
+              <div class="card-body p-5">
+                <h4 class="mb-5 text-center">update Product</h4>
+                  <form action="{% url 'main_app:update_product' products.id %}" method="POST" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <!-- 2 column grid layout with text inputs for the first and last names -->
+                  <div class="row">
+                    <div class="form-outline mb-4">
+                      <div class="form-outline">
+                        <label class="form-label" for="form6Example1">Product Name</label>
+                        <input type="text" name="name" id="form6Example1" value = "{{products.name}}" class="form-control" />
+                      </div>
+                    </div>
+                  <!-- Category input -->
+                    <div class="form-outline mb-4">
+                      <div class="form-outline">
+                        <label class="form-label" for="form6Example4">Specifiy Category</label>
+                        <select class="form-select" aria-label="Default select example" name="category" required min-length="1">
+                          <option value="">Select Category</option>
+                          {% for category in categories %}
+                            <option value="{{category.id}}">{{category.name}}</option>
+                          {% endfor %}
+                        </select>
+                    </div>
+                    </div>
+                  <!-- decrpiation input -->
+                    <div class="form-outline mb-4">
+                      <label class="form-label" for="form6Example7"> Description</label>
+                      <textarea class="form-control" name="description" value= "{{products.description}}" id="form6Example7" rows="4"></textarea>
+                    </div>
+                  <!-- price input -->
+                    <div class="form-outline mb-4">
+                      <label class="form-label" for="form6Example4">Price</label>
+                      <input type="number" name="price" id="form6Example4" value="{{products.price}}" class="form-control" />
+                    </div>
+                    <div class="form-outline mb-4">
+                      <label class="form-label" for="form6Example4">Quantity</label>
+                      <input type="number" name="quantity" id="form6Example4" value="{{products.quantity}}" class="form-control" />
+                    </div>
+                    <div class="form-outline mb-4">
+
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleFormControlFile1">Image</label>
+                      <input type="file" name="image" class="form-control-file" id="exampleFormControlFile1">
+                    </div>
+                  </div>
+                  <!-- Submit button -->
+                    <div ><a class="btn btn-outline-dark mt-auto" href="{% url 'main_app:update_product' products.id %}">update Product</a></div>  
+                    <div ><a class="btn btn-outline-dark mt-auto" href="{% url 'main_app:delete_product' products.id %}">Delete Prodcts</a></div>         
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
