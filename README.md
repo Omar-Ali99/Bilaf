@@ -73,80 +73,52 @@ A website dedicated to promoting and selling family brands products. Bilaf serve
 - email
 - password
 
-### merchant_profile:
-- id
-- user =  OneToOneField(User)
-- merchant_name = char_field
-- logo = image
-- about = text_field
-- city = char_field
-- address = OneToOneField(Address)
+### Profile:
+- user = OneToOneField(User)
+- phone_number = CharField
+    
+### Store:
+- owner = ForeignKey(User)
+- store_name = CharField
+- category = (CHOICES)
+- logo = ImageField
+- about = TextField
+- pick_up_enabled = BooleanField(default=True)
+- delivery_enabled = BooleanField(default=True)
+- twitter_link = URLField
+- instagram_link = URLField
+- snapchat_link = URLField
 
-### customer_profile:
-- id
-- user =  OneToOneField(User)
-- city = char_field
-- address = OneToOneField(address)
-- gender = char_field
-- birthday = date
-- created_at = date
-- last_order_date = date
+### Categories:
+- name = CharField
+- logo = ImageField
+- store = ForeignKey(Store)
 
-### Address:
-- id
-- merchant = foreignKey (merchant_profile)
-- customer = foreignKey (customer_profile)
-- longitude = float
-- latutude = float 
-- district = char_field
-- description = text_field
+### Product:
+- store = ForeignKey(Store)
+- category = ForeignKey(Categories)
+- price = FloatField
+- quantity = IntegerField
+- is_active = BooleanField(default=True)
+- name = CharField
+- description = TextField
+- image = ImageField
 
-### product:
-- id
-- name = char_field
-- category = foreignKey (category)
-- logo = images
-- price = integer_field
-- description = text_field
-- quantity = integer_field
+### Cart:
+- DELIVERY_CHOICES = (CHOICES)
+- PAYMENT_CHOICES = (CHOICES)
+- store = ForeignKey(Store)
+- customer = ForeignKey(User)
+- status = (CHOICES)
+- created_at = models.DateTimeField(auto_now_add=True)
+- due_date = models.DateTimeField(blank=True, null=True)
 
-### category:
-- id
-- name
+### CartItem:
+- cart = ForeignKey(Cart)
+- product = ForeignKey(Product)
+- quantity = PositiveIntegerField
+- price = PositiveIntegerField
 
-### cart: 
-- id
-- merchant = foreignKey (mechant_profile)
-- customer = foreignKey (customer_profile)
-- status =  integrer_filed
-- item = ManyToMany (cart_items)
-- created_at = date
-- due_date = date
-- total = integer_filed
-- delivery_option = char_field
-- payment_option = char_field
-
-### cart_item:
-- id
-- cart = foreignKey (cart)
-- product = foreignKey (product)
-
-### order:
-- id
-- cart = foreignKey (merchant_profile)
-- status = char_field
-- done_at =date
-- decline_reason = char_field 
-
-### review:
-- id
-- merchant = foreignKey (mechant_profile)
-- order = foreignKey (order)
-- product = foreignKey (product)
-- rating = integer_field
-- comment = text_field
-
- 
 
 # Members
 
@@ -167,8 +139,6 @@ A website dedicated to promoting and selling family brands products. Bilaf serve
  ER Diagram:
 
 
-
-![Screenshot 2023-06-13 230904](https://github.com/Omar-Ali99/Bilaf/assets/101348008/289d7905-93f6-412b-b74f-0d55ed6d43fe)
 
 
 
