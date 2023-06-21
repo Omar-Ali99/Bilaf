@@ -43,7 +43,7 @@ class Cart(models.Model):
     customer = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.CharField(max_length=50, choices=STATUS_CHOICES)
     created_at = models.DateTimeField(auto_now_add=True)
-    due_date = models.DateTimeField(blank=True)
+    due_date = models.DateTimeField(blank=True, null=True)
     delivery_option = models.CharField(
         max_length=50, choices=DELIVERY_CHOICES, blank=True
     )
@@ -59,6 +59,7 @@ class CartItem(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField()
+    price = models.PositiveIntegerField(blank=True, null=True)
 
     def __str__(self) -> str:
         return f"{self.id}: {self.cart} - {self.product}"
@@ -74,3 +75,4 @@ class Review(models.Model):
 
     def __str__(self) -> str:
         return f"{self.id}: {self.rating} on {self.product}"
+
