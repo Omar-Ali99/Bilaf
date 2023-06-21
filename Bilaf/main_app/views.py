@@ -527,3 +527,8 @@ def send_email(receiver:str, subject:str, message:str):
     except Exception:
         return False
 
+#send_email('omar.ali99@live.com', 'Order Confirmation', 'Thank you for your order!')
+
+
+def thanks_order_page(request: HttpRequest):
+    return render(request, "main_app/Thanks_order_page.html")
