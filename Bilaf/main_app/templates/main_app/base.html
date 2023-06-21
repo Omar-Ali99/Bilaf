@@ -65,7 +65,7 @@
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
                 <li class="active"><a href="{% url 'main_app:home_page' %}">Home</a></li>
-                <li><a href="{% url 'main_app:store_page'%}">Stores</a></li>
+                <li><a href="{% url 'main_app:store_page' %}">Stores</a></li>
                 {% if request.user.is_authenticated and request.user.is_costumer %}
                     <li><a href="{% url 'main_app:order_status' %}">Order Status</a></li>
                     <li><a href="#">Profile</a>
@@ -165,7 +165,7 @@
                     <nav class="header__menu">
                         <ul>
                             <li class="active"><a href="{% url 'main_app:home_page' %}">Home</a></li>
-                            <li><a href="#">Stores</a></li>
+                            <li><a href="{% url 'main_app:store_page' %}">Stores</a></li>
                             {% if request.user.is_authenticated and request.user.is_costumer %}
                                 <li><a href="#">Order Status</a></li>
                                 <li><a href="#">Profile</a>
@@ -184,7 +184,7 @@
                                 <li><a href="#">Profile</a>
                                     <ul class="header__menu__dropdown">
                                         <li><a href="{% url 'main_app:product_page' %}">My Store</a></li>
-                                        <li><a href=" {% url 'main_app:add_page' %}">Add Product</a></li>
+                                        <li><a href="{% url 'main_app:add_product' %}">Add Product</a></li>
                                         <li><a href="#">Past Orders</a></li>
                                         <li><a href="#">Reviews</a></li>
                                         <li><a href="">Dashboard</a></li>
@@ -227,7 +227,7 @@
                 <div class="row">
                     <div class="col-lg-12 text-center">
                         <div class="breadcrumb__text">
-                        <h2> {% block header %}productive family{% endblock %}</h2>
+                        <h2> {% block header %}Productive Family{% endblock %}</h2>
                         </div>
                     </div>
                 </div>

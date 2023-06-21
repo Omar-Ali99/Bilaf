@@ -1,6 +1,6 @@
 {% extends 'main_app/base.html' %}
 {% load static %}
-{% block title %}update Catgory{% endblock %}
+{% block title %}Adding Categories{% endblock %}
 {% block content%}
 <section class="intro my-5">
     <div class="mask d-flex align-items-center h-100">
@@ -10,7 +10,10 @@
             <div class="card" style="border-radius: 1rem;">
               <div class="card-body p-5">
                 <h4 class="mb-5 text-center">Add Categories</h4>
-                  <form action="{% url 'main_app:merchant_update_category' categories.id %}" method="POST" enctype="multipart/form-data">
+                {% if msg %}
+                <div class="alert alert-danger" role="alert"> {{msg}} </div>
+                {% endif %}
+                  <form action="{% url 'main_app:add_categories' %}" method="POST" enctype="multipart/form-data">
                   {% csrf_token %}
                   <!-- 2 column grid layout with text inputs for the first and last names -->
                   <div class="row">
@@ -26,8 +29,7 @@
                     </div>
                   </div>
                   <!-- Submit button -->
-                    <a href="{% url 'main_app:merchant_update_category' categories.id %}" class="btn btn-warning">Update Category</a>
-                    <a href="{% url 'main_app:merhcant_delete_catgory' categories.id %}" class="btn btn-danger">Delete Catgory</a>
+                  <button type="submit" class="btn btn-success btn-rounded btn-block">Submit</button>
                 </form>
               </div>
             </div>

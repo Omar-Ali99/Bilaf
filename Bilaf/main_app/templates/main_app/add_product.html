@@ -9,15 +9,18 @@
           <div class="col-12 col-lg-10">
             <div class="card" style="border-radius: 1rem;">
               <div class="card-body p-5">
-                <h4 class="mb-5 text-center">update Product</h4>
-                  <form action="{% url 'main_app:merchant_update_product' products.id %}" method="POST" enctype="multipart/form-data">
+                <h4 class="mb-5 text-center">Add Product</h4>
+                {% if msg %}
+                <div class="alert alert-danger" role="alert"> {{msg}} </div>
+                {% endif %}
+                  <form action="{% url 'main_app:add_product' %}" method="POST" enctype="multipart/form-data">
                   {% csrf_token %}
                   <!-- 2 column grid layout with text inputs for the first and last names -->
                   <div class="row">
                     <div class="form-outline mb-4">
                       <div class="form-outline">
                         <label class="form-label" for="form6Example1">Product Name</label>
-                        <input type="text" name="name" id="form6Example1" value = "{{products.name}}" class="form-control" />
+                        <input type="text" name="name" id="form6Example1" class="form-control" />
                       </div>
                     </div>
                   <!-- Category input -->
@@ -34,30 +37,29 @@
                     </div>
                   <!-- decrpiation input -->
                     <div class="form-outline mb-4">
-                      <label class="form-label" for="form6Example7"> Description</label>
-                      <textarea class="form-control" name="description" value= "{{products.description}}" id="form6Example7" rows="4"></textarea>
+                      <label class="form-label" for="form6Example7">Description </label>
+                      <textarea class="form-control" name="description" id="form6Example7" rows="4"></textarea>
                     </div>
                   <!-- price input -->
                     <div class="form-outline mb-4">
                       <label class="form-label" for="form6Example4">Price</label>
-                      <input type="number" name="price" id="form6Example4" value="{{products.price}}" class="form-control" />
+                      <input type="number" name="price" id="form6Example4" class="form-control" />
                     </div>
                     <div class="form-outline mb-4">
                       <label class="form-label" for="form6Example4">Quantity</label>
-                      <input type="number" name="quantity" id="form6Example4" value="{{products.quantity}}" class="form-control" />
+                      <input type="number" name="quantity" id="form6Example4" class="form-control" />
                     </div>
                     <div class="form-outline mb-4">
 
                     </div>
                     <div class="form-group">
-                     <label for="exampleFormControlInput1" class="form-label">Choose Image</label>
-                    <img src="{{products.image.url}}" class="w-25 rounded-5"/>
-                    <input type="file" name="img" class="form-control" />
+                      <label for="exampleFormControlFile1">Image</label>
+                      <input type="file" name="image" class="form-control-file" id="exampleFormControlFile1">
                     </div>
                   </div>
                   <!-- Submit button -->
-                    <div ><a class="btn btn-outline-warning mt-auto" href="{% url 'main_app:merchant_update_product' products.id %}">update Product</a></div>  
-                    <div ><a class="btn btn-outline-danger mt-auto" href="{% url 'main_app:merchant_delete_product' products.id %}">Delete Prodcts</a></div>         
+                  <button type="submit" class="btn btn-success btn-rounded btn-block">Submit</button>
+                </form>
               </div>
             </div>
           </div>

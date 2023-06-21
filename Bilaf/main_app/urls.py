@@ -6,7 +6,6 @@ app_name = "main_app"
 urlpatterns = [
     path("", views.home_page, name="home_page"),
     path("base/", views.base_page, name="base"),
-    path("add/", views.add_page, name="add_page"),
     path("cart/", views.shoping_cart, name="cart"),
     path("view_order/", views.view_order, name="view_order"),
     path("check_out/", views.check_out, name="check_out"),
@@ -25,11 +24,10 @@ urlpatterns = [
     path("catgory/", views.catgory_page, name="catgory_page"),
     path("catgory/update/<categories_id>/", views.update_catgory, name="update_catgory"),
     path("catgory/delete/<categories_id>/", views.delete_product, name="delete_catgory"),
-    path("store/", views.store_page, name="store_page"),
+    path("store/", views.merchent_store_page, name="store_page"),
     path('merchant/dashboard/', views.merchant_dashboard_view, name='dashboard'),
     path("order_status/", views.order_status, name="order_status"),
     path('add_to_cart', views.add_to_cart, name="add_to_cart")
 
 
 ]
-
