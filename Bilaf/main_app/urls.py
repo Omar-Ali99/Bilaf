@@ -26,10 +26,10 @@ urlpatterns = [
     path("catgory/delete/<categories_id>/", views.delete_product, name="delete_catgory"),
 
     path("store/", views.merchent_store_page, name="store_page"),
-    path("store/", views.store_page, name="store_page"),
     path('merchant/dashboard/', views.merchant_dashboard_view, name='dashboard'),
     path("order_status/", views.order_status, name="order_status"),
-    path('add_to_cart', views.add_to_cart, name="add_to_cart")
+    path('add_to_cart/', views.add_to_cart, name="add_to_cart"),
+    path('thanks_page/', views.thanks_order_page, name="thanks_order_page")
 
 
 ]

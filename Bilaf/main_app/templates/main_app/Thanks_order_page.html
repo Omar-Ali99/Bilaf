@@ -1,0 +1,47 @@
+{% extends 'main_app/base.html' %}
+{% load static %}
+{% block title %}Prodcts Page{% endblock %}
+{% block content%}  
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container1 {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem;
+            text-align: center;
+            background-color: #fff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 2rem;
+            line-height: 1.5;
+            color: #333;
+        }
+        .container2 {
+            text-align: center;
+            
+        }
+    </style>
+
+<body>
+<div class="container2">
+    <img src={% static 'img/mark.png' %} style=" width:100px; height:200px;">
+        <h1>Thank You for Your Order!</h1>
+        <p>Your order has been received and is now being processed. You will receive an email confirmation shortly.</p>
+        <p>If you have any questions or concerns, please don't hesitate to <a href="mailto:support@example.com">contact us</a>.</p>
+        <p><a href="/">Return to Homepage</a></p>
+    </div>
+</body>
+{% endblock %}

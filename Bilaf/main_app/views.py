@@ -3,7 +3,6 @@ from django.http import HttpRequest, HttpResponse
 from users_app.models import Store
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User , Permission, Group
-import plotly.express as px
 from .models import Product,Categories,Review,Cart,CartItem
 from django.core.mail import send_mail,EmailMessage
 from dotenv import load_dotenv
@@ -356,3 +355,7 @@ def send_email(receiver:str, subject:str, message:str):
         return False
 
 #send_email('omar.ali99@live.com', 'Order Confirmation', 'Thank you for your order!')
+
+
+def thanks_order_page(request: HttpRequest):
+    return render(request, "main_app/Thanks_order_page.html")
