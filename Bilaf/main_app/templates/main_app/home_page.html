@@ -11,7 +11,7 @@
                     <div class="hero__categories my-5">
                         <div class="hero__categories__all">
                             <i class="fa fa-bars"></i>
-                            <span>Categories</span>
+                            <span>Cuisines</span>
                         </div>
                         <ul>
                             {% for category in all_store_categories  %}
@@ -26,7 +26,7 @@
                             <form action="{% url 'main_app:search' %}" name="search" method="GET", role="search">
                                 <div class="hero__search__categories">
                                     <select name="filter" style="outline: none; border: none;">
-                                        <option value="">Categories</option>
+                                        <option value="">Cuisines</option>
                                         <option value="Saudi-Arabian">Saudi-Arabian</option>
                                         <option value="Syrian">Syrian</option>
                                         <option value="Egyptian">Egyptian</option>
@@ -65,9 +65,9 @@
                 </div>
                 <div class="categories__slider owl-carousel">
                     {% for store in stores %}
-                    <div class="col-lg-3">
+                    <div class="col-md-12">
                         <div class="categories__item set-bg" style="background-repeat: no-repeat; background-size: cover;background-position: top center;" data-setbg="{{store.logo.url}}">
-                            <h5><a href="{% url 'main_app:store_page' %}">{{store.category}}</a></h5>
+                            <h5><a href="{% url 'main_app:store_page' %}">{{store.store_name}}</a></h5>
                         </div>
                     </div>
                     {% endfor %}
@@ -83,7 +83,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title">
-                        <h2>Cuisines</h2>
+                        <h2>Categories</h2>
                     </div>
                     <div class="featured__controls">
                         <ul>
