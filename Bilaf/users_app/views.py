@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
-from django.contrib.auth.models import User , Permission, Group
+from django.contrib.auth.models import User, Permission, Group
 from django.contrib.auth import authenticate, login, logout
 from .models import Profile, Store
 from django.contrib.auth.decorators import login_required
@@ -61,6 +61,7 @@ def signout_page(request: HttpRequest):
 def no_permission_page(request: HttpRequest):
     return render(request, "users_app/no_permission.html")
 
+
 @login_required(login_url="/users/login/")
 def became_marchant(request: HttpRequest):
     # checkboxes = {
@@ -84,19 +85,19 @@ def became_marchant(request: HttpRequest):
             owner=request.user,
             store_name=request.POST["store_name"],
             about=request.POST["about"],
-            category = "Saudi-Arabian",
-            logo= new_logo,
-            pick_up_enabled = pick_up,
-            delivery_enabled = delivery
+            category="Saudi-Arabian",
+            logo=new_logo,
+            pick_up_enabled=pick_up,
+            delivery_enabled=delivery,
         )
         try:
             new_marchant.save()
         except Exception as e:
-            print(e)    
+            print(e)
         group = Group.objects.get(name="merchant")
         request.user.groups.add(group)
         return redirect("main_app:home_page")
-     
+
     return render(request, "users_app/became_merchant.html")
 
 
