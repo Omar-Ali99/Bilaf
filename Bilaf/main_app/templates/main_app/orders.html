@@ -1,0 +1,66 @@
+{% extends 'main_app/base.html' %}
+{% load static %}
+{% load custom_filters %}
+{% block title %}My Orders{% endblock %}
+
+{% block content%}
+<div class="container border mt-5 mp-5 ">
+        <div class="d-flex justify-content-center row">
+            <div class="col-md-9">
+                <div class="rounded">
+                    <div class="table-responsive table-borderless">
+                        <table class="table">
+                            <thead>
+                                
+                                <tr>
+                                    <th class="text-center">
+                                        <div class="toggle-btn">
+                                            <div class="inner-circle"></div>
+                                        </div>
+                                    </th>
+                                    <th>Order ID</th>
+                                    <th>Custmer</th>
+                                    <th>Status</th>
+                                    <th>Total</th>
+                                    <th>Created At</th>
+                                    <th>Due At</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-body">
+                                {% for order in orders %}
+                                <tr class="cell-1" >
+                                    <td class="text-center">
+                                        <div class="toggle-btn">
+                                            <div class="inner-circle"></div>
+                                        </div>
+                                    </td>
+                                    <td>{{ order.id }}</td>
+                                    <td>{{ order.customer }}</td>
+                                    <td><span class="badge badge-success"> {{ order.status }} </span></td>
+                                    <td>{% with my_key=order.id %}{{ orders_prices|get_item:my_key }}{% endwith %} SR</td>
+                                    <td> {{ order.created_at }}</td>
+                                    <td> here due</td>
+                                    <td>
+                                    {% if order.status == "Submited" %}
+                                    <a href="{% url 'main_app:order_action' action='Accept' cart_id=order.id %}" class="btn btn-success">Accept</a>
+                                    <a href="{% url 'main_app:order_action' action='Declined' cart_id=order.id %}"  class="btn btn-danger">Decline</a>
+                                    {% elif order.status == "Active" %} 
+                                    <a href="{% url 'main_app:order_action' action='Done' cart_id=order.id %}"  class="btn btn-primary">Done</a>
+                                    {% endif %}
+                                    <a href="{% url 'main_app:view_order' cart_id=order.id %}"  class="btn btn-info">View More</a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+{% endblock %}
