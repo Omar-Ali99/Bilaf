@@ -154,7 +154,11 @@ def merchant_adding_products(request: HttpRequest):
     else:
         return redirect("main_app:add_categories")
 
+def costumer_viewing_products(request:HttpRequest, store_id):
+    store_object = Store.objects.get(id = store_id)
+    products = Product.objects.filter(store = store_object)
 
+    return render(request, "main_app/user_viewing_products.html", {"products":products, "store":store_object})
 
 def product_page(request: HttpRequest):
     product_store = Store.objects.filter(owner= request.user)
@@ -175,11 +179,11 @@ def product_detail(request: HttpRequest, product_id):
         if customer_cart.first().store != product_store:
             warning = True
 
-    return render(
-        request,
-        "main_app/product_details.html",
-        {"products": products, "warning": warning},
-    )
+        return render(
+            request,
+            "main_app/product_details.html",
+            {"products": products, "warning": warning},
+        )
 
     products = Product.objects.get(id = product_id)
     categories = Categories.objects.get(name = products.category.name)

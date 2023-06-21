@@ -7,7 +7,7 @@ urlpatterns = [
     path("", views.home_page, name="home_page"),
     path("base/", views.base_page, name="base"),
     path("cart/", views.shoping_cart, name="cart"),
-        path("view_order/", views.view_order, name="view_order"),
+    path("view_order/", views.view_order, name="view_order"),
     path("check_out/", views.check_out, name="check_out"),
     path("about_us/", views.about_us, name="about_us"),
     path("about_bilaf/", views.about_project, name="about_bilaf"),
@@ -15,7 +15,6 @@ urlpatterns = [
     path("searched/", views.search, name="search"),
     path("merchant/adding_products/", views.merchant_adding_products, name="add_product"),
     path("merchant/adding_categories/", views.merchant_adding_categories, name="add_categories"),
-    path("store_pages/<category_id>/", views.store_pages_filtered_based_on_category, name="category_based_stores"),
     path("product/", views.product_page, name="product_page"),
     path('detail/<product_id>/', views.product_detail , name = 'product_detail'),
     path("product/update/<product_id>/", views.update_product, name="update_product"),
@@ -27,7 +26,7 @@ urlpatterns = [
     path("store/", views.merchent_store_page, name="store_page"),
     path('merchant/dashboard/', views.merchant_dashboard_view, name='dashboard'),
     path("order_status/", views.order_status, name="order_status"),
-    path('add_to_cart', views.add_to_cart, name="add_to_cart")
-
-
+    path('add_to_cart', views.add_to_cart, name="add_to_cart"),
+    path('costumer/view/products/<store_id>', views.costumer_viewing_products, name="view_store_products"),
+    
 ]

@@ -1,7 +1,7 @@
 {% extends 'main_app/base.html' %}
 {% load static %}
 {% block title %}Bilaf{% endblock %}
-
+{% block 'home_nav_active' %} class="active" {% endblock %}
 {% block content%}
  <!-- Hero Section Begin -->
     <section class="hero">
@@ -101,9 +101,6 @@
                 <div class="col-lg-3 col-md-4 col-sm-6 mix {{product.category.name}}">
                     <div class="featured__item">
                         <div class="featured__item__pic set-bg" style="background-repeat: no-repeat; background-size: cover;background-position: top center;" data-setbg="{{product.image.url}}">
-                            <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
                         </div>
                         <div class="featured__item__text">
                             <h6><a href="{% url 'main_app:product_detail' product.id %}">{{product.name}}</a></h6>

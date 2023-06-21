@@ -1,0 +1,40 @@
+{% extends 'main_app/base.html' %}
+{% load static %}
+{% block title %}{{stores.store_name}}{% endblock %}
+{% block header %}{{store.store_name}}{% endblock %}
+{% block content%}
+   <!-- products section -->
+            <div class="row p-5 gap-5">
+                {% for product in products %}
+                <div class="g-col-6 mb-5 col-2 g-2 ">         
+                <div class="card h-100">
+                    <!-- Sale badge-->
+                    <!-- Product image-->
+                    <img class="card-img-top" src="{{ product.image.url }}" style=" width:100%; height:200px;"alt="..." />          
+                        <!-- Product details-->
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <!-- Product name-->
+                            <h5 class="fw-bolder">{{ product.name }}</h5>
+                            <!-- Product price-->
+                            <span class="text"> Available Item:{{product.quantity}}</span>
+                        </div>
+                    </div>
+                    <!-- Product actions-->
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+
+                        <div class="text-center"><a class="btn btn-outline-warning mt-auto" href="{% url 'main_app:product_detail' product.id %}">View Product</a></div>
+                        <div class="text-center"><a class="btn btn-outline-info mt-auto" href="{% url 'main_app:update_product' product.id %}">Update Product</a></div>  
+
+                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{% url 'main_app:product_detail' product.id %}">Add to cart</a></div>
+
+                    </div>
+                </div>
+            </div>
+                {% endfor %}
+            </div>
+
+
+<!-- Start Single Blog  -->    
+{% endblock %}
+   
