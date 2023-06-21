@@ -5,7 +5,7 @@ Back-End application developed by utilizing the following:
 - Django Framework
 - PostgreSql
 
-A website dedicated to promoting and selling family brands products. Bilaf serves as a bridge between consumers and families; rather than utilizing other platforms to reach them, Bilaf gives a more convenient approach to reach them. 
+A website dedicated to promoting and selling family-brand products. Bilaf serves as a bridge between consumers and families; rather than utilizing other platforms to reach them, Bilaf provides a more convenient approach to reaching them. 
 
 
 
@@ -138,6 +138,8 @@ A website dedicated to promoting and selling family brands products. Bilaf serve
  
  ER Diagram:
 
+
+![Screenshot 2023-06-21 222425](https://github.com/Omar-Ali99/Bilaf/assets/101348008/791d79a3-873b-4679-af28-d2736cead514)
 
 
 
