@@ -1,9 +1,11 @@
 {% extends 'main_app/home_page.html' %}
 {% load static %}
-{% block title %}About Us{% endblock %}
+{% block title %}Dashboard{% endblock %}
 
 
 {% block content %}
+
+{{ graph|safe }}    
 
 <h2>Products:</h2>
 <ul>

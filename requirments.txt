@@ -3,4 +3,5 @@ Pillow
 python-dotenv
 postgres
 psycopg2
-matplotlib
+plotly==5.15.0
+pandas
