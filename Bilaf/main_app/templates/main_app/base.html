@@ -180,7 +180,7 @@
                                 </li>
                             {% endif %}	
                             {% if perms.main_app.delete_categories and not perms.main_app.delete_user  %}
-                                <li><a href="#">Order Status</a></li>
+                                <li><a href="{% url 'main_app:order_status' %}">Order Status</a></li>
                                 <li><a href="#">Profile</a>
                                     <ul class="header__menu__dropdown">
                                         <li><a href="{% url 'main_app:product_page'  %}">My Store</a></li>
@@ -209,7 +209,9 @@
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
+
                             <li><a href="#"><i class="fa fa-shopping-bag"></i><span></span></a></li>
+
                         </ul>
                         <div class="header__cart__price"><span></span></div>
                     </div>
