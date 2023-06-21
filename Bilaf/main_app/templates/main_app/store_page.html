@@ -1,6 +1,6 @@
 {% extends 'main_app/base.html' %}
 {% load static %}
-{% block title %}Prodcts Page{% endblock %}
+{% block title %}Stores Pages{% endblock %}
 {% block content%}
 
     <!-- products section -->
@@ -10,7 +10,7 @@
                 <div class="card h-100">
                     <!-- Sale badge-->
                     <!-- Product image-->
-                    <img class="card-img-top" src="{{ store.logo.url }}" alt="..." />
+                    <img class="card-img-top"  src="{{ store.logo.url }}" alt="..." />
                     <!-- Product details-->
                     <div class="card-body p-4">
                         <div class="text-center">
@@ -22,7 +22,7 @@
                     </div>
                     <!-- Product actions-->
                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View More</a></div>
+                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{% url 'main_app:product_page' %}">View More</a></div>
                     </div>
                 </div>
             </div>

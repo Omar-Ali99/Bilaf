@@ -3,23 +3,27 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpRequest, HttpResponse
 from users_app.models import Store
 from django.contrib.auth.decorators import login_required
-from .models import Product, Categories, Review, Cart
-from django.contrib.auth.models import User, Permission, Group
-from .models import Product, Categories, Review, Cart, CartItem
-from django.contrib.auth.models import User, Permission, Group
+from .models import Product,Categories,Review,Cart,CartItem
+from django.contrib.auth.models import User , Permission, Group
 from django.db.models import F, Sum
+from django.core.mail import send_mail,EmailMessage
+from dotenv import load_dotenv
+import os
+
+load_dotenv() 
 
 
-# import io
-# import urllib
-# import base64
-# import matplotlib.pyplot as plt
+
+
 
 
 # Create your views here.
 def home_page(request: HttpRequest):
-    return render(request, "main_app/home_page.html")
-
+    categories = Categories.objects.all()
+    all_store_categories = [choice[0] for choice in Store.CHOICES]
+    stores = Store.objects.all()
+    products = Product.objects.all()
+    return render(request, 'main_app/home_page.html', {"categories":categories,"all_store_categories":all_store_categories , "stores":stores, "products":products})
 
 def base_page(request: HttpRequest):
     return render(request, "main_app/base.html")
@@ -51,31 +55,29 @@ def pick_delv_policies(request: HttpRequest):
 
 def search(request: HttpRequest):
     search_phrase = request.GET.get("search", "")
-    store = Store.objects.filter(
-        store_name__icontains=search_phrase
-    ) or Store.objects.filter(category__icontains=search_phrase)
-
-    selected_filter = request.GET.get(
-        "filter"
-    )  # Get the selected filter value from the request
-    filtered_data = Store.objects.all()  # Fetch all data initially
+    selected_filter = request.GET.get('filter')
+    filtered_data = Store.objects.all()
 
     if selected_filter:
-        filtered_data = filtered_data.filter(
-            category=selected_filter
-        )  # Apply filter based on selected value
+        filtered_data = filtered_data.filter(category=selected_filter)
+
+    stores = Store.objects.filter(store_name__icontains=search_phrase)
+
+    if selected_filter:
+        stores = stores.filter(category=selected_filter)
 
     context = {
-        "filtered_data": filtered_data,
-        "selected_filter": selected_filter,
-        "store": store,
+        'filtered_data': filtered_data,
+        'selected_filter': selected_filter,
+        'stores': stores,
+        'search_phrase':search_phrase,
     }
 
-    return render(request, "main_app/search.html", context)
+    return render(request, 'main_app/search.html', context)
 
 
 @login_required(login_url={"/users_app/login/"})
-def add_categories(request: HttpRequest):
+def merchant_adding_categories(request: HttpRequest):
     if not request.user.groups.filter(name="merchant").exists():
         return redirect("users_app:no_permission_page")
 
@@ -100,12 +102,13 @@ def add_categories(request: HttpRequest):
     return render(request, "main_app/add_categories.html", {"msg": msg})
 
 
+
 @login_required(login_url={"/users_app/login/"})
-def add_product(request: HttpRequest):
+def merchant_adding_products(request: HttpRequest):
     msg = None
-    if Categories.objects.get():  # 1
-        if request.user.groups.filter(name="merchant").exists():
-            store_object = Store.objects.get(owner=request.user)
+    store_object = Store.objects.get(owner = request.user)
+    if Categories.objects.filter(store = store_object):
+        if request.user.groups.filter(name='merchant').exists():
             categories_object = Categories.objects.filter(store=store_object)
             if request.method == "POST":
                 image_instance = None
@@ -126,20 +129,14 @@ def add_product(request: HttpRequest):
 
                 try:
                     new_product.save()
-                    msg = "Category added successfully"
+                    msg = "Product added successfully"
                 except Exception as e:
                     print(e)
 
-                return render(
-                    request,
-                    "main_app/add_product.html",
-                    {"categories": categories_object, "msg": msg},
+                return render(request,"main_app/add_product.html",{"categories": categories_object, "msg": msg, "category_instance":category_instance},
                 )
             else:
-                return render(
-                    request,
-                    "main_app/add_product.html",
-                    {"categories": categories_object},
+                return render(request,"main_app/add_product.html",{"categories": categories_object},
                 )
         else:
             return redirect("users_app:no_permission_page")
@@ -148,11 +145,13 @@ def add_product(request: HttpRequest):
 
 
 def product_page(request: HttpRequest):
-    products = Product.objects.all()
+    product_store = Store.objects.filter(owner= request.user)
+    products = Product.objects.filter(store__in=product_store)
     return render(request, "main_app/product_page.html", {"products": products})
 
 
 def product_detail(request: HttpRequest, product_id):
+
     products = Product.objects.get(id=product_id)
     product_store = products.store
     customer_cart = Cart.objects.filter(customer=request.user, status="Pending")
@@ -174,12 +173,11 @@ def catgory_page(request: HttpRequest):
     return render(request, "main_app/catgory_page.html", {"categories": categories})
 
 
-def store_page(request: HttpRequest):
+def merchent_store_page(request: HttpRequest):
     Category = Categories.objects.all()
     stores = Store.objects.all()
-    return render(request, "main_app/store_page.html", {"stores": stores})
-
-
+    return render(request, 'main_app/store_page.html', {'stores': stores})
+     
 def dashboard_view(request: HttpRequest):
     store = Store.objects.get(owner=request.user)
 
@@ -235,6 +233,12 @@ def dashboard_view(request: HttpRequest):
             "category_total_earnings": category_total_earnings,
             "category_total_units_sold": category_total_units_sold,
         },
+    )
+
+    return render(
+        request,
+        "main_app/dashboard.html",
+        {"products": products, "categories": categories},
     )
 
 
@@ -343,7 +347,6 @@ def create_cart_item(quantity: int, product_object: Product, customer_cart: Cart
         quantity=quantity,
     )
     cart_item.save()
-
 
 @login_required(login_url={"/users_app/login/"})
 def shoping_cart(request: HttpRequest):
@@ -503,3 +506,24 @@ def order_action(request: HttpRequest, action: str, cart_id):
 
 def custom_404_view(request, exception):
     return render(request, "main_app/404.html", status=404)
+
+
+def send_email(receiver:str, subject:str, message:str):
+    function_subject = subject
+    function_message = message
+    function_mail_receiver = receiver
+    from_email = os.getenv("DEFAULT_FROM_EMAIL")
+    recipient_list = [function_mail_receiver]
+    email = EmailMessage(
+        function_subject,
+        function_message,
+        from_email,
+        recipient_list,
+        reply_to=[from_email],
+    )
+    try:
+        email.send()
+        return True
+    except Exception:
+        return False
+

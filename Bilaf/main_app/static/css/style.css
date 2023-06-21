@@ -141,12 +141,13 @@ ol {
 	margin: 0 auto;
 }
 
-
 .set-bg {
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: top center;
+
 }
+  
 
 .spad {
 	padding-top: 100px;
@@ -815,7 +816,24 @@ ol {
 }
 
 .hero__text span {
+	font-family: 'Dancing Script', cursive;
 	font-size: 14px;
+	text-transform: uppercase;
+	font-weight: 700;
+	letter-spacing: 4px;
+	color: #7fad39;
+}
+.hero__text p {
+	font-family: 'Dancing Script', cursive;
+	font-size: 10px;
+	text-transform: uppercase;
+	font-weight: 700;
+	letter-spacing: 4px;
+	color:black;
+}
+.hero__text h2 {
+	font-family: 'Dancing Script', cursive;
+	font-size: 10px;
 	text-transform: uppercase;
 	font-weight: 700;
 	letter-spacing: 4px;

@@ -65,7 +65,7 @@
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
                 <li class="active"><a href="{% url 'main_app:home_page' %}">Home</a></li>
-                <li><a href="{% url 'main_app:store_page'%}">Stores</a></li>
+                <li><a href="{% url 'main_app:store_page' %}">Stores</a></li>
                 {% if request.user.is_authenticated and request.user.is_costumer %}
                     <li><a href="{% url 'main_app:order_status' %}">Order Status</a></li>
                     <li><a href="#">Profile</a>
@@ -158,14 +158,14 @@
             <div class="row p-2">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="{% url 'main_app:home_page' %}"><img src={% static 'img/bilaf_logo.png' %} alt="Bilaf Logo"></a>
+                        <a href="{% url 'main_app:home_page' %}"><img width="100%" height="80rem" src="{% static 'img/logo.png' %}" alt="Bilaf Logo"></a>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <nav class="header__menu">
                         <ul>
                             <li class="active"><a href="{% url 'main_app:home_page' %}">Home</a></li>
-                            <li><a href="#">Stores</a></li>
+                            <li><a href="{% url 'main_app:store_page' %}">Stores</a></li>
                             {% if request.user.is_authenticated and request.user.is_costumer %}
                                 <li><a href="#">Order Status</a></li>
                                 <li><a href="#">Profile</a>
@@ -175,19 +175,19 @@
                                         <li><a href="#">Reviews</a></li>
                                         <li><a href="#">Payment Options</a></li>
                                         <li><a href="#">Costumer Support</a></li>
-                                        <li><a href="{% url 'main_app:became_merchant' %}" style="text-decoration: underline;">Become Merchant</a></li>
+                                        <li><a href="{% url 'users_app:became_merchant' %}" style="text-decoration: underline;">Become Merchant</a></li>
                                     </ul>
                                 </li>
                             {% endif %}	
                             {% if perms.main_app.delete_categories and not perms.main_app.delete_user  %}
-                                <li><a href="#">Order Status</a></li>
+                                <li><a href="{% url 'main_app:order_status' %}">Order Status</a></li>
                                 <li><a href="#">Profile</a>
                                     <ul class="header__menu__dropdown">
-                                        <li><a href="{% url 'main_app:product_page' %}">My Store</a></li>
-                                        <li><a href=" {% url 'main_app:add_page' %}">Add Product</a></li>
+                                        <li><a href="{% url 'main_app:product_page'  %}">My Store</a></li>
+                                        <li><a href="{% url 'main_app:add_product' %}">Add Product</a></li>
                                         <li><a href="#">Past Orders</a></li>
                                         <li><a href="#">Reviews</a></li>
-                                        <li><a href="{% url 'main_app:dashboard' %}">Dashboard</a></li>
+                                        <li><a href="">Dashboard</a></li>
                                         <li><a href="#">Support</a></li>
                                     </ul>
                                 </li>
@@ -209,10 +209,11 @@
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="#"><i class="fa fa-heart"></i>""<span>""</span>""</a></li>
-                            <li><a href="#"><i class="fa fa-shopping-bag"></i>""<span>""</span>""</a></li>
+
+                            <li><a href="#"><i class="fa fa-shopping-bag"></i><span></span></a></li>
+
                         </ul>
-                        <div class="header__cart__price">""<span>""</span></div>
+                        <div class="header__cart__price"><span></span></div>
                     </div>
                 </div>
             </div>
@@ -228,7 +229,7 @@
                 <div class="row">
                     <div class="col-lg-12 text-center">
                         <div class="breadcrumb__text">
-                        <h2> {% block header %}productive family{% endblock %}</h2>
+                        <h2> {% block header %}Productive Family{% endblock %}</h2>
                         </div>
                     </div>
                 </div>
@@ -245,7 +246,7 @@
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="footer__about">
                         <div class="footer__about__logo">
-                            <a href=""><img src="" alt="Bilaf Logo"></a>
+                            <a href="{% url 'main_app:home_page' %}"><img width="100%" height="100rem" src="{% static 'img/logo.png' %}" alt="Bilaf Logo"></a>
                         </div>
                         <ul>
                             <li>Address: Riyadh, Saudi Arabia</li>
@@ -258,9 +259,9 @@
                     <div class="footer__widget">
                         <h6>Useful Links</h6>
                         <ul>
-                            <li><a href="{% url 'main_app:about_us' %}">About Us</a></li>
+                            <li><a href="{% url 'main_app:about_us' %}">Frequent Questions</a></li>
                             <li><a href="{% url 'main_app:about_bilaf' %}">About The Project</a></li>
-                            <li><a href="{% url 'main_app:about_bilaf' %}">About The Project</a></li>
+                            <li><a href="{% url 'users_app:became_merchant' %}">Become Merchant</a></li>
                             <li><a href="{% url 'main_app:policies' %}">Delivery/Pickup Policy</a></li>
                         </ul>
                     </div>

@@ -1,6 +1,6 @@
 {% extends 'main_app/base.html' %}
 {% load static %}
-{% block title %}Adding Product{% endblock %}
+{% block title %}Update Product{% endblock %}
 {% block content%}
 <section class="intro my-5">
     <div class="mask d-flex align-items-center h-100">
@@ -56,7 +56,7 @@
                     </div>
                   </div>
                   <!-- Submit button -->
-                    <div ><a class="btn btn-outline-warning mt-auto" href="{% url 'main_app:update_product' products.id %}">update Product</a></div>  
+                    <div ><a class="btn btn-outline-warning mt-auto" href="{% url 'main_app:update_product' products.id %}">Update Product</a></div>  
                     <div ><a class="btn btn-outline-danger mt-auto" href="{% url 'main_app:delete_product' products.id %}">Delete Prodcts</a></div>         
               </div>
             </div>
