@@ -14,7 +14,7 @@
                         <form action="{% url 'main_app:search' %}" name="search" method="GET", role="search">
                             <div class="hero__search__categories">
                                 <select name="filter" style="outline: none; border: none;">
-                                    <option value="">Categories</option>
+                                    <option value="">Cuisines</option>
                                     <option value="Saudi-Arabian">Saudi-Arabian</option>
                                     <option value="Syrian">Syrian</option>
                                     <option value="Egyptian">Egyptian</option>
@@ -54,7 +54,7 @@
                                 </div>
                             </div>
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View More</a></div>
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{% url 'main_app:customer_viewing_products' store.id %}">View More</a></div>
                         </div>
                     </div>
                 </div>

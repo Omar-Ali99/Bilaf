@@ -2,7 +2,7 @@
 {% load static %}
 {% block title %}Prodcts Page{% endblock %}
 {% block 'profile_merch_nav_active' %} class = "active" {% endblock %}
-{% block content%}
+{% block content %}
 
     <!-- products section -->
             <div class="row p-5 gap-5">
@@ -23,11 +23,18 @@
                     </div>
                     <!-- Product actions-->
                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-
+                    <!--
+                    Check these , it can only be acceseed with merchant accounts, this whole template is for the merchant
+                    -->
+                    <!--
+                        Check The URL of the below  "product_detail" not working for the merchant
+                    -->
                         <div class="text-center"><a class="btn btn-outline-warning mt-auto" href="{% url 'main_app:product_detail' products.id %}">View Product</a></div>
                         <div class="text-center"><a class="btn btn-outline-info mt-auto" href="{% url 'main_app:update_product' products.id %}">Update Product</a></div>  
-
-                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{% url 'main_app:product_detail' products.id %}">Add to cart</a></div>
+                        <!--
+                        Check The URL of the below not working for the merchant
+                        -->
+                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{% url 'main_app:add_to_cart' %}">Add to cart</a></div>
 
                     </div>
                 </div>

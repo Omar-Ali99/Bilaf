@@ -47,7 +47,7 @@
                             <span>Best Dishes</span>
                             <h2>Tasty <br />100% Local</h2>
                             <p>Pickup and Delivery Available</p>
-                            <a href="{% url 'main_app:store_page' %}" class="primary-btn">SHOP NOW</a>
+                            <a href="{% url 'main_app:merchants_store_pages' %}" class="primary-btn">SHOP NOW</a>
                             <p>"Pickup and Delivery varies per merchant"</p>
                         </div>
                     </div>
@@ -67,7 +67,7 @@
                     {% for store in stores %}
                     <div class="col-md-12">
                         <div class="categories__item set-bg" style="background-repeat: no-repeat; background-size: cover;background-position: top center;" data-setbg="{{store.logo.url}}">
-                            <h5><a href="{% url 'main_app:store_page' %}">{{store.store_name}}</a></h5>
+                            <h5><a href="{% url 'main_app:customer_viewing_products' store.id %}">{{store.store_name}}</a></h5>
                         </div>
                     </div>
                     {% endfor %}
@@ -103,8 +103,17 @@
                         <div class="featured__item__pic set-bg" style="background-repeat: no-repeat; background-size: cover;background-position: top center;" data-setbg="{{product.image.url}}">
                         </div>
                         <div class="featured__item__text">
+
+                        <!--
+                        Check this, "Product_details only working with customer"
+                        -->
+                        {% if not request.user.is_authenticated %}
+                            <h6><a href="{% url 'main_app:unregistered_customer_product_detail' product.id %}">{{product.name}}</a></h6>
+                            <h5>{{product.price}} SR</h5>
+                        {% else %}
                             <h6><a href="{% url 'main_app:product_detail' product.id %}">{{product.name}}</a></h6>
                             <h5>{{product.price}} SR</h5>
+                        {% endif %}
                         </div>
                     </div>
                 </div>

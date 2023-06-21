@@ -65,7 +65,7 @@
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
                 <li class="active"><a href="{% url 'main_app:home_page' %}">Home</a></li>
-                <li><a href="{% url 'main_app:store_page' %}">Stores</a></li>
+                <li><a href="{% url 'main_app:merchants_store_pages' %}">Stores</a></li>
                 {% if request.user.is_authenticated and request.user.is_costumer %}
                     <li><a href="{% url 'main_app:order_status' %}">Order Status</a></li>
                     <li><a href="#">Profile</a>
@@ -165,9 +165,19 @@
                     <nav class="header__menu">
                         <ul>
                             <li {% block 'home_nav_active' %}{% endblock %} ><a href="{% url 'main_app:home_page' %}">Home</a></li>
-                            <li {% block 'store_nav_active' %}{% endblock %} ><a href="{% url 'main_app:store_page' %}">Stores</a></li>
+                            <li {% block 'store_nav_active' %}{% endblock %} ><a href="{% url 'main_app:merchants_store_pages' %}">Stores</a></li>
                             {% if not perms.main_app.delete_categories and not perms.main_app.delete_user and request.user.is_authenticated  %}
-                                <li {% block 'order_cus_nav_active' %}{% endblock %}><a href="#">Order Status</a></li>
+                            <!--
+                            
+                            
+                            Check the URL for Order status, i've put view_order but in the urls it need cat_id to be pushed, so i left it at home_page
+                            
+                            
+                            
+                            
+                            
+                            -->
+                                <li {% block 'order_cus_nav_active' %}{% endblock %}><a href="{% url 'main_app:home_page' %}">Order Status</a></li>
                                 <li {% block 'profile_cus_nav_active' %}{% endblock %}><a href="#">Profile</a>
                                     <ul class="header__menu__dropdown">
                                         <li><a href="#">Edit Profile</a></li>
@@ -178,21 +188,22 @@
                                 </li>
                             {% endif %}	
                             {% if perms.main_app.delete_categories and not perms.main_app.delete_user  %}
-                                <li {% block 'order_merch_nav_active' %}{% endblock %}><a href="{% url 'main_app:order_status' %}">Order Status</a></li>
+                                <li {% block 'order_merch_nav_active' %}{% endblock %}><a href="{% url 'main_app:orders_status' %}">Order Status</a></li>
                                 <li {% block 'profile_merch_nav_active' %}{% endblock %}><a href="#">Profile</a>
                                     <ul class="header__menu__dropdown">
                                         <li><a href="{% url 'main_app:product_page'  %}">My Store</a></li>
-                                        <li><a href="{% url 'main_app:add_product' %}">Add Product</a></li>
+                                        <li><a href="{% url 'main_app:merchant_adding_product' %}">Add Product</a></li>
+                                        <li><a href="{% url 'main_app:merchant_adding_categories' %}">Add Category</a></li>
                                         <li><a href="#">Past Orders</a></li>
                                         <li><a href="#">Reviews</a></li>
-                                        <li><a href="">Dashboard</a></li>
+                                        <li><a href="{% url 'main_app:merchant_dashboard' %}">Dashboard</a></li>
                                     </ul>
                                 </li>
                             {% endif %}
                             {% if request.user.is_authenticated and request.user.is_staff %}
                                 <li {% block 'admin_nav_active' %}{% endblock %} ><a href="#">Administration</a>
                                     <ul class="header__menu__dropdown">
-                                        <li><a href="#">Merchants</a></li>
+                                        <li><a href="{% url 'main_app:merchants_store_pages' %}">Merchants</a></li>
                                         <li><a href="#">Abnormal Orders</a></li>
                                         <li><a href="#">Reviews</a></li>
                                         <li><a href="#">Dashboard</a></li>
@@ -205,8 +216,16 @@
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
-
-                            <li><a href="#"><i class="fa fa-shopping-bag"></i><span></span></a></li>
+                            <!--
+                            
+                            
+                            Check the URL for Cart
+                            
+                            
+                            
+                            
+                            -->
+                            <li><a href="{% url 'main_app:cart' %}"><i class="fa fa-shopping-cart"></i><span></span></a></li>
 
                         </ul>
                         <div class="header__cart__price"><span></span></div>
@@ -225,7 +244,7 @@
                 <div class="row">
                     <div class="col-lg-12 text-center">
                         <div class="breadcrumb__text">
-                        <h2> {% block header %}Productive Family{% endblock %}</h2>
+                        <h2> {% block header %}Bilaf{% endblock %}</h2>
                         </div>
                     </div>
                 </div>

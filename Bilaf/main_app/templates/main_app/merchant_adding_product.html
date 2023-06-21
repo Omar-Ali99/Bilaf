@@ -13,7 +13,7 @@
                 {% if msg %}
                 <div class="alert alert-danger" role="alert"> {{msg}} </div>
                 {% endif %}
-                  <form action="{% url 'main_app:add_product' %}" method="POST" enctype="multipart/form-data">
+                  <form action="{% url 'main_app:merchant_adding_product' %}" method="POST" enctype="multipart/form-data">
                   {% csrf_token %}
                   <!-- 2 column grid layout with text inputs for the first and last names -->
                   <div class="row">

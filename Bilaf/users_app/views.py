@@ -64,6 +64,8 @@ def no_permission_page(request: HttpRequest):
 
 @login_required(login_url="/users/login/")
 def became_marchant(request: HttpRequest):
+    """Customer applying for merchant status to start his/her store | function"""
+
     # checkboxes = {
     #     "pick_up_enabled": False,
     #     "delivery_enabled": False,

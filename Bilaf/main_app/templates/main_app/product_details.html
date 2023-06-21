@@ -1,7 +1,7 @@
 {% extends 'main_app/base.html' %}
 {% load static %}
 {% block title %}{{products.name}}{% endblock %}
-{% block header %}{{ products.store }}{% endblock %}
+{% block header %}{{ products.store.store_name }}{% endblock %}
 {% block content%}
 
     <!-- Product Details Section Begin -->
@@ -28,8 +28,8 @@
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="product__details__text">
-                        <h2>Store: <a href="{% url 'main_app:store_page' %}">{{store.store_name}}</a></h2>
-                        <h3 >{{categories.name}}: {{products.name}}</h3>
+                        <h2>Store: <a href="{% url 'main_app:merchants_store_pages' %}">{{products.store.store_name}}</a></h2>
+                        <h3 >{{products.category.name}}: {{products.name}}</h3>
                         <div class="product__details__rating">
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
@@ -53,7 +53,12 @@
                         <button type="submit" {% if warning %}onclick="showConfirmation(event)"{% endif %} class="primary-btn">ADD TO CART</button>
                         <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
                         <ul>
-                            <li><b>Availability</b> <span>In Stock</span></li>
+                            <li><b>Availability</b> <span>{{products.quantity}}</span></li>
+                            <!--
+                            
+                            Check The Shipping or remove it
+                            
+                            -->
                             <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li>
                         </ul>
                     </div>

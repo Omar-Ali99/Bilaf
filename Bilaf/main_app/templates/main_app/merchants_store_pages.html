@@ -1,7 +1,7 @@
 {% extends 'main_app/base.html' %}
 {% load static %}
 {% block title %}Stores Pages{% endblock %}
-<li {% block 'store_nav_active' %} class ="active" {% endblock %}
+{% block 'store_nav_active' %} class ="active" {% endblock %}
 {% block content%}
 
     <!-- products section -->
@@ -23,9 +23,13 @@
                     </div>
                     <!-- Product actions-->
                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        {% if not perms.main_app.delete_categories and not perms.main_app.delete_user and request.user.is_authenticated  %}
-                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{% url 'main_app:view_store_products' store.id %}">View More</a></div>
+                        {% if not perms.main_app.delete_categories and not perms.main_app.delete_user and user.is_authenticated  %}
+                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{% url 'main_app:customer_viewing_products' store.id %}">View More</a></div>
                         {% endif %}
+                        {% if not user.is_authenticated  %}
+                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{% url 'main_app:customer_viewing_products' store.id %}">View More</a></div>
+                        {% endif %}
+                        
                         {% if perms.main_app.delete_categories and not perms.main_app.delete_user  %}
                             <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{% url 'main_app:product_page' %}">View More</a></div>
                         {% endif %}

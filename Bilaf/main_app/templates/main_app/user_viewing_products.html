@@ -22,12 +22,28 @@
                     </div>
                     <!-- Product actions-->
                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        {% if  not perms.main_app.delete_categories and not perms.main_app.delete_user and not user.is_authenticated %}
+                            <div class="text-center"><a class="btn btn-outline-warning mt-auto" href="{% url 'main_app:unregistered_customer_product_detail' product.id %}">View Product</a></div>
+                        {% endif %}
+                        {% if  not perms.main_app.delete_categories and not perms.main_app.delete_user and user.is_authenticated %} 
+                            <!--
+                            Check the URL i've changed it from the og 'main_app:product_detail' to the new one, so i can accsess the page
+                            -->
+                            <div class="text-center"><a class="btn btn-outline-warning mt-auto" href="{% url 'main_app:unregistered_customer_product_detail' product.id %}">View Product</a></div>
+                            <!--
+                            Check the URL, it's proucing no permission, even though im a customer or merchant
+                            -->
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{% url 'main_app:add_to_cart' %}">Add to cart</a></div>
+                        {% endif %}
 
-                        <div class="text-center"><a class="btn btn-outline-warning mt-auto" href="{% url 'main_app:product_detail' product.id %}">View Product</a></div>
-                        <div class="text-center"><a class="btn btn-outline-info mt-auto" href="{% url 'main_app:update_product' product.id %}">Update Product</a></div>  
-
-                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{% url 'main_app:product_detail' product.id %}">Add to cart</a></div>
-
+                        {% if  perms.main_app.delete_categories and not perms.main_app.delete_user and user.is_authenticated %}
+                        <!--
+                        Check this, this is not needed cause this is for the merchant and the merchant won't access this page he has his own on 'product_page"
+                        -->
+                            <div class="text-center"><a class="btn btn-outline-warning mt-auto" href="{% url 'main_app:product_detail' product.id %}">View Product</a></div>
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{% url 'main_app:product_detail' product.id %}">Add to cart</a></div>
+                            <div class="text-center"><a class="btn btn-outline-info mt-auto" href="{% url 'main_app:update_product' product.id %}">Update Product</a></div>  
+                        {% endif %}
                     </div>
                 </div>
             </div>
