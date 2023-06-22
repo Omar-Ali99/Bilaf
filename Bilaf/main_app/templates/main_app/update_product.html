@@ -9,7 +9,7 @@
           <div class="col-12 col-lg-10">
             <div class="card" style="border-radius: 1rem;">
               <div class="card-body p-5">
-                <h4 class="mb-5 text-center">update Product</h4>
+                <h4 class="mb-5 text-center">Update Product</h4>
                   <form action="{% url 'main_app:update_product' products.id %}" method="POST" enctype="multipart/form-data">
                   {% csrf_token %}
                   <!-- 2 column grid layout with text inputs for the first and last names -->
@@ -27,7 +27,7 @@
                         <select class="form-select" aria-label="Default select example" name="category" required min-length="1">
                           <option value="">Select Category</option>
                           {% for category in categories %}
-                            <option value="{{category.id}}">{{category.name}}</option>
+                            <option value="{{category.id}}" > {{category.name}}</option>
                           {% endfor %}
                         </select>
                     </div>

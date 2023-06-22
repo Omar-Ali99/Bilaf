@@ -25,16 +25,17 @@
                     <tr>
                         {% for item in items %}
                         <td class="shoping__cart__item">
-                            <img src="{{item.product.image.url}}" alt="">
-                            <h5>{{item.name}}</h5>
+                            <img src="{{item.product.image.url}}" width=100px height=100px alt="">
+                            <h5>{{item.product.name}}</h5>
                         </td>
+                        
                         <td class="shoping__cart__price">
                             {{item.price}}
                         </td>
                         <td class="shoping__cart__quantity">
                             <div class="quantity">
                                 <div class="pro-qty">
-                                    <input type="text" value="item.quantity" disabled>
+                                    <input type="text" value="{{item.quantity}}" disabled>
                                 </div>
                             </div>
                         </td>
@@ -44,7 +45,7 @@
                         <td class="shoping__cart__item__close">
                         </td>
                     </tr>
-                    
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
@@ -53,21 +54,21 @@
     <div class="col-lg-6">
         <div class="shoping__checkout">
              <div class="checkout__input__checkbox " >
-                <h5>Delivery Optionsd <span></span></h5>
-                {% comment %} {% if cart.pick_up_enabled %} {% endcomment %}
+                <h5>Delivery Option <span></span></h5>
+                {% if cart.pick_up_enabled %}
                 <li><label>
                     Pick Up At Your House
-                    <input type="radio" name="pick_up_enabled" selected>
+                    <input type="radio" name="pick_up_enabled" checked="checked">
                     <span class="checkmark"></span>
                 </label></li>
-                {% comment %} {% else %} {% endcomment %}
+                {% else %}
                 <li><label>
                     Delivery
-                    <input type="radio" name="pick_up_enabled" selected>
+                    <input type="radio" name="pick_up_enabled" checked="checked">
                     <span class="checkmark"></span>
                 </label></li>
-                {% comment %} {% endif %} {% endcomment %}
-            <div class="checkout__input__checkbox mt-1">
+                {% endif %}
+            {% comment %} <div class="checkout__input__checkbox mt-1">
             <h5>Peyment Options: <span>*</span></h5>
                             <li><label>
                     Cash
@@ -79,7 +80,7 @@
                     <input type="radio" name="pick_up_enabled" >
                     <span class="checkmark"></span>
                 </label></li>
-            </div>
+            </div> {% endcomment %}
         </div> 
         </div>
         </div>   
@@ -88,17 +89,22 @@
         <div class="shoping__checkout mp-5">
                     <h5>Cart Total</h5>
             <ul>
-                <li>Total <span>$454.98</span></li>
+                <li>Total <span> {{ total_price }} SR</span></li>
             <h5>Custmore info</h5>
             <ul>
-                <li>Name:{{cart.customer.user.first_name}} <span></span></li>
-                <li>Phone Number: {{cart.customer.user.profile.phone_number }} <span></span></li>
+                <li>Name: {{ order.customer }} <span></span></li>
+                <li>Phone Number: {{ order.customer.profile.phone_number }} <span></span></li>
             </ul>
         </div>
     </div>
-    
-            <a href="#" class="primary-btn mt-5 ">accept order</a>
-            <a href="#" class="primary-btn mt-5 ">delete order</a>
+            {% if order.status == "Submited" %}
+            <a href="{% url 'main_app:order_action' action='Accept' cart_id=order.id %}" class="btn btn-success">Accept</a>
+            <a href="{% url 'main_app:order_action' action='Declined' cart_id=order.id %}"  class="btn btn-danger">Decline</a>
+            {% elif order.status == "Active" %} 
+            <a href="{% url 'main_app:order_action' action='Done' cart_id=order.id %}"  class="btn btn-primary">Done</a>
+            {% endif %}
+            {% comment %} <a href="#" class="primary-btn mt-5 ">accept order</a>
+            <a href="#" class="primary-btn mt-5 ">delete order</a> {% endcomment %}
     </div>    
 </section>
 

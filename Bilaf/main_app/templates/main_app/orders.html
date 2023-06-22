@@ -6,7 +6,7 @@
 {% block content%}
 <div class="container border mt-5 mp-5 ">
         <div class="d-flex justify-content-center row">
-            <div class="col-md-9">
+            <div class="col-md-12">
                 <div class="rounded">
                     <div class="table-responsive table-borderless">
                         <table class="table">
@@ -23,7 +23,7 @@
                                     <th>Status</th>
                                     <th>Total</th>
                                     <th>Created At</th>
-                                    <th>Due At</th>
+                                    <th>Delivery</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -40,7 +40,7 @@
                                     <td><span class="badge badge-success"> {{ order.status }} </span></td>
                                     <td>{% with my_key=order.id %}{{ orders_prices|get_item:my_key }}{% endwith %} SR</td>
                                     <td> {{ order.created_at }}</td>
-                                    <td> here due</td>
+                                    <td> {{ order.delivery_option }}</td>
                                     <td>
                                     {% if order.status == "Submited" %}
                                     <a href="{% url 'main_app:order_action' action='Accept' cart_id=order.id %}" class="btn btn-success">Accept</a>
