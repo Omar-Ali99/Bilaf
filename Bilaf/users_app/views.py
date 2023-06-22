@@ -66,13 +66,10 @@ def no_permission_page(request: HttpRequest):
 def became_marchant(request: HttpRequest):
     """Customer applying for merchant status to start his/her store | function"""
 
-    # checkboxes = {
-    #     "pick_up_enabled": False,
-    #     "delivery_enabled": False,
-    # }
-    if request.method == "POST":
-        # available_checkboxes = {key: key in request.POST for key in checkboxes.keys()}
+    if Store.objects.filter(owner=request.user).exists():
+        return redirect("users_app:no_permission_page")
 
+    if request.method == "POST":
         if "pick_up_enabled" in request.POST:
             pick_up = True
         else:
@@ -101,5 +98,3 @@ def became_marchant(request: HttpRequest):
         return redirect("main_app:home_page")
 
     return render(request, "users_app/became_merchant.html")
-
-

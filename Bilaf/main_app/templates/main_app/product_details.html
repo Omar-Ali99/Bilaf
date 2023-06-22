@@ -38,8 +38,7 @@
                             <i class="fa fa-star-half-o"></i>
                             <span>0 reviews</span>
                         </div>
-                        <div class="product__details__price">{{products.price}}$</div>
-                        <p>{{products.description}}</p>
+                        <div class="product__details__price">{{products.price}}SR</div>
                         <form id="myForm" action="{% url 'main_app:add_to_cart' %}" method="POST" enctype="multipart/form-data">
                             {% csrf_token %}
                         <div class="product__details__quantity">
@@ -59,7 +58,7 @@
                             Check The Shipping or remove it
                             
                             -->
-                            <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li>
+                             {% comment %} <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li> {% endcomment %}
                         </ul>
                     </div>
                 </div>

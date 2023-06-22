@@ -3,18 +3,14 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpRequest, HttpResponse
 from users_app.models import Store
 from django.contrib.auth.decorators import login_required
-from .models import Product,Categories,Review,Cart,CartItem
-from django.contrib.auth.models import User , Permission, Group
+from .models import Product, Categories, Review, Cart, CartItem
+from django.contrib.auth.models import User, Permission, Group
 from django.db.models import F, Sum
-from django.core.mail import send_mail,EmailMessage
+from django.core.mail import send_mail, EmailMessage
 from dotenv import load_dotenv
 import os
 
-load_dotenv() 
-
-
-
-
+load_dotenv()
 
 
 # Create your views here.
@@ -25,7 +21,17 @@ def home_page(request: HttpRequest):
     all_store_categories = [choice[0] for choice in Store.CHOICES]
     stores = Store.objects.all()
     products = Product.objects.all()
-    return render(request, 'main_app/home_page.html', {"categories":categories,"all_store_categories":all_store_categories , "stores":stores, "products":products})
+    return render(
+        request,
+        "main_app/home_page.html",
+        {
+            "categories": categories,
+            "all_store_categories": all_store_categories,
+            "stores": stores,
+            "products": products,
+        },
+    )
+
 
 def base_page(request: HttpRequest):
     """Our base | page view"""
@@ -59,7 +65,7 @@ def search_the_store(request: HttpRequest):
     """Page View | of the seacrhed or filtered results used in the home page"""
 
     search_phrase = request.GET.get("search", "")
-    selected_filter = request.GET.get('filter')
+    selected_filter = request.GET.get("filter")
     filtered_data = Store.objects.all()
 
     if selected_filter:
@@ -71,13 +77,13 @@ def search_the_store(request: HttpRequest):
         stores = stores.filter(category=selected_filter)
 
     context = {
-        'filtered_data': filtered_data,
-        'selected_filter': selected_filter,
-        'stores': stores,
-        'search_phrase':search_phrase,
+        "filtered_data": filtered_data,
+        "selected_filter": selected_filter,
+        "stores": stores,
+        "search_phrase": search_phrase,
     }
 
-    return render(request, 'main_app/search_the_store.html', context)
+    return render(request, "main_app/search_the_store.html", context)
 
 
 @login_required(login_url={"/users_app/login/"})
@@ -108,15 +114,14 @@ def merchant_adding_categories(request: HttpRequest):
     return render(request, "main_app/merchant_adding_categories.html", {"msg": msg})
 
 
-
 @login_required(login_url={"/users_app/login/"})
 def merchant_adding_products(request: HttpRequest):
     """Merchant adding products to his/her store | page view"""
 
     msg = None
-    store_object = Store.objects.get(owner = request.user)
-    if Categories.objects.filter(store = store_object):
-        if request.user.groups.filter(name='merchant').exists():
+    store_object = Store.objects.get(owner=request.user)
+    if Categories.objects.filter(store=store_object):
+        if request.user.groups.filter(name="merchant").exists():
             categories_object = Categories.objects.filter(store=store_object)
             if request.method == "POST":
                 image_instance = None
@@ -141,34 +146,49 @@ def merchant_adding_products(request: HttpRequest):
                 except Exception as e:
                     print(e)
 
-                return render(request,"main_app/merchant_adding_product.html",{"categories": categories_object, "msg": msg, "category_instance":category_instance},
+                return render(
+                    request,
+                    "main_app/merchant_adding_product.html",
+                    {
+                        "categories": categories_object,
+                        "msg": msg,
+                        "category_instance": category_instance,
+                    },
                 )
             else:
-                return render(request,"main_app/merchant_adding_product.html",{"categories": categories_object},
+                return render(
+                    request,
+                    "main_app/merchant_adding_product.html",
+                    {"categories": categories_object},
                 )
         else:
             return redirect("users_app:no_permission_page")
     else:
         return redirect("main_app:merchant_adding_categories")
 
-def customer_viewing_products(request:HttpRequest, store_id):
+
+def customer_viewing_products(request: HttpRequest, store_id):
     """Customer viewing the products of the store | page view"""
 
-    store_object = Store.objects.get(id = store_id)
-    products = Product.objects.filter(store = store_object)
+    store_object = Store.objects.get(id=store_id)
+    products = Product.objects.filter(store=store_object)
 
-    return render(request, "main_app/user_viewing_products.html", {"products":products, "store":store_object})
+    return render(
+        request,
+        "main_app/user_viewing_products.html",
+        {"products": products, "store": store_object},
+    )
+
 
 def product_page(request: HttpRequest):
-    """"Merchant viewing his/her products of the store | page view"""
-
-    product_store = Store.objects.filter(owner= request.user)
+    """ "Merchant viewing his/her products of the store | page view"""
+    product_store = Store.objects.filter(owner=request.user)
     products = Product.objects.filter(store__in=product_store)
     return render(request, "main_app/product_page.html", {"products": products})
 
 
 def product_detail(request: HttpRequest, product_id):
-    """"Product page deceipting the details of the porduct | page view"""
+    """ "Product page deceipting the details of the porduct | page view"""
 
     products = Product.objects.get(id=product_id)
     product_store = products.store
@@ -178,24 +198,24 @@ def product_detail(request: HttpRequest, product_id):
     if customer_cart.exists():
         if customer_cart.first().store != product_store:
             warning = True
-    # Check this error , there's a problem with renderingm try on your enviroment without adding something to the cart
-    # The view main_app.views.product_detail didn't return an HttpResponse object. It returned None instead. the error
         return render(
             request,
             "main_app/product_details.html",
             {"products": products, "warning": warning},
         )
+    else:
+        return render(request, "main_app/product_details.html", {"products": products})
+
 
 def unregistered_customer_product_detail(request: HttpRequest, product_id):
-    """"Product page deceipting the details of the porduct for unrigestered user | page view"""
+    """ "Product page deceipting the details of the porduct for unrigestered user | page view"""
 
     products = Product.objects.get(id=product_id)
     return render(
-             request,
-            "main_app/product_details.html",
-            {"products": products},
-        )
-
+        request,
+        "main_app/product_details.html",
+        {"products": products},
+    )
 
 
 def catgory_page(request: HttpRequest):
@@ -204,13 +224,14 @@ def catgory_page(request: HttpRequest):
 
 
 def merchants_store_pages(request: HttpRequest):
-    """"All stores | page view"""
+    """ "All stores | page view"""
 
     stores = Store.objects.all()
-    return render(request, 'main_app/merchants_store_pages.html', {'stores': stores})
+    return render(request, "main_app/merchants_store_pages.html", {"stores": stores})
+
 
 def dashboard_view(request: HttpRequest):
-    """"Merchant performance dashboard deceipting his/her store performance | page view"""
+    """ "Merchant performance dashboard deceipting his/her store performance | page view"""
 
     store = Store.objects.get(owner=request.user)
 
@@ -277,7 +298,7 @@ def dashboard_view(request: HttpRequest):
 
 @login_required(login_url={"/users_app/login/"})
 def user_adding_review(request: HttpRequest, product_id):
-    """"User adding review on the product | page view"""
+    """ "User adding review on the product | page view"""
 
     if request.user.groups.filter(name="costumer").exists():
         if request.method == "POST":
@@ -291,7 +312,7 @@ def user_adding_review(request: HttpRequest, product_id):
 
 @login_required(login_url={"/users_app/login/"})
 def delete_product(request: HttpRequest, product_id):
-    """"Merchant deleting the product from his/her store | function"""
+    """ "Merchant deleting the product from his/her store | function"""
 
     products = Product.objects.get(id=product_id)
     products.delete()
@@ -300,9 +321,15 @@ def delete_product(request: HttpRequest, product_id):
 
 @login_required(login_url={"/users_app/login/"})
 def update_product(request: HttpRequest, product_id):
-    """"Merchant updating his/her product from the store | function | page view"""
+    """ "Merchant updating his/her product from the store | function | page view"""
 
     products = Product.objects.get(id=product_id)
+    if products.store.owner != request.user:
+        return redirect("users_app:no_permission_page")
+
+    store_object = Store.objects.get(owner=request.user)
+    categories_object = Categories.objects.filter(store=store_object)
+
     if request.method == "POST":
         products.category = request.POST["category"]
         products.price = (float(request.POST["price"]),)
@@ -314,12 +341,16 @@ def update_product(request: HttpRequest, product_id):
 
         return redirect("main_app:product_detail", products_id=products.id)
 
-    return render(request, "main_app/update_product.html", {"products": products})
+    return render(
+        request,
+        "main_app/update_product.html",
+        {"products": products, "categories": categories_object},
+    )
 
 
 @login_required(login_url={"/users_app/login/"})
 def delete_catgory(request: HttpRequest, categories_id):
-    """"Merchant deleting sepecified categories from his/her store | function"""
+    """ "Merchant deleting sepecified categories from his/her store | function"""
 
     categories = Categories.objects.get(id=categories_id)
     categories.delete()
@@ -328,7 +359,7 @@ def delete_catgory(request: HttpRequest, categories_id):
 
 @login_required(login_url={"/users_app/login/"})
 def update_catgory(request: HttpRequest, categories_id):
-    """"Merchant updating his categories from his/her store | function | page view"""
+    """ "Merchant updating his categories from his/her store | function | page view"""
 
     categories = Categories.objects.get(id=categories_id)
     if request.method == "POST":
@@ -343,7 +374,7 @@ def update_catgory(request: HttpRequest, categories_id):
 
 @login_required(login_url={"/users_app/login/"})
 def add_to_cart(request: HttpRequest):
-    """"User adding items to cart | function"""
+    """ "User adding items to cart | function"""
 
     if request.method != "POST":
         return redirect("users_app:no_permission_page")
@@ -372,7 +403,7 @@ def add_to_cart(request: HttpRequest):
 
 
 def create_new_cart(user: User, product_store: Store):
-    """"Create new cart for the user to use | function"""
+    """ "Create new cart for the user to use | function"""
 
     new_cart = Cart(
         store=product_store,
@@ -386,7 +417,7 @@ def create_new_cart(user: User, product_store: Store):
 
 
 def create_cart_item(quantity: int, product_object: Product, customer_cart: Cart):
-    """"Create car item to replace with the product | function"""
+    """ "Create car item to replace with the product | function"""
     cart_item = CartItem(
         cart=customer_cart,
         product=product_object,
@@ -394,11 +425,12 @@ def create_cart_item(quantity: int, product_object: Product, customer_cart: Cart
     )
     cart_item.save()
 
+
 # Check login_required it making error when running on unregistered user,
 # if you solved this change every login toom cause they all share the same link
 @login_required(login_url={"/users_app/login/"})
 def shoping_cart(request: HttpRequest):
-    """"User shopping cart | page view"""
+    """ "User shopping cart | page view"""
 
     msg = None
     customer_cart = Cart.objects.filter(customer=request.user, status="Pending")
@@ -426,7 +458,7 @@ def shoping_cart(request: HttpRequest):
 
 
 def calculate_total(customer_cart: Cart, is_cart: bool = False):
-    """"Calculating the total price in the cart | function"""
+    """ "Calculating the total price in the cart | function"""
 
     if is_cart:
         cart_total = (
@@ -447,14 +479,13 @@ def calculate_total(customer_cart: Cart, is_cart: bool = False):
 
 
 def orders(request: HttpRequest):
-    """"User's orders status | page view"""
+    """ "User's orders status | page view"""
     user = Store.objects.get(owner=request.user)
     orders = Cart.objects.filter(store=user).exclude(status="Pending")
     orders_prices = {}
     for order in orders:
         total_price = calculate_total(order)
         orders_prices[order.id] = total_price
-    print(orders_prices)
     return render(
         request,
         "main_app/orders.html",
@@ -464,7 +495,7 @@ def orders(request: HttpRequest):
 
 @login_required(login_url="/users/login/")
 def view_order(request: HttpRequest, cart_id):
-    """ View order information | page view"""
+    """View order information | page view"""
 
     order = Cart.objects.get(id=cart_id)
     if order.store.owner != request.user:
@@ -482,36 +513,29 @@ def view_order(request: HttpRequest, cart_id):
 @login_required(login_url="/users/login/")
 def place_order(request: HttpRequest):
     """Placing order to confirm order | page view"""
-    print("first")
+
     if request.method == "POST":
         customer_cart = Cart.objects.filter(
             customer=request.user, status="Pending"
         ).first()
         cart_items = CartItem.objects.filter(cart=customer_cart)
-        print(customer_cart)
         for cart_item in cart_items:
-            print("for")
             cart_item.price = cart_item.product.price
-            print(f"item: {cart_item.price} product: {cart_item.product.price}")
             cart_item.save()
 
         if customer_cart:
-            print("if")
             customer_cart.status = "Submited"
             customer_cart.payment_option = request.POST["payment_option"]
             customer_cart.delivery_option = request.POST["delivery_option"]
-            print(request.POST["payment_option"])
-            print(request.POST["delivery_option"])
             customer_cart.save()
-            print(customer_cart.status)
-        return redirect("main_app:cart")
+        return redirect("main_app:thanks_order_page")
     else:
         return redirect("users_app:no_permission_page")
 
 
 @login_required(login_url="/users/login/")
 def update_cart(request: HttpRequest):
-    """"User updating his/her cart | function"""
+    """ "User updating his/her cart | function"""
 
     customer_cart = Cart.objects.filter(customer=request.user, status="Pending")
     if customer_cart.exists():
@@ -525,7 +549,7 @@ def update_cart(request: HttpRequest):
 
 @login_required(login_url="/users/login/")
 def delete_cart_item(request: HttpRequest, cart_item):
-    """"User deleting specified cart item from shopping_cart | function"""
+    """ "User deleting specified cart item from shopping_cart | function"""
 
     customer_cart = Cart.objects.filter(customer=request.user, status="Pending")
     cart_items = CartItem.objects.filter(cart__in=customer_cart)
@@ -539,19 +563,20 @@ def delete_cart_item(request: HttpRequest, cart_item):
 
 @login_required(login_url="/users/login/")
 def order_action(request: HttpRequest, action: str, cart_id):
-    """"Accepting/Declining orders | page view"""
+    """ "Accepting/Declining orders | page view"""
     try:
-        print(cart_id)
-        print(type(cart_id))
         cart = Cart.objects.get(id=int(cart_id))
+        email = cart.customer.email
+        subject = "You Order Has Been Accepted"
+        message = f"Order {cart.id} from {cart.store} has been accepted"
         if cart.store.owner != request.user:
             return redirect("users_app:no_permission_page")
     except:
-        print("None exist")
         return redirect("users_app:no_permission_page")
     if action == "Accept":
         cart.status = "Active"
         cart.save()
+        send_email(email, subject, message)
     elif action == "Decline":
         cart.status = "Declined"
         cart.save()
@@ -559,7 +584,6 @@ def order_action(request: HttpRequest, action: str, cart_id):
         cart.status = "Done"
         cart.save()
     else:
-        print("wrong action")
         return redirect("users_app:no_permission_page")
 
     return redirect("main_app:orders_status")
@@ -569,8 +593,8 @@ def custom_404_view(request, exception):
     return render(request, "main_app/404.html", status=404)
 
 
-def send_email(receiver:str, subject:str, message:str):
-    """"sends email to the customer when order is confirmed | function"""
+def send_email(receiver: str, subject: str, message: str):
+    """ "sends email to the customer when order is confirmed | function"""
 
     function_subject = subject
     function_message = message
@@ -590,7 +614,8 @@ def send_email(receiver:str, subject:str, message:str):
     except Exception:
         return False
 
-#send_email('omar.ali99@live.com', 'Order Confirmation', 'Thank you for your order!')
+
+# send_email("mk.97@outlook.sa", "Order Confirmation", "Thank you for your order!")
 
 
 def thanks_order_page(request: HttpRequest):
